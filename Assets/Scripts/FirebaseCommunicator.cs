@@ -15,6 +15,9 @@ public class FirebaseCommunicator : MonoBehaviour
 
     public FirebaseUser User { get; private set; }
 
+    public int FamilyId => familyId;
+    [SerializeField] int familyId = 1234;
+
     Firebase.Auth.FirebaseAuth auth;
     DatabaseReference database;
 
@@ -79,13 +82,11 @@ public class FirebaseCommunicator : MonoBehaviour
         if (task.Task.IsCanceled)
         {
             Debug.LogError("Sign in canceled");
-
         }
 
         else if (task.Task.IsFaulted)
         {
             Debug.LogError("Error Signing in: " + task.Task.Exception);
-
         }
 
         else
@@ -105,6 +106,35 @@ public class FirebaseCommunicator : MonoBehaviour
         }
         afterLoginAction(success);
         yield break;
+    }
+
+    public void SendObject(string objJSON, string firebaseReferenceName, Action<Task> afterSendAction)
+    {
+        TaskScheduler scheduler = TaskScheduler.FromCurrentSynchronizationContext();
+        Debug.Log($"saving {objJSON} to {firebaseReferenceName}/{familyId.ToString()}");
+        database.Child(firebaseReferenceName).Child(familyId.ToString()).SetRawJsonValueAsync(objJSON).ContinueWith(afterSendAction, scheduler);
+    }
+
+    public void SetupListenForEvents(string[] firebaseReferences, EventHandler<ValueChangedEventArgs> onValueChangedAction)
+    {
+        DatabaseReference dbReference = database;
+        foreach (var reference in firebaseReferences)
+        {
+            dbReference = dbReference.Child(reference);
+        }
+
+        dbReference.ValueChanged += onValueChangedAction;
+    }
+
+    public void RemoveEventListener(string[] firebaseReferences, EventHandler<ValueChangedEventArgs> onValueChangedAction)
+    {
+        DatabaseReference dbReference = database;
+        foreach (var reference in firebaseReferences)
+        {
+            dbReference = dbReference.Child(reference);
+        }
+
+        dbReference.ValueChanged -= onValueChangedAction;
     }
 
     // public IEnumerator CreateNewRoom(string roomId)
