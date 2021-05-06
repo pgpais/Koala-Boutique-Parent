@@ -23,6 +23,8 @@ public class TechUI : MonoBehaviour
         this.unlockable = unlockable;
 
         text.text = unlockable.UnlockableName;
+        if (unlockable.Unlocked)
+            text.color = Color.green;
 
         foreach (var requirement in unlockable.Requirements)
         {
@@ -44,6 +46,6 @@ public class TechUI : MonoBehaviour
 
     void UnlockTech()
     {
-        unlockable.Unlock();
+        UnlockablesManager.instance.Unlock(unlockable);
     }
 }

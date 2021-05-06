@@ -13,6 +13,8 @@ public class SmallTechUI : MonoBehaviour
         this.unlockable = unlockable;
 
         text.text = unlockable.UnlockableName;
+        if (unlockable.Unlocked)
+            text.color = Color.green;
 
         unlockable.UnlockableUpdated.AddListener(UpdateUI);
     }
