@@ -51,4 +51,17 @@ public class Unlockable : ScriptableObject
     {
 
     }
+
+    internal bool Unlock()
+    {
+        foreach (var requirement in requirements)
+        {
+            if (!requirement.Unlocked)
+                return false;
+        }
+
+        Unlocked = true;
+        UnlockableUpdated.Invoke(this);
+        return true;
+    }
 }

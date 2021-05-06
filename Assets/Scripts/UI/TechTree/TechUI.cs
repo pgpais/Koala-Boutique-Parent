@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TechUI : MonoBehaviour
 {
@@ -8,8 +9,14 @@ public class TechUI : MonoBehaviour
     [Space]
     [SerializeField] Transform requirementsUI;
     [SerializeField] TMPro.TMP_Text text;
+    [SerializeField] Button unlockButton;
 
     private Unlockable unlockable;
+
+    private void Start()
+    {
+        unlockButton.onClick.AddListener(UnlockTech);
+    }
 
     public void InitUI(Unlockable unlockable)
     {
@@ -33,5 +40,10 @@ public class TechUI : MonoBehaviour
             text.color = Color.green;
         }
         Debug.Log($"{unlockable.UnlockableName} was updated!");
+    }
+
+    void UnlockTech()
+    {
+        unlockable.Unlock();
     }
 }
