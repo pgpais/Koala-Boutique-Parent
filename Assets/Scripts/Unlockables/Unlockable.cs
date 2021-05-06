@@ -9,10 +9,8 @@ public class Unlockable : ScriptableObject
 {
     public UnityEvent<Unlockable> UnlockableUpdated;
 
-    public string UnlockableName => unlockableName;
-    [SerializeField] string unlockableName;
-    public List<Unlockable> Requirements => requirements;
-    [SerializeField] List<Unlockable> requirements;
+    [field: SerializeField] public string UnlockableName { get; private set; }
+    [field: SerializeField] public List<Unlockable> Requirements { get; private set; }
 
     // TODO: list of items required for build
 
@@ -36,9 +34,9 @@ public class Unlockable : ScriptableObject
 
     private void OnValidate()
     {
-        if (string.IsNullOrEmpty(unlockableName))
+        if (string.IsNullOrEmpty(UnlockableName))
         {
-            unlockableName = this.name;
+            UnlockableName = this.name;
         }
     }
 
@@ -54,7 +52,7 @@ public class Unlockable : ScriptableObject
 
     internal bool Unlock()
     {
-        foreach (var requirement in requirements)
+        foreach (var requirement in Requirements)
         {
             if (!requirement.Unlocked)
                 return false;

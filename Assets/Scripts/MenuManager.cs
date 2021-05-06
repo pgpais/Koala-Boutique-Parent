@@ -11,9 +11,14 @@ public class MenuManager : MonoBehaviour
     [SerializeField] GameObject menuObject;
 
     [SerializeField] Button createMissionButton;
+    [SerializeField] Button addItemButton;
+
+    [Header("DEBUG")]
 
     [Tooltip("FOR DEBUG. Text for showing generated mission info")]
     [SerializeField] TMP_Text missionInfo;
+    [SerializeField] string itemNameForAdding;
+
 
     private void Awake()
     {
@@ -34,6 +39,7 @@ public class MenuManager : MonoBehaviour
 
 
         createMissionButton.onClick.AddListener(OnCreateMission);
+        addItemButton.onClick.AddListener(() => OnAddItem(itemNameForAdding));
         GameManager.MissionGenerated.AddListener(OnMissionGenerated);
         GameManager.MissonCompleted.AddListener(OnMissionCompleted);
         FirebaseCommunicator.LoggedIn.AddListener(OnLoggedIn);
@@ -50,6 +56,11 @@ public class MenuManager : MonoBehaviour
         GameManager.instance.GenerateMission();
 
         createMissionButton.gameObject.SetActive(false);
+    }
+
+    void OnAddItem(string itemName)
+    {
+        ItemManager.instance.AddItem(itemName, 2);
     }
 
     void OnMissionGenerated(Mission mission)
