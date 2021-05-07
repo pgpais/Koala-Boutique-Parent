@@ -120,6 +120,18 @@ public class FirebaseCommunicator : MonoBehaviour
         database.Child(firebaseReferenceName).Child(familyId.ToString()).SetRawJsonValueAsync(objJSON).ContinueWith(afterSendAction, scheduler);
     }
 
+    public void UpdateObject(Dictionary<string, System.Object> updates, string firebaseReferenceName, Action<Task> afterUpdateAction)
+    {
+        TaskScheduler scheduler = TaskScheduler.FromCurrentSynchronizationContext();
+
+        foreach (var key in updates.Keys)
+        {
+            Debug.Log($"updating {firebaseReferenceName}/{familyId.ToString()}/{key}");
+        }
+
+        database.Child(firebaseReferenceName).Child(familyId.ToString()).UpdateChildrenAsync(updates).ContinueWith(afterUpdateAction, scheduler);
+    }
+
     public void GetObject(string firebaseReferenceName, Action<Task<DataSnapshot>> afterSendAction)
     {
         TaskScheduler scheduler = TaskScheduler.FromCurrentSynchronizationContext();
