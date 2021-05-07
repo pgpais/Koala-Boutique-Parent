@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Firebase.Database;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -28,7 +29,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        GetMissionFromCloud();
     }
 
     // Update is called once per frame
@@ -42,6 +43,24 @@ public class GameManager : MonoBehaviour
         GeneratedMission = new Mission();
 
         SaveMission(GeneratedMission);
+    }
+
+    void GetMissionFromCloud()
+    {
+        FirebaseCommunicator.instance.GetObject("missions", (task) =>
+        {
+            if (task.IsFaulted)
+            {
+                Debug.LogError("smth went wrong. " + task.Exception.ToString());
+            }
+
+            if (task.IsCompleted)
+            {
+                Debug.Log("yey got mission");
+                GeneratedMission = JsonConvert.DeserializeObject<Mission>(task.Result.GetRawJsonValue());
+                MissionGenerated.Invoke(GeneratedMission);
+            }
+        });
     }
 
     private void SaveMission(Mission mission)
