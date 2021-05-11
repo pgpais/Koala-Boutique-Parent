@@ -106,6 +106,11 @@ public class MenuManager : MonoBehaviour
         bool hasID = PlayerPrefs.HasKey(PlayerSettingsKeys.familyId);
         askForIDParent.SetActive(!hasID);
         menuObject.SetActive(hasID);
+
+        if (hasID)
+        {
+            FirebaseCommunicator.instance.GetFamilyIDFromPlayerPrefs();
+        }
     }
 
     void OnMissionCompleted(Mission mission)
