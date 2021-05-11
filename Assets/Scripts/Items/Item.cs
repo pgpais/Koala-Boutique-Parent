@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class Item : ScriptableObject
 {
     [field: SerializeField] public UnityEvent<int> ItemUpdated { get; private set; }
+    [field: SerializeField] public UnityEvent ItemRemoved { get; private set; }
     [field: SerializeField] public string ItemName { get; private set; }
     [field: SerializeField] public string Description { get; private set; }
 

@@ -94,6 +94,6 @@ public class GameManager : MonoBehaviour
         GameManager.MissonCompleted.Invoke(GeneratedMission);
 
         if (GeneratedMission.successfulRun)
-            FirebaseCommunicator.instance.RemoveEventListener(new string[] { Mission.firebaseReferenceName, FirebaseCommunicator.instance.FamilyId.ToString(), "successfulRun" }, OnMissionComplete);
+            FirebaseCommunicator.instance.RemoveValueChangedListener(new string[] { Mission.firebaseReferenceName, FirebaseCommunicator.instance.FamilyId.ToString(), "successfulRun" }, OnMissionComplete);
     }
 }

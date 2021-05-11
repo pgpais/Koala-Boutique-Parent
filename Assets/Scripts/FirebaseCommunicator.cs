@@ -150,8 +150,7 @@ public class FirebaseCommunicator : MonoBehaviour
 
         dbReference.ValueChanged += onValueChangedAction;
     }
-
-    public void RemoveEventListener(string[] firebaseReferences, EventHandler<ValueChangedEventArgs> onValueChangedAction)
+    public void RemoveValueChangedListener(string[] firebaseReferences, EventHandler<ValueChangedEventArgs> onValueChangedAction)
     {
         DatabaseReference dbReference = database;
         foreach (var reference in firebaseReferences)
@@ -160,6 +159,51 @@ public class FirebaseCommunicator : MonoBehaviour
         }
 
         dbReference.ValueChanged -= onValueChangedAction;
+    }
+
+    public void SetupListenForChildChangedEvents(string[] firebaseReferences, EventHandler<ChildChangedEventArgs> onChildChangedAction)
+    {
+        DatabaseReference dbReference = database;
+        foreach (var reference in firebaseReferences)
+        {
+            dbReference = dbReference.Child(reference);
+        }
+
+        dbReference.ChildChanged += onChildChangedAction;
+    }
+
+
+    public void RemoveChildChangedListener(string[] firebaseReferences, EventHandler<ChildChangedEventArgs> onChildChangedAction)
+    {
+        DatabaseReference dbReference = database;
+        foreach (var reference in firebaseReferences)
+        {
+            dbReference = dbReference.Child(reference);
+        }
+
+        dbReference.ChildChanged -= onChildChangedAction;
+    }
+
+    public void SetupListenForChildAddedEvents(string[] firebaseReferences, EventHandler<ChildChangedEventArgs> onChildAddedAction)
+    {
+        DatabaseReference dbReference = database;
+        foreach (var reference in firebaseReferences)
+        {
+            dbReference = dbReference.Child(reference);
+        }
+
+        dbReference.ChildAdded += onChildAddedAction;
+    }
+
+    public void SetupListenForChildRemovedEvents(string[] firebaseReferences, EventHandler<ChildChangedEventArgs> onChildRemovedAction)
+    {
+        DatabaseReference dbReference = database;
+        foreach (var reference in firebaseReferences)
+        {
+            dbReference = dbReference.Child(reference);
+        }
+
+        dbReference.ChildRemoved += onChildRemovedAction;
     }
 
     private void OnApplicationQuit()

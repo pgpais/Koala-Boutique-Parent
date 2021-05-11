@@ -16,6 +16,7 @@ public class ItemUI : MonoBehaviour
         itemQuantityText.text = itemQuantity.ToString();
 
         item.ItemUpdated.AddListener(UpdateUI);
+        item.ItemRemoved.AddListener(() => Destroy(gameObject));
     }
 
     private void UpdateUI(int quantity)

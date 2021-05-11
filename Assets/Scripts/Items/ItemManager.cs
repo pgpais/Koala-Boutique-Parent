@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.Events;
 using System;
+using Firebase.Database;
 
 public class ItemManager : MonoBehaviour
 {
@@ -34,6 +35,8 @@ public class ItemManager : MonoBehaviour
     private void Start()
     {
         GetCloudItems();
+
+        SetupCloudListeners();
     }
 
     public bool HasEnoughItem(string itemName, int amount)
@@ -101,5 +104,36 @@ public class ItemManager : MonoBehaviour
                 }
             }
         });
+    }
+
+    private void SetupCloudListeners()
+    {
+        FirebaseCommunicator.instance.SetupListenForChildChangedEvents(new string[] { "items", FirebaseCommunicator.instance.FamilyId.ToString() }, OnGlobalInventoryItemChanged);
+        FirebaseCommunicator.instance.SetupListenForChildAddedEvents(new string[] { "items", FirebaseCommunicator.instance.FamilyId.ToString() }, OnGlobalInventoryItemAdded);
+        FirebaseCommunicator.instance.SetupListenForChildRemovedEvents(new string[] { "items", FirebaseCommunicator.instance.FamilyId.ToString() }, OnGlobalInventoryItemRemoved);
+    }
+
+    private void OnGlobalInventoryItemChanged(object sender, ChildChangedEventArgs e)
+    {
+        Debug.Log("items were updated");
+
+        itemQuantity[e.Snapshot.Key] = Convert.ToInt32(e.Snapshot.Value);
+        itemsData.GetItemByName(e.Snapshot.Key).ItemUpdated.Invoke(itemQuantity[e.Snapshot.Key]);
+    }
+
+    private void OnGlobalInventoryItemAdded(object sender, ChildChangedEventArgs e)
+    {
+        Debug.Log("CLOUD: New item added");
+
+        itemQuantity.Add(e.Snapshot.Key, Convert.ToInt32(e.Snapshot.Value));
+        NewItemAdded.Invoke(itemsData.GetItemByName(e.Snapshot.Key), itemQuantity[e.Snapshot.Key]);
+    }
+
+    private void OnGlobalInventoryItemRemoved(object sender, ChildChangedEventArgs e)
+    {
+        Debug.Log("CLOUD: item removed");
+
+        itemQuantity.Remove(e.Snapshot.Key);
+        itemsData.GetItemByName(e.Snapshot.Key).ItemRemoved.Invoke();
     }
 }
