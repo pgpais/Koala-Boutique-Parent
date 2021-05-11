@@ -12,6 +12,15 @@ public class MenuManager : MonoBehaviour
 
     [SerializeField] Button createMissionButton;
     [SerializeField] Button addItemButton;
+    [SerializeField] Button logoutButton;
+
+    [Header("Ask for ID objects")]
+    [SerializeField] GameObject askForIDParent;
+    [SerializeField] Button submitFamilyIDButton;
+    [SerializeField] TMP_InputField submitFamilyIDInputField;
+
+    [Space]
+    [SerializeField] GameObject ConnectingText;
 
     [Header("DEBUG")]
 
@@ -36,19 +45,39 @@ public class MenuManager : MonoBehaviour
     void Start()
     {
         menuObject.SetActive(false);
+        askForIDParent.SetActive(false);
+        ConnectingText.SetActive(true);
 
 
         createMissionButton.onClick.AddListener(OnCreateMission);
         addItemButton.onClick.AddListener(() => OnAddItem(itemNameForAdding));
+
+        submitFamilyIDButton.onClick.AddListener(() => OnSubmitFamilyID(submitFamilyIDInputField.text));
+        submitFamilyIDInputField.onSubmit.AddListener(OnSubmitFamilyID);
+
         GameManager.MissionGenerated.AddListener(OnMissionGenerated);
         GameManager.MissonCompleted.AddListener(OnMissionCompleted);
         FirebaseCommunicator.LoggedIn.AddListener(OnLoggedIn);
+
+        logoutButton.onClick.AddListener(OnLogoutButton);
+
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnLogoutButton()
     {
+        PlayerPrefs.DeleteKey(PlayerSettingsKeys.familyId);
 
+        menuObject.SetActive(false);
+        askForIDParent.SetActive(true);
+    }
+
+    void OnSubmitFamilyID(string familyId)
+    {
+        PlayerPrefs.SetInt(PlayerSettingsKeys.familyId, int.Parse(familyId));
+        FirebaseCommunicator.instance.GetFamilyIDFromPlayerPrefs();
+
+        menuObject.SetActive(true);
+        askForIDParent.SetActive(false);
     }
 
     void OnCreateMission()
@@ -72,7 +101,11 @@ public class MenuManager : MonoBehaviour
 
     void OnLoggedIn()
     {
-        menuObject.SetActive(true);
+        ConnectingText.SetActive(false);
+
+        bool hasID = PlayerPrefs.HasKey(PlayerSettingsKeys.familyId);
+        askForIDParent.SetActive(!hasID);
+        menuObject.SetActive(hasID);
     }
 
     void OnMissionCompleted(Mission mission)

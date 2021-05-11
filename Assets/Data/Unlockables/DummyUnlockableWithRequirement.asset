@@ -15,6 +15,10 @@ MonoBehaviour:
   UnlockableUpdated:
     m_PersistentCalls:
       m_Calls: []
-  unlockableName: Dummy With Requirement
-  requirements: []
+  <UnlockableName>k__BackingField: DummyUnlockableWithRequirement
+  <Requirements>k__BackingField: []
+  <Cost>k__BackingField:
+    keyData:
+    - {fileID: 11400000, guid: a5c83bff7d2f62943bc95749fe023b8d, type: 2}
+    valueData: 02000000
   unlocked: 0

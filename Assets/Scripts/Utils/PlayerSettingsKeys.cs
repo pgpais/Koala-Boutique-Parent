@@ -1,4 +1,4 @@
 public static class PlayerSettingsKeys
 {
-    public static string roomId = "RoomId";
+    public static string familyId = "RoomId";
 }

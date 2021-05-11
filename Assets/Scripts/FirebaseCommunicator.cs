@@ -12,16 +12,17 @@ public class FirebaseCommunicator : MonoBehaviour
 {
     public static FirebaseCommunicator instance;
     public static UnityEvent LoggedIn = new UnityEvent();
+    public static UnityEvent StartGame = new UnityEvent();
 
     public FirebaseUser User { get; private set; }
 
     public int FamilyId => familyId;
-    [SerializeField] int familyId = 1234;
+    [SerializeField] int familyId;
 
     Firebase.Auth.FirebaseAuth auth;
     DatabaseReference database;
 
-    // Start is called before the first frame update
+
     void Awake()
     {
         if (instance == null)
@@ -43,6 +44,12 @@ public class FirebaseCommunicator : MonoBehaviour
         database = FirebaseDatabase.DefaultInstance.RootReference;
 
         StartCoroutine(LoginAnonymously());
+    }
+
+    public void GetFamilyIDFromPlayerPrefs()
+    {
+        familyId = PlayerPrefs.GetInt(PlayerSettingsKeys.familyId);
+        StartGame.Invoke();
     }
 
     public IEnumerator LoginAnonymously()
