@@ -74,7 +74,7 @@ public class MenuManager : MonoBehaviour
     void OnSubmitFamilyID(string familyId)
     {
         PlayerPrefs.SetInt(PlayerSettingsKeys.familyId, int.Parse(familyId));
-        FirebaseCommunicator.instance.GetFamilyIDFromPlayerPrefs();
+        FirebaseCommunicator.instance.StartGame();
 
         menuObject.SetActive(true);
         askForIDParent.SetActive(false);
@@ -109,7 +109,7 @@ public class MenuManager : MonoBehaviour
 
         if (hasID)
         {
-            FirebaseCommunicator.instance.GetFamilyIDFromPlayerPrefs();
+            FirebaseCommunicator.instance.StartGame();
         }
     }
 

@@ -35,7 +35,7 @@ public class UnlockablesManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        FirebaseCommunicator.StartGame.AddListener(OnGameStarted);
+        FirebaseCommunicator.GameStarted.AddListener(OnGameStarted);
     }
 
     private void OnGameStarted()

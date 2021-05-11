@@ -12,7 +12,7 @@ public class FirebaseCommunicator : MonoBehaviour
 {
     public static FirebaseCommunicator instance;
     public static UnityEvent LoggedIn = new UnityEvent();
-    public static UnityEvent StartGame = new UnityEvent();
+    public static UnityEvent GameStarted = new UnityEvent();
 
     public FirebaseUser User { get; private set; }
 
@@ -46,10 +46,10 @@ public class FirebaseCommunicator : MonoBehaviour
         StartCoroutine(LoginAnonymously());
     }
 
-    public void GetFamilyIDFromPlayerPrefs()
+    public void StartGame()
     {
         familyId = PlayerPrefs.GetInt(PlayerSettingsKeys.familyId);
-        StartGame.Invoke();
+        GameStarted.Invoke();
     }
 
     public IEnumerator LoginAnonymously()
