@@ -65,6 +65,22 @@ public class ItemManager : MonoBehaviour
         }
     }
 
+    public void RemoveItem(string itemName, int amount)
+    {
+        if (itemQuantity[itemName] > amount)
+        {
+            itemQuantity[itemName] -= amount;
+            itemsData.GetItemByName(itemName).ItemUpdated.Invoke(amount);
+            UpdateCloudItem(itemName, itemQuantity[itemName]);
+        }
+        else if (itemQuantity[itemName] == amount)
+        {
+            itemQuantity.Remove(itemName);
+            itemsData.GetItemByName(itemName).ItemRemoved.Invoke();
+
+        }
+    }
+
     private void UpdateCloudItem(string itemName, int amount)
     {
         var dictionary = new Dictionary<string, object>();
@@ -79,6 +95,22 @@ public class ItemManager : MonoBehaviour
             if (task.IsCompleted)
             {
                 Debug.Log("yey updated items");
+            }
+        });
+    }
+
+    private void RemoveCloudItem(string itemname)
+    {
+        FirebaseCommunicator.instance.RemoveObject("items", itemname, (task, obj) =>
+        {
+            if (task.IsFaulted)
+            {
+                Debug.LogError("smth went wrong. " + task.Exception.ToString());
+            }
+
+            if (task.IsCompleted)
+            {
+                Debug.Log("yey removed " + itemname + " from items");
             }
         });
     }

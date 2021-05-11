@@ -11,6 +11,7 @@ public class Unlockable : ScriptableObject
 
     [field: SerializeField] public string UnlockableName { get; private set; }
     [field: SerializeField] public List<Unlockable> Requirements { get; private set; }
+    [field: SerializeField] public UnlockableCostDictionary Cost { get; private set; }
 
     // TODO: list of items required for build
 
@@ -50,16 +51,11 @@ public class Unlockable : ScriptableObject
 
     }
 
-    internal bool Unlock()
+    internal void Unlock()
     {
-        foreach (var requirement in Requirements)
-        {
-            if (!requirement.Unlocked)
-                return false;
-        }
+
 
         Unlocked = true;
         UnlockableUpdated.Invoke(this);
-        return true;
     }
 }

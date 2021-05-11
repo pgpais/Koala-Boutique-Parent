@@ -61,8 +61,32 @@ public class UnlockablesManager : MonoBehaviour
 
     internal void Unlock(Unlockable unlockable)
     {
-        if (unlockables[unlockable.UnlockableName].Unlock())
+        bool success = true;
+
+        foreach (var requirement in unlockable.Requirements)
+        {
+            if (!requirement.Unlocked)
+                success = false;
+        }
+
+        foreach (var cost in unlockable.Cost)
+        {
+            if (!ItemManager.instance.HasEnoughItem(cost.Key.ItemName, cost.Value))
+            {
+                success = false;
+            }
+        }
+
+        if (success)
+        {
+            foreach (var cost in unlockable.Cost)
+            {
+                ItemManager.instance.RemoveItem(cost.Key.ItemName, cost.Value);
+            }
+
+            unlockable.Unlock();
             SaveUnlockOnCloud();
+        }
     }
 
     void SaveUnlockOnCloud()

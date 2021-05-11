@@ -140,6 +140,14 @@ public class FirebaseCommunicator : MonoBehaviour
         database.Child(firebaseReferenceName).Child(familyId.ToString()).GetValueAsync().ContinueWith(afterSendAction, scheduler);
     }
 
+    public void RemoveObject(string firebaseReferenceName, string objectToRemove, Action<Task, object> afterRemoveAction)
+    {
+        TaskScheduler scheduler = TaskScheduler.FromCurrentSynchronizationContext();
+        Debug.Log($"removing {firebaseReferenceName}/{familyId.ToString()}/{objectToRemove}");
+
+        database.Child(firebaseReferenceName).Child(familyId.ToString()).Child(objectToRemove).RemoveValueAsync().ContinueWith(afterRemoveAction, scheduler);
+    }
+
     public void SetupListenForValueChangedEvents(string[] firebaseReferences, EventHandler<ValueChangedEventArgs> onValueChangedAction)
     {
         DatabaseReference dbReference = database;
