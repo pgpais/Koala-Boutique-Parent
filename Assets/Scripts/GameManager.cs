@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("Successfully saved task!");
                 MissionGenerated.Invoke(GeneratedMission);
-                FirebaseCommunicator.instance.SetupListenForEvents(new string[] { Mission.firebaseReferenceName, FirebaseCommunicator.instance.FamilyId.ToString(), "successfulRun" }, OnMissionComplete);
+                FirebaseCommunicator.instance.SetupListenForValueChangedEvents(new string[] { Mission.firebaseReferenceName, FirebaseCommunicator.instance.FamilyId.ToString(), "successfulRun" }, OnMissionComplete);
             }
         });
     }

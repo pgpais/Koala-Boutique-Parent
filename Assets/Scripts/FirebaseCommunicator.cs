@@ -140,7 +140,7 @@ public class FirebaseCommunicator : MonoBehaviour
         database.Child(firebaseReferenceName).Child(familyId.ToString()).GetValueAsync().ContinueWith(afterSendAction, scheduler);
     }
 
-    public void SetupListenForEvents(string[] firebaseReferences, EventHandler<ValueChangedEventArgs> onValueChangedAction)
+    public void SetupListenForValueChangedEvents(string[] firebaseReferences, EventHandler<ValueChangedEventArgs> onValueChangedAction)
     {
         DatabaseReference dbReference = database;
         foreach (var reference in firebaseReferences)
