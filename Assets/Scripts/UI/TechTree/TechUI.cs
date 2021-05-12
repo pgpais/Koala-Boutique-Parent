@@ -6,8 +6,10 @@ using UnityEngine.UI;
 public class TechUI : MonoBehaviour
 {
     [SerializeField] SmallTechUI SmallUnlockableUIPrefab;
+    [SerializeField] SmallItemUI SmallItemUIPrefab;
     [Space]
     [SerializeField] Transform requirementsUI;
+    [SerializeField] Transform costUI;
     [SerializeField] TMPro.TMP_Text text;
     [SerializeField] Button unlockButton;
 
@@ -26,12 +28,27 @@ public class TechUI : MonoBehaviour
         if (unlockable.Unlocked)
             text.color = Color.green;
 
-        foreach (var requirement in unlockable.Requirements)
+        InitializeRequirements(unlockable.Requirements);
+
+        InitializeCosts(unlockable.Cost);
+
+        unlockable.UnlockableUpdated.AddListener(UpdateUI);
+    }
+
+    void InitializeRequirements(List<Unlockable> requirements)
+    {
+        foreach (var requirement in requirements)
         {
             Instantiate(SmallUnlockableUIPrefab, requirementsUI).InitUI(requirement);
         }
+    }
 
-        unlockable.UnlockableUpdated.AddListener(UpdateUI);
+    void InitializeCosts(Dictionary<Item, int> costs)
+    {
+        foreach (var cost in costs)
+        {
+            Instantiate(SmallItemUIPrefab, costUI).InitUI(cost.Key, cost.Value);
+        }
     }
 
     void UpdateUI(Unlockable unlockable)
