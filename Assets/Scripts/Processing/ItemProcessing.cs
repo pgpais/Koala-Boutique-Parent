@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class ItemProcessing : MonoBehaviour
 {
+    [SerializeField] Item item;
+
     [Header("Parameters")]
     [SerializeField] float timeToProcess = 30f;
     [SerializeField] float timeBetweenProcessBosts = 5f;
@@ -13,6 +15,7 @@ public class ItemProcessing : MonoBehaviour
     Color boostBaseColor;
 
     [Header("UI")]
+    [SerializeField] TMPro.TMP_Text itemNameText;
     [SerializeField] Image itemImage;
     Button itemButton;
     [SerializeField] Image processBoostImage;
@@ -42,6 +45,7 @@ public class ItemProcessing : MonoBehaviour
 
     private void Start()
     {
+        itemNameText.text = item.ItemName;
         boostBaseColor = processBoostImage.color;
 
         itemButton.onClick.AddListener(StartProcessing);
@@ -58,7 +62,6 @@ public class ItemProcessing : MonoBehaviour
             AnimateProcessButton();
 
             UpdateProcessSlider();
-
         }
     }
 
