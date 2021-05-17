@@ -7,6 +7,10 @@ public class Mission
 
     public int seed;
     public bool successfulRun;
+    public MissionZone zone;
+    public MissionDifficulty difficulty;
+
+
 
     public Mission()
     {

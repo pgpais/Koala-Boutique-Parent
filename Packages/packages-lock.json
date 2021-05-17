@@ -1,13 +1,13 @@
 {
   "dependencies": {
     "com.google.external-dependency-manager": {
-      "version": "file:D:/Users/Cheese/Downloads/com.google.external-dependency-manager-1.2.165.tgz",
+      "version": "file:D:/Users/Cheese/Documents/Development/Firebase/com.google.external-dependency-manager-1.2.165.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {}
     },
     "com.google.firebase.app": {
-      "version": "file:D:/Users/Cheese/Downloads/com.google.firebase.app-7.2.0.tgz",
+      "version": "file:D:/Users/Cheese/Documents/Development/Firebase/com.google.firebase.app-7.2.0.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
@@ -15,7 +15,7 @@
       }
     },
     "com.google.firebase.auth": {
-      "version": "file:D:/Users/Cheese/Downloads/com.google.firebase.auth-7.2.0.tgz",
+      "version": "file:D:/Users/Cheese/Documents/Development/Firebase/com.google.firebase.auth-7.2.0.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
@@ -23,7 +23,7 @@
       }
     },
     "com.google.firebase.database": {
-      "version": "file:D:/Users/Cheese/Downloads/com.google.firebase.database-7.2.0.tgz",
+      "version": "file:D:/Users/Cheese/Documents/Development/Firebase/com.google.firebase.database-7.2.0.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {

@@ -1,9 +1,9 @@
 {
   "dependencies": {
-    "com.google.external-dependency-manager": "file:D:/Users/Cheese/Downloads/com.google.external-dependency-manager-1.2.165.tgz",
-    "com.google.firebase.app": "file:D:/Users/Cheese/Downloads/com.google.firebase.app-7.2.0.tgz",
-    "com.google.firebase.auth": "file:D:/Users/Cheese/Downloads/com.google.firebase.auth-7.2.0.tgz",
-    "com.google.firebase.database": "file:D:/Users/Cheese/Downloads/com.google.firebase.database-7.2.0.tgz",
+    "com.google.external-dependency-manager": "file:D:/Users/Cheese/Documents/Development/Firebase/com.google.external-dependency-manager-1.2.165.tgz",
+    "com.google.firebase.app": "file:D:/Users/Cheese/Documents/Development/Firebase/com.google.firebase.app-7.2.0.tgz",
+    "com.google.firebase.auth": "file:D:/Users/Cheese/Documents/Development/Firebase/com.google.firebase.auth-7.2.0.tgz",
+    "com.google.firebase.database": "file:D:/Users/Cheese/Documents/Development/Firebase/com.google.firebase.database-7.2.0.tgz",
     "com.unity.2d.animation": "6.0.1",
     "com.unity.2d.pixel-perfect": "5.0.0",
     "com.unity.2d.psdimporter": "5.0.1",
@@ -55,9 +55,7 @@
     {
       "name": "jilleJr",
       "url": "https://npm.cloudsmith.io/jillejr/newtonsoft-json-for-unity",
-      "scopes": [
-        "jillejr.newtonsoft.json-for-unity"
-      ]
+      "scopes": ["jillejr.newtonsoft.json-for-unity"]
     }
   ]
 }
