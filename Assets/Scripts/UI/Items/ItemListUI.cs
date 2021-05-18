@@ -6,21 +6,35 @@ public class ItemListUI : MonoBehaviour
 {
     [SerializeField] ItemUI itemUIPrefab;
 
+    private void Awake()
+    {
+
+    }
+
     private void Start()
     {
         ItemManager.NewItemAdded.AddListener(NewItemAdded);
     }
 
-    public void Init(List<Item> items, Dictionary<string, int> itemsQuantity)
+    private void OnEnable()
     {
-        foreach (var item in items)
+        Init(ItemManager.instance.itemQuantity);
+    }
+
+    public void Init(Dictionary<string, int> itemsQuantity)
+    {
+        var items = itemsQuantity.Keys;
+        foreach (var itemName in items)
         {
-            Instantiate(itemUIPrefab, transform).Init(item, itemsQuantity[item.ItemName]);
+            Debug.Log("Instantiating item");
+            var item = ItemManager.instance.itemsData.GetItemByName(itemName);
+            Instantiate(itemUIPrefab, transform).Init(item, itemsQuantity[itemName]);
         }
     }
 
     public void NewItemAdded(Item item, int itemQuantity)
     {
+        Debug.Log("Instantiating item");
         Instantiate(itemUIPrefab, transform).Init(item, itemQuantity);
     }
 }

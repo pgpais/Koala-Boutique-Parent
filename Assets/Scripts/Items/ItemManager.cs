@@ -34,10 +34,10 @@ public class ItemManager : MonoBehaviour
 
     private void Start()
     {
-        FirebaseCommunicator.GameStarted.AddListener(OnGameStarted);
+        FirebaseCommunicator.LoggedIn.AddListener(OnLoggedIn);
     }
 
-    private void OnGameStarted()
+    private void OnLoggedIn()
     {
         GetCloudItems();
 
@@ -136,8 +136,9 @@ public class ItemManager : MonoBehaviour
                 foreach (var key in dictionary.Keys)
                 {
                     Debug.Log($"Found item {key} with amount {dictionary[key]}");
-                    itemQuantity.Add(key, Convert.ToInt32(dictionary[key]));
-                    NewItemAdded.Invoke(itemsData.GetItemByName(key), Convert.ToInt32(dictionary[key]));
+                    AddItem(key, Convert.ToInt32(dictionary[key]));
+                    // itemQuantity.Add(key, Convert.ToInt32(dictionary[key]));
+                    // NewItemAdded.Invoke(itemsData.GetItemByName(key), Convert.ToInt32(dictionary[key]));
                 }
             }
         });

@@ -24,4 +24,9 @@ public class ItemUI : MonoBehaviour
     {
         itemQuantityText.text = quantity.ToString();
     }
+
+    private void OnDisable()
+    {
+        Destroy(gameObject);
+    }
 }

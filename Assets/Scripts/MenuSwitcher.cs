@@ -34,8 +34,8 @@ public class MenuSwitcher : SerializedMonoBehaviour
         FirebaseCommunicator.LoggedIn.AddListener(() =>
         {
             canvas.SetActive(true);
-            // SwitchToProcessingScreen();
-            FirebaseCommunicator.GameStarted.Invoke(); // TODO: #12 Figure out another flow for starting the game
+
+            // TODO: #12 Figure out another flow for starting the game
         });
         menuDropdown.onValueChanged.AddListener(SwitchToMenu);
         PopulateDropdownAndSetDefault();

@@ -19,6 +19,6 @@ MonoBehaviour:
   <Requirements>k__BackingField: []
   <Cost>k__BackingField:
     keyData:
-    - {fileID: 11400000, guid: d3309dddc4be5504b8c046ebcad63ed6, type: 2}
-    valueData: 03000000
+    - {fileID: 11400000, guid: 5fd08a83eb9b13c4f88e2c3c5806f4a7, type: 2}
+    valueData: 02000000
   unlocked: 0
