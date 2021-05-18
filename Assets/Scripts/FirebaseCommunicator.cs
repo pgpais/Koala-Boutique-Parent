@@ -16,7 +16,7 @@ public class FirebaseCommunicator : MonoBehaviour
     public FirebaseUser User { get; private set; }
 
     public int FamilyId => familyId;
-    [SerializeField] int familyId;
+    [SerializeField] int familyId = 1234;
 
     Firebase.Auth.FirebaseAuth auth;
     DatabaseReference database;
@@ -47,6 +47,8 @@ public class FirebaseCommunicator : MonoBehaviour
 
     public IEnumerator LoginAnonymously()
     {
+        Debug.LogError("SIgning in with ID: " + familyId);
+
         var task = new YieldTask<Firebase.Auth.FirebaseUser>(auth.SignInAnonymouslyAsync());
         yield return task;
 

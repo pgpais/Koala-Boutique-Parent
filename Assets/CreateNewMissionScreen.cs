@@ -33,11 +33,13 @@ public class CreateNewMissionScreen : MonoBehaviour
 
     private void OnEnable()
     {
+        BackButton.gameObject.SetActive(true);
         BackButton.onClick.AddListener(SwitchToMissionInfoScreen);
     }
 
     private void OnDisable()
     {
+        BackButton.gameObject.SetActive(false);
         BackButton.onClick.RemoveListener(SwitchToMissionInfoScreen);
     }
 
@@ -47,6 +49,7 @@ public class CreateNewMissionScreen : MonoBehaviour
         var difficulty = (MissionDifficulty)missionDifficulty.value;
 
         MissionManager.instance.CreateMission(zone, difficulty);
+        SwitchToMissionInfoScreen();
     }
 
     void PopulateDropdowns()
@@ -64,5 +67,6 @@ public class CreateNewMissionScreen : MonoBehaviour
     {
         gameObject.SetActive(false);
         missionInfoScreen.SetActive(true);
+        BackButton.gameObject.SetActive(false);
     }
 }

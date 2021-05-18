@@ -25,10 +25,7 @@ public class MenuSwitcher : SerializedMonoBehaviour
         {
             instance = this;
         }
-    }
 
-    private void Start()
-    {
         canvas.SetActive(false);
 
         FirebaseCommunicator.LoggedIn.AddListener(() =>
@@ -38,7 +35,12 @@ public class MenuSwitcher : SerializedMonoBehaviour
             // TODO: #12 Figure out another flow for starting the game
         });
         menuDropdown.onValueChanged.AddListener(SwitchToMenu);
+    }
+
+    private void Start()
+    {
         PopulateDropdownAndSetDefault();
+
     }
 
     void PopulateDropdownAndSetDefault()

@@ -1,35 +1,5 @@
 {
   "dependencies": {
-    "com.google.external-dependency-manager": {
-      "version": "file:D:/Users/Cheese/Documents/Development/Firebase/com.google.external-dependency-manager-1.2.165.tgz",
-      "depth": 0,
-      "source": "local-tarball",
-      "dependencies": {}
-    },
-    "com.google.firebase.app": {
-      "version": "file:D:/Users/Cheese/Documents/Development/Firebase/com.google.firebase.app-7.2.0.tgz",
-      "depth": 0,
-      "source": "local-tarball",
-      "dependencies": {
-        "com.google.external-dependency-manager": "1.2.165"
-      }
-    },
-    "com.google.firebase.auth": {
-      "version": "file:D:/Users/Cheese/Documents/Development/Firebase/com.google.firebase.auth-7.2.0.tgz",
-      "depth": 0,
-      "source": "local-tarball",
-      "dependencies": {
-        "com.google.firebase.app": "7.2.0"
-      }
-    },
-    "com.google.firebase.database": {
-      "version": "file:D:/Users/Cheese/Documents/Development/Firebase/com.google.firebase.database-7.2.0.tgz",
-      "depth": 0,
-      "source": "local-tarball",
-      "dependencies": {
-        "com.google.firebase.auth": "7.2.0"
-      }
-    },
     "com.unity.2d.animation": {
       "version": "6.0.1",
       "depth": 0,
@@ -114,24 +84,6 @@
       "depth": 1,
       "source": "registry",
       "dependencies": {},
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.ide.rider": {
-      "version": "3.0.6",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.ext.nunit": "1.0.6"
-      },
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.ide.visualstudio": {
-      "version": "2.0.7",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.test-framework": "1.1.9"
-      },
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.vscode": {
