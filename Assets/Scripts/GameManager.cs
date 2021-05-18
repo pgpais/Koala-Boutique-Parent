@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     public static UnityEvent<Mission> MissionGenerated = new UnityEvent<Mission>();
     public static UnityEvent<Mission> MissonCompleted = new UnityEvent<Mission>();
 
-    public Mission GeneratedMission { get; private set; }
+    public Mission CurrentMission { get; private set; }
 
     private void Awake()
     {
@@ -45,9 +45,9 @@ public class GameManager : MonoBehaviour
 
     public void GenerateMission()
     {
-        GeneratedMission = new Mission();
+        CurrentMission = new Mission();
 
-        SaveMission(GeneratedMission);
+        SaveMission(CurrentMission);
     }
 
     void GetMissionFromCloud()
@@ -62,8 +62,8 @@ public class GameManager : MonoBehaviour
             if (task.IsCompleted)
             {
                 Debug.Log("yey got mission");
-                GeneratedMission = JsonConvert.DeserializeObject<Mission>(task.Result.GetRawJsonValue());
-                MissionGenerated.Invoke(GeneratedMission);
+                CurrentMission = JsonConvert.DeserializeObject<Mission>(task.Result.GetRawJsonValue());
+                MissionGenerated.Invoke(CurrentMission);
             }
         });
     }
@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour
             if (task.IsCompleted)
             {
                 Debug.Log("Successfully saved task!");
-                MissionGenerated.Invoke(GeneratedMission);
+                MissionGenerated.Invoke(CurrentMission);
                 FirebaseCommunicator.instance.SetupListenForValueChangedEvents(new string[] { Mission.firebaseReferenceName, FirebaseCommunicator.instance.FamilyId.ToString(), "successfulRun" }, OnMissionComplete);
             }
         });
@@ -95,10 +95,10 @@ public class GameManager : MonoBehaviour
 
     private void OnMissionComplete(object sender, ValueChangedEventArgs args)
     {
-        GeneratedMission.successfulRun = args.Snapshot.GetRawJsonValue() == "true";
-        GameManager.MissonCompleted.Invoke(GeneratedMission);
+        CurrentMission.successfulRun = args.Snapshot.GetRawJsonValue() == "true";
+        GameManager.MissonCompleted.Invoke(CurrentMission);
 
-        if (GeneratedMission.successfulRun)
+        if (CurrentMission.successfulRun)
             FirebaseCommunicator.instance.RemoveValueChangedListener(new string[] { Mission.firebaseReferenceName, FirebaseCommunicator.instance.FamilyId.ToString(), "successfulRun" }, OnMissionComplete);
     }
 }
