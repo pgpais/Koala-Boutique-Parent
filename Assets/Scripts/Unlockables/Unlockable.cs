@@ -24,7 +24,6 @@ public class Unlockable : ScriptableObject
         set
         {
             runTimeUnlocked = value;
-
         }
     }
     private bool runTimeUnlocked;
