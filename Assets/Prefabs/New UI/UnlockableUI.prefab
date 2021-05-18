@@ -266,7 +266,7 @@ MonoBehaviour:
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
+  m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
@@ -343,7 +343,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 198.3975}
+  m_SizeDelta: {x: 1000, y: 198.3975}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2556325680557907526
 MonoBehaviour:
@@ -361,7 +361,8 @@ MonoBehaviour:
   SmallItemUIPrefab: {fileID: -7991204317582854650, guid: 441199ee4944a7944baa03f6a6d5c4e4, type: 3}
   requirementsUI: {fileID: 4246078270067602878}
   costUI: {fileID: 1131114381102263094}
-  text: {fileID: 5008097432976691572}
+  unlockableName: {fileID: 5008097432976691572}
+  unlockableDescription: {fileID: 8565918334089706581}
   unlockButton: {fileID: 3568497106910946851}
 --- !u!1 &2749575409253064341
 GameObject:
@@ -1070,7 +1071,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.63000005}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 37}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1195489922392238961
 MonoBehaviour:
@@ -1094,7 +1095,7 @@ MonoBehaviour:
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
+  m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0

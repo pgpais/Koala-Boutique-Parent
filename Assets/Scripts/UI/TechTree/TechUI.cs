@@ -10,7 +10,8 @@ public class TechUI : MonoBehaviour
     [Space]
     [SerializeField] Transform requirementsUI;
     [SerializeField] Transform costUI;
-    [SerializeField] TMPro.TMP_Text text;
+    [SerializeField] TMPro.TMP_Text unlockableName;
+    [SerializeField] TMPro.TMP_Text unlockableDescription;
     [SerializeField] Button unlockButton;
 
     private Unlockable unlockable;
@@ -24,9 +25,10 @@ public class TechUI : MonoBehaviour
     {
         this.unlockable = unlockable;
 
-        text.text = unlockable.UnlockableName;
+        unlockableName.text = unlockable.UnlockableName;
+        unlockableDescription.text = unlockable.UnlockableDescription;
         if (unlockable.Unlocked)
-            text.color = Color.green;
+            unlockableName.color = Color.green;
 
         InitializeRequirements(unlockable.Requirements);
 
@@ -53,10 +55,10 @@ public class TechUI : MonoBehaviour
 
     void UpdateUI(Unlockable unlockable)
     {
-        text.text = this.unlockable.UnlockableName;
+        unlockableName.text = this.unlockable.UnlockableName;
         if (unlockable.Unlocked)
         {
-            text.color = Color.green;
+            unlockableName.color = Color.green;
         }
         Debug.Log($"{unlockable.UnlockableName} was updated!");
     }

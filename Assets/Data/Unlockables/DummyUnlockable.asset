@@ -16,6 +16,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   <UnlockableName>k__BackingField: DummyUnlockable
+  <UnlockableDescription>k__BackingField: Unlocks a powerful nothing!
   <Requirements>k__BackingField: []
   <Cost>k__BackingField:
     keyData:

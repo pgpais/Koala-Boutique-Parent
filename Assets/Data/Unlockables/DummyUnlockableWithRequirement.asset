@@ -16,6 +16,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   <UnlockableName>k__BackingField: DummyUnlockableWithRequirement
+  <UnlockableDescription>k__BackingField: Unlocks an even more powerful nothing!
   <Requirements>k__BackingField:
   - {fileID: 11400000, guid: f76337b75e12c4440a7a9106417e9182, type: 2}
   <Cost>k__BackingField:

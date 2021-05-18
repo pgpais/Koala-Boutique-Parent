@@ -11,6 +11,7 @@ public class Unlockable : ScriptableObject
     public UnityEvent<Unlockable> UnlockableUpdated;
 
     [field: SerializeField] public string UnlockableName { get; private set; }
+    [field: SerializeField] public string UnlockableDescription { get; private set; }
     [field: SerializeField] public List<Unlockable> Requirements { get; private set; }
     [field: SerializeField] public UnlockableCostDictionary Cost { get; private set; }
 
