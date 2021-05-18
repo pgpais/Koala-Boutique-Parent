@@ -15,6 +15,7 @@ public class ItemUI : MonoBehaviour
         itemDescriptionText.text = item.Description;
         itemQuantityText.text = itemQuantity.ToString();
 
+        // TODO: #13 Move item event listeners to parent UI script
         item.ItemUpdated.AddListener(UpdateUI);
         item.ItemRemoved.AddListener(() => Destroy(gameObject));
     }

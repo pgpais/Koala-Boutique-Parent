@@ -154,7 +154,7 @@ public class ItemManager : MonoBehaviour
 
     private void OnGlobalInventoryItemChanged(object sender, ChildChangedEventArgs e)
     {
-        Debug.Log("items were updated");
+        Debug.Log("CLOUD: items were updated");
 
         itemQuantity[e.Snapshot.Key] = Convert.ToInt32(e.Snapshot.Value);
 
