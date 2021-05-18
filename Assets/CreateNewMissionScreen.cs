@@ -29,7 +29,16 @@ public class CreateNewMissionScreen : MonoBehaviour
         PopulateDropdowns();
 
         createMissionButton.onClick.AddListener(OnCreateMission);
+    }
+
+    private void OnEnable()
+    {
         BackButton.onClick.AddListener(SwitchToMissionInfoScreen);
+    }
+
+    private void OnDisable()
+    {
+        BackButton.onClick.RemoveListener(SwitchToMissionInfoScreen);
     }
 
     void OnCreateMission()

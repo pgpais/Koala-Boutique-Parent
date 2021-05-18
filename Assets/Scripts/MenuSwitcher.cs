@@ -1,16 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
+using TMPro;
 
-public class MenuSwitcher : MonoBehaviour
+public class MenuSwitcher : SerializedMonoBehaviour
 {
     public static MenuSwitcher instance;
 
     [SerializeField] GameObject canvas;
 
-    [SerializeField] GameObject missionScreen;
-    [SerializeField] GameObject unlocksScreen;
-    [SerializeField] GameObject processingScreen;
+    [SerializeField] TMP_Dropdown menuDropdown;
+
+    [SerializeField] string defaultScreenName = "Processing";
+    [SerializeField] Dictionary<string, GameObject> menus;
 
     private void Awake()
     {
@@ -34,24 +37,35 @@ public class MenuSwitcher : MonoBehaviour
             // SwitchToProcessingScreen();
             FirebaseCommunicator.GameStarted.Invoke(); // TODO: #12 Figure out another flow for starting the game
         });
+        menuDropdown.onValueChanged.AddListener(SwitchToMenu);
+        PopulateDropdownAndSetDefault();
     }
 
-    public void SwitchToMissionScreen()
+    void PopulateDropdownAndSetDefault()
     {
-        missionScreen.SetActive(true);
-        unlocksScreen.SetActive(false);
-        processingScreen.SetActive(false);
+        menuDropdown.ClearOptions();
+
+        var keys = new List<string>(menus.Keys);
+        menuDropdown.AddOptions(keys);
+
+
+        menuDropdown.value = keys.FindIndex((key) => key == defaultScreenName);
     }
-    public void SwitchToUnlocksScreen()
+
+    void SwitchToMenu(int menuIndex)
     {
-        missionScreen.SetActive(false);
-        unlocksScreen.SetActive(true);
-        processingScreen.SetActive(false);
-    }
-    public void SwitchToProcessingScreen()
-    {
-        missionScreen.SetActive(false);
-        unlocksScreen.SetActive(false);
-        processingScreen.SetActive(true);
+        var keys = new List<string>(menus.Keys);
+
+        for (var i = 0; i < keys.Count; i++)
+        {
+            if (i == menuIndex)
+            {
+                menus[keys[i]].SetActive(true);
+            }
+            else
+            {
+                menus[keys[i]].SetActive(false);
+            }
+        }
     }
 }
