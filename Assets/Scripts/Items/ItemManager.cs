@@ -49,7 +49,7 @@ public class ItemManager : MonoBehaviour
         return itemQuantity[itemName] >= amount;
     }
 
-    public void AddItem(string itemName, int amount)
+    public void AddItem(string itemName, int amount, bool syncCloud)
     {
         if (itemsData.ContainsByName(itemName))
         {
@@ -59,13 +59,17 @@ public class ItemManager : MonoBehaviour
             {
                 itemQuantity[itemName] += amount;
                 item.ItemUpdated.Invoke(itemQuantity[itemName]);
-                UpdateCloudItem(itemName, itemQuantity[itemName]);
+
+                if (syncCloud)
+                    UpdateCloudItem(itemName, itemQuantity[itemName]);
             }
             else
             {
                 itemQuantity.Add(itemName, amount);
                 NewItemAdded.Invoke(item, amount);
-                UpdateCloudItem(itemName, amount);
+
+                if (syncCloud)
+                    UpdateCloudItem(itemName, amount);
             }
         }
     }
@@ -135,7 +139,7 @@ public class ItemManager : MonoBehaviour
                 Dictionary<string, object> dictionary = task.Result.Value as Dictionary<string, object>;
                 foreach (var key in dictionary.Keys)
                 {
-                    AddItem(key, Convert.ToInt32(dictionary[key]));
+                    AddItem(key, Convert.ToInt32(dictionary[key]), false);
                 }
             }
         });

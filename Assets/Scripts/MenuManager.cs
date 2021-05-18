@@ -81,7 +81,7 @@ public class MenuManager : MonoBehaviour
 
     void OnAddItem(string itemName)
     {
-        ItemManager.instance.AddItem(itemName, 2);
+        ItemManager.instance.AddItem(itemName, 2, true);
     }
 
     void OnMissionGenerated(Mission mission)
