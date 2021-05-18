@@ -135,10 +135,7 @@ public class ItemManager : MonoBehaviour
                 Dictionary<string, object> dictionary = task.Result.Value as Dictionary<string, object>;
                 foreach (var key in dictionary.Keys)
                 {
-                    Debug.Log($"Found item {key} with amount {dictionary[key]}");
                     AddItem(key, Convert.ToInt32(dictionary[key]));
-                    // itemQuantity.Add(key, Convert.ToInt32(dictionary[key]));
-                    // NewItemAdded.Invoke(itemsData.GetItemByName(key), Convert.ToInt32(dictionary[key]));
                 }
             }
         });

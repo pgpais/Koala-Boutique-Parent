@@ -23,7 +23,7 @@ public class MissionManager : MonoBehaviour
         {
             instance = this;
         }
-        FirebaseCommunicator.GameStarted.AddListener(OnGameStarted);
+        FirebaseCommunicator.LoggedIn.AddListener(OnLoggedIN);
     }
 
     // Start is called before the first frame update
@@ -31,7 +31,7 @@ public class MissionManager : MonoBehaviour
     {
     }
 
-    void OnGameStarted()
+    void OnLoggedIN()
     {
         Debug.Log("Logged in missionManager");
         GetMissionFromCloud();
