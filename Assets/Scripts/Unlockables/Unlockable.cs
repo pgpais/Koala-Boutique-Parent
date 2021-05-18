@@ -7,6 +7,7 @@ using UnityEngine.Events;
 [CreateAssetMenu(fileName = "Unlockable", menuName = "Ye Olde Shop/Unlockable", order = 0)]
 public class Unlockable : ScriptableObject
 {
+    [HideInInspector]
     public UnityEvent<Unlockable> UnlockableUpdated;
 
     [field: SerializeField] public string UnlockableName { get; private set; }

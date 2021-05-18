@@ -219,7 +219,7 @@ GameObject:
   - component: {fileID: 4246078270067602878}
   - component: {fileID: 6929871200656192469}
   m_Layer: 5
-  m_Name: Layout
+  m_Name: Requirements Layout
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -241,8 +241,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.63000005}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 37}
+  m_AnchoredPosition: {x: 8.5076, y: 0}
+  m_SizeDelta: {x: -17.0151, y: 0.2804}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &6929871200656192469
 MonoBehaviour:
@@ -315,6 +315,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4200310696658264905}
+  - component: {fileID: 2556325680557907526}
   m_Layer: 5
   m_Name: UnlockableUI
   m_TagString: Untagged
@@ -344,6 +345,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 198.3975}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2556325680557907526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2685944877924353162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17b77e2bf390fe54cae284034ba767da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SmallUnlockableUIPrefab: {fileID: 7700930903507461814, guid: bcf8142db8e328449b0c90926ccf2e0b, type: 3}
+  SmallItemUIPrefab: {fileID: -7991204317582854650, guid: 441199ee4944a7944baa03f6a6d5c4e4, type: 3}
+  requirementsUI: {fileID: 4246078270067602878}
+  costUI: {fileID: 1131114381102263094}
+  text: {fileID: 5008097432976691572}
+  unlockButton: {fileID: 3568497106910946851}
 --- !u!1 &2749575409253064341
 GameObject:
   m_ObjectHideFlags: 0
@@ -1028,7 +1047,7 @@ GameObject:
   - component: {fileID: 1131114381102263094}
   - component: {fileID: 1195489922392238961}
   m_Layer: 5
-  m_Name: Layout
+  m_Name: Costs Layout
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
