@@ -6,7 +6,7 @@ public class Mission
     public static string firebaseReferenceName = "missions";
 
     public int seed;
-    public bool successfulRun;
+    public bool completed;
     public MissionZone zone;
     public MissionDifficulty difficulty;
 
@@ -15,7 +15,13 @@ public class Mission
     public Mission()
     {
         seed = new Random().Next();
-        successfulRun = false;
+        completed = false;
+    }
+
+    public Mission(MissionZone zone, MissionDifficulty difficulty)
+    {
+        this.zone = zone;
+        this.difficulty = difficulty;
     }
 
     public string GetFirebaseReferenceName() => firebaseReferenceName;
