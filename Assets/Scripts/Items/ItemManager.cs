@@ -146,7 +146,9 @@ public class ItemManager : MonoBehaviour
     private void SetupCloudListeners()
     {
         FirebaseCommunicator.instance.SetupListenForChildChangedEvents(new string[] { "items", FirebaseCommunicator.instance.FamilyId.ToString() }, OnGlobalInventoryItemChanged);
+
         FirebaseCommunicator.instance.SetupListenForChildAddedEvents(new string[] { "items", FirebaseCommunicator.instance.FamilyId.ToString() }, OnGlobalInventoryItemAdded);
+
         FirebaseCommunicator.instance.SetupListenForChildRemovedEvents(new string[] { "items", FirebaseCommunicator.instance.FamilyId.ToString() }, OnGlobalInventoryItemRemoved);
     }
 
@@ -155,6 +157,7 @@ public class ItemManager : MonoBehaviour
         Debug.Log("items were updated");
 
         itemQuantity[e.Snapshot.Key] = Convert.ToInt32(e.Snapshot.Value);
+
         itemsData.GetItemByName(e.Snapshot.Key).ItemUpdated.Invoke(itemQuantity[e.Snapshot.Key]);
     }
 
@@ -163,6 +166,7 @@ public class ItemManager : MonoBehaviour
         Debug.Log("CLOUD: New item added");
 
         itemQuantity.Add(e.Snapshot.Key, Convert.ToInt32(e.Snapshot.Value));
+
         NewItemAdded.Invoke(itemsData.GetItemByName(e.Snapshot.Key), itemQuantity[e.Snapshot.Key]);
     }
 
@@ -171,6 +175,7 @@ public class ItemManager : MonoBehaviour
         Debug.Log("CLOUD: item removed");
 
         itemQuantity.Remove(e.Snapshot.Key);
+
         itemsData.GetItemByName(e.Snapshot.Key).ItemRemoved.Invoke();
     }
 }
