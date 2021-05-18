@@ -18,7 +18,7 @@ public class Mission
         completed = false;
     }
 
-    public Mission(MissionZone zone, MissionDifficulty difficulty)
+    public Mission(MissionZone zone, MissionDifficulty difficulty) : this()
     {
         this.zone = zone;
         this.difficulty = difficulty;

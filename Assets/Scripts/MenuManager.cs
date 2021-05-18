@@ -49,14 +49,13 @@ public class MenuManager : MonoBehaviour
         ConnectingText.SetActive(true);
 
 
-        createMissionButton.onClick.AddListener(OnCreateMission);
+
         addItemButton.onClick.AddListener(() => OnAddItem(itemNameForAdding));
 
         submitFamilyIDButton.onClick.AddListener(() => OnSubmitFamilyID(submitFamilyIDInputField.text));
         submitFamilyIDInputField.onSubmit.AddListener(OnSubmitFamilyID);
 
-        GameManager.MissionGenerated.AddListener(OnMissionGenerated);
-        GameManager.MissonCompleted.AddListener(OnMissionCompleted);
+        MissionManager.MissionUpdated.AddListener(OnMissionGenerated);
         FirebaseCommunicator.LoggedIn.AddListener(OnLoggedIn);
 
         logoutButton.onClick.AddListener(OnLogoutButton);
@@ -78,13 +77,6 @@ public class MenuManager : MonoBehaviour
 
         menuObject.SetActive(true);
         askForIDParent.SetActive(false);
-    }
-
-    void OnCreateMission()
-    {
-        GameManager.instance.GenerateMission();
-
-        createMissionButton.gameObject.SetActive(false);
     }
 
     void OnAddItem(string itemName)
@@ -122,7 +114,7 @@ public class MenuManager : MonoBehaviour
     {
         if (mission != null)
         {
-            missionInfo.text = "Seed: " + mission.seed.ToString() + "\n" + "Success: " + mission.successfulRun.ToString();
+            missionInfo.text = "Seed: " + mission.seed.ToString() + "\n" + "Success: " + mission.completed.ToString();
         }
         else
         {

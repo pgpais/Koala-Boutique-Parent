@@ -48,7 +48,8 @@ public class FirebaseCommunicator : MonoBehaviour
 
     public void StartGame()
     {
-        familyId = PlayerPrefs.GetInt(PlayerSettingsKeys.familyId);
+        Debug.Log("Game started fcommunicator");
+        // familyId = PlayerPrefs.GetInt(PlayerSettingsKeys.familyId);
         GameStarted.Invoke();
     }
 

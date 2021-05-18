@@ -743,7 +743,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -551.5096}
+  m_AnchoredPosition: {x: 0, y: -551.5095}
   m_SizeDelta: {x: 0, y: 1102.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &100937928
@@ -7207,7 +7207,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 211495713}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.6824841
+  m_Size: 0.00028065726
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -8648,6 +8648,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 777168319ca41b243af8ca22eea20631, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvas: {fileID: 454260448}
   missionScreen: {fileID: 1836735534}
   unlocksScreen: {fileID: 1216007097}
   processingScreen: {fileID: 125178722}

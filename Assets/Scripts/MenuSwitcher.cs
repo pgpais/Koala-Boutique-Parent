@@ -6,6 +6,8 @@ public class MenuSwitcher : MonoBehaviour
 {
     public static MenuSwitcher instance;
 
+    [SerializeField] GameObject canvas;
+
     [SerializeField] GameObject missionScreen;
     [SerializeField] GameObject unlocksScreen;
     [SerializeField] GameObject processingScreen;
@@ -24,7 +26,14 @@ public class MenuSwitcher : MonoBehaviour
 
     private void Start()
     {
-        // SwitchToProcessingScreen();
+        canvas.SetActive(false);
+
+        FirebaseCommunicator.LoggedIn.AddListener(() =>
+        {
+            canvas.SetActive(true);
+            // SwitchToProcessingScreen();
+            FirebaseCommunicator.GameStarted.Invoke(); // TODO: #12 Figure out another flow for starting the game
+        });
     }
 
     public void SwitchToMissionScreen()

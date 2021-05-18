@@ -5,12 +5,11 @@ using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class GameManager : MonoBehaviour
+public class MissionManager : MonoBehaviour
 {
-    public static GameManager instance;
+    public static MissionManager instance;
 
-    public static UnityEvent<Mission> MissionGenerated = new UnityEvent<Mission>();
-    public static UnityEvent<Mission> MissonCompleted = new UnityEvent<Mission>();
+    public static UnityEvent<Mission> MissionUpdated = new UnityEvent<Mission>();
 
     public Mission CurrentMission { get; private set; }
 
@@ -24,16 +23,17 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
         }
+        FirebaseCommunicator.GameStarted.AddListener(OnGameStarted);
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        FirebaseCommunicator.GameStarted.AddListener(OnGameStarted);
     }
 
     void OnGameStarted()
     {
+        Debug.Log("Logged in missionManager");
         GetMissionFromCloud();
     }
 
@@ -43,12 +43,15 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void GenerateMission()
+    public void CreateMission(MissionZone zone, MissionDifficulty difficulty)
     {
-        CurrentMission = new Mission();
+        CurrentMission = new Mission(zone, difficulty);
+
 
         SaveMission(CurrentMission);
     }
+
+
 
     void GetMissionFromCloud()
     {
@@ -63,7 +66,7 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("yey got mission");
                 CurrentMission = JsonConvert.DeserializeObject<Mission>(task.Result.GetRawJsonValue());
-                MissionGenerated.Invoke(CurrentMission);
+                MissionUpdated.Invoke(CurrentMission);
             }
         });
     }
@@ -75,19 +78,19 @@ public class GameManager : MonoBehaviour
             if (task.IsFaulted)
             {
                 Debug.LogError("smth went wrong saving mission");
-                MissionGenerated.Invoke(null);
+                MissionUpdated.Invoke(null);
             }
 
             if (task.IsCanceled)
             {
                 Debug.LogError("saving mission canceled");
-                MissionGenerated.Invoke(null);
+                MissionUpdated.Invoke(null);
             }
 
             if (task.IsCompleted)
             {
-                Debug.Log("Successfully saved task!");
-                MissionGenerated.Invoke(CurrentMission);
+                Debug.Log("Successfully saved Mission!");
+                MissionUpdated.Invoke(CurrentMission);
                 FirebaseCommunicator.instance.SetupListenForValueChangedEvents(new string[] { Mission.firebaseReferenceName, FirebaseCommunicator.instance.FamilyId.ToString(), "successfulRun" }, OnMissionComplete);
             }
         });
@@ -95,10 +98,10 @@ public class GameManager : MonoBehaviour
 
     private void OnMissionComplete(object sender, ValueChangedEventArgs args)
     {
-        CurrentMission.successfulRun = args.Snapshot.GetRawJsonValue() == "true";
-        GameManager.MissonCompleted.Invoke(CurrentMission);
+        CurrentMission.completed = args.Snapshot.GetRawJsonValue() == "true";
+        MissionManager.MissionUpdated.Invoke(CurrentMission);
 
-        if (CurrentMission.successfulRun)
+        if (CurrentMission.completed)
             FirebaseCommunicator.instance.RemoveValueChangedListener(new string[] { Mission.firebaseReferenceName, FirebaseCommunicator.instance.FamilyId.ToString(), "successfulRun" }, OnMissionComplete);
     }
 }
