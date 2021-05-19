@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ItemProcessing : MonoBehaviour
+public class ItemProcessingUI : MonoBehaviour
 {
-    [SerializeField] Item item;
+    // [SerializeField] Item item;
 
     [Header("Parameters")]
     [SerializeField] float timeToProcess = 30f;
@@ -26,6 +26,7 @@ public class ItemProcessing : MonoBehaviour
 
     private float timeElapsed;
     private float howLongForNextBoost;
+    private Process process;
     private bool processing = false;
 
     // Start is called before the first frame update
@@ -43,13 +44,16 @@ public class ItemProcessing : MonoBehaviour
         howLongForNextBoost = timeBetweenProcessBosts;
     }
 
-    private void Start()
+    public void Init(string itemName, Process process)
     {
-        itemNameText.text = item.ItemName;
+        this.process = process;
+        itemNameText.text = itemName;
         boostBaseColor = processBoostImage.color;
 
-        itemButton.onClick.AddListener(StartProcessing);
-        processBoostButton.onClick.AddListener(BoostProcessing);
+        process.ProcessTick.AddListener(UpdateProcessSlider);
+
+        // itemButton.onClick.AddListener(StartProcessing);
+        // processBoostButton.onClick.AddListener(BoostProcessing);
     }
 
     // Update is called once per frame
@@ -57,23 +61,23 @@ public class ItemProcessing : MonoBehaviour
     {
         if (processing)
         {
-            timeElapsed += Time.deltaTime;
+            // timeElapsed += Time.deltaTime;
 
-            AnimateProcessButton();
+            // AnimateProcessButton();
 
-            UpdateProcessSlider();
+            // UpdateProcessSlider();
         }
     }
 
     void UpdateProcessSlider()
     {
-        processSlider.value = timeElapsed / timeToProcess;
+        processSlider.value = 1f - (float)process.TimeLeft / (process.DurationPerItem * process.Amount);
 
         if (processSlider.value >= 1f)
         {
             processing = false;
             processSlider.value = 1f;
-            ResetProcessBoost();
+            // ResetProcessBoost();
         }
     }
 
