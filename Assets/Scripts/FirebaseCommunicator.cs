@@ -47,8 +47,6 @@ public class FirebaseCommunicator : MonoBehaviour
 
     public IEnumerator LoginAnonymously()
     {
-        Debug.LogError("SIgning in with ID: " + familyId);
-
         var task = new YieldTask<Firebase.Auth.FirebaseUser>(auth.SignInAnonymouslyAsync());
         yield return task;
 
