@@ -63,7 +63,6 @@ public class ItemProcessingUI : MonoBehaviour
         {
             // timeElapsed += Time.deltaTime;
 
-            // AnimateProcessButton();
 
             // UpdateProcessSlider();
         }
@@ -71,7 +70,9 @@ public class ItemProcessingUI : MonoBehaviour
 
     void UpdateProcessSlider()
     {
-        processSlider.value = 1f - (float)process.TimeLeft / (process.DurationPerItem * process.Amount);
+        processSlider.value = 1f - (float)process.TimeLeft / (process.DurationPerItem * process.AmountToDo);
+
+        AnimateBoostButton();
 
         if (processSlider.value >= 1f)
         {
@@ -81,10 +82,10 @@ public class ItemProcessingUI : MonoBehaviour
         }
     }
 
-    void AnimateProcessButton()
+    void AnimateBoostButton()
     {
-        howLongForNextBoost -= Time.deltaTime;
-        float boostRatio = howLongForNextBoost / timeBetweenProcessBosts;
+        var howLongForNextBoost = process.NextBoostTime - process.LastTickTime;
+        float boostRatio = (float)(howLongForNextBoost / process.BoostCooldown);
         processBoostImage.color = Color.Lerp(boostReadyColor, boostBaseColor, boostRatio);
 
         anim.SetBool("BoostReady", howLongForNextBoost <= 0);

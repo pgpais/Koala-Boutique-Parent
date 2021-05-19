@@ -43,13 +43,12 @@ public class ProcessingManager : MonoBehaviour
 
     public void CreateProcess(string itemName, int amount)
     {
-        Process process = new Process(5, amount);
+        Process process = new Process(5, amount, 2f, 10f);
 
-        // TODO: Set process time in itemData
+        // TODO:  #18 set process time in item data
         inProcess.Add(itemName, process);
         Debug.Log("Created process that will take " + inProcess[itemName].TimeLeft.ToString() + " seconds");
 
-        // TODO: create UI
         ProcessCreated.Invoke(itemName, process);
     }
 }
