@@ -32,6 +32,11 @@ public class ItemProcessingUI : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+
+    }
+
+    public void Init(string itemName, Process process)
+    {
         processSlider.value = 0f;
 
         anim = GetComponent<Animator>();
@@ -42,18 +47,17 @@ public class ItemProcessingUI : MonoBehaviour
 
         timeElapsed = 0f;
         howLongForNextBoost = timeBetweenProcessBosts;
-    }
 
-    public void Init(string itemName, Process process)
-    {
         this.process = process;
         itemNameText.text = itemName;
         boostBaseColor = processBoostImage.color;
 
         process.ProcessTick.AddListener(UpdateProcessSlider);
+        process.ProcessBoosted.AddListener(OnProcessBoosted);
+
 
         // itemButton.onClick.AddListener(StartProcessing);
-        // processBoostButton.onClick.AddListener(BoostProcessing);
+        processBoostButton.onClick.AddListener(BoostProcessing);
     }
 
     // Update is called once per frame
@@ -111,11 +115,11 @@ public class ItemProcessingUI : MonoBehaviour
 
     void BoostProcessing()
     {
-        if (howLongForNextBoost <= 0f)
-        {
-            timeElapsed += boostQuantity;
-            UpdateProcessSlider();
-            ResetProcessBoost();
-        }
+        process.Boost();
+    }
+
+    void OnProcessBoosted()
+    {
+        processBoostImage.color = boostBaseColor;
     }
 }
