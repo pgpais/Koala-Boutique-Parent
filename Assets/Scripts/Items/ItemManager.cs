@@ -86,7 +86,7 @@ public class ItemManager : MonoBehaviour
         {
             itemQuantity.Remove(itemName);
             itemsData.GetItemByName(itemName).ItemRemoved.Invoke();
-
+            RemoveCloudItem(itemName);
         }
     }
 
