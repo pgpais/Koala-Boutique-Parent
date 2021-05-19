@@ -40,7 +40,6 @@ public class MenuSwitcher : SerializedMonoBehaviour
     private void Start()
     {
         PopulateDropdownAndSetDefault();
-
     }
 
     private void Update()
@@ -58,7 +57,6 @@ public class MenuSwitcher : SerializedMonoBehaviour
 
         var keys = new List<string>(menus.Keys);
         menuDropdown.AddOptions(keys);
-
 
         menuDropdown.value = keys.FindIndex((key) => key == defaultScreenName);
     }
