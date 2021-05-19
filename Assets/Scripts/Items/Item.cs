@@ -24,6 +24,7 @@ public class Item : ScriptableObject
 
 
     public Item ProcessResult => processResult;
+    public int ProcessResultAmount => processResultAmount;
     public float BoostTimeAmount => boostTimeAmount;
     public float BoostCooldown => boostCooldown;
     public float ProcessDuration => processDuration;
@@ -32,6 +33,8 @@ public class Item : ScriptableObject
     [Header("Processing")]
     [HideIf("@this.Type == ItemType.Valuable || this.Type == ItemType.Processed")]
     [SerializeField] Item processResult;
+    [HideIf("@this.Type == ItemType.Valuable || this.Type == ItemType.Processed")]
+    [SerializeField] int processResultAmount = 1;
     [HideIf("@this.Type == ItemType.Valuable || this.Type == ItemType.Processed")]
     [SerializeField] float boostTimeAmount = 5f;
     [HideIf("@this.Type == ItemType.Valuable || this.Type == ItemType.Processed")]
