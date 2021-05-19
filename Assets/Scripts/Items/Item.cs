@@ -23,13 +23,13 @@ public class Item : ScriptableObject
     [field: SerializeField] public ItemType Type { get; private set; }
 
 
-    [Header("Processing")]
     public Item ProcessResult => processResult;
     public float BoostTimeAmount => boostTimeAmount;
     public float BoostCooldown => boostCooldown;
     public float ProcessDuration => processDuration;
 
 
+    [Header("Processing")]
     [HideIf("@this.Type == ItemType.Valuable || this.Type == ItemType.Processed")]
     [SerializeField] Item processResult;
     [HideIf("@this.Type == ItemType.Valuable || this.Type == ItemType.Processed")]
