@@ -54,6 +54,7 @@ public class ItemProcessingUI : MonoBehaviour
 
         process.ProcessTick.AddListener(UpdateProcessSlider);
         process.ProcessBoosted.AddListener(OnProcessBoosted);
+        process.ProcessFinished.AddListener(OnProcessFinished);
 
 
         // itemButton.onClick.AddListener(StartProcessing);
@@ -121,5 +122,10 @@ public class ItemProcessingUI : MonoBehaviour
     void OnProcessBoosted()
     {
         processBoostImage.color = boostBaseColor;
+    }
+
+    void OnProcessFinished()
+    {
+        Destroy(gameObject);
     }
 }

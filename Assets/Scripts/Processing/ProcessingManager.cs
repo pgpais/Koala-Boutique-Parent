@@ -9,25 +9,34 @@ public class ProcessingManager : MonoBehaviour
 
     public static UnityEvent<string, Process> ProcessCreated = new UnityEvent<string, Process>();
 
-    Dictionary<string, Process> inProcess;
+    [SerializeField] bool startProcessing;
+
+    List<Process> inProcess;
 
     private void Awake()
     {
-        inProcess = new Dictionary<string, Process>();
+        inProcess = new List<Process>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        CreateProcess("Lootable1", 5);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        foreach (var process in inProcess.Values)
+        if (startProcessing)
         {
-            process.DoTick();
+            StartProcessing("Lootable1", 1);
+            startProcessing = false;
+        }
+
+
+        for (var i = 0; i < inProcess.Count; i++)
+        {
+            inProcess[i].DoTick();
         }
     }
 
@@ -36,19 +45,31 @@ public class ProcessingManager : MonoBehaviour
         if (ItemManager.instance.HasEnoughItem(itemName, amount))
         {
             // remove from global inventory
+            ItemManager.instance.RemoveItem(itemName, amount);
 
             // create Process
+            CreateProcess(itemName, amount);
         }
     }
 
-    public void CreateProcess(string itemName, int amount)
+    void CreateProcess(string itemName, int amount)
     {
-        Process process = new Process(5, amount, 2f, 10f);
+        var item = ItemManager.instance.itemsData.GetItemByName(itemName);
 
-        // TODO:  #18 set process time in item data
-        inProcess.Add(itemName, process);
-        Debug.Log("Created process that will take " + inProcess[itemName].TimeLeft.ToString() + " seconds");
+        Process process = new Process(item.ProcessDuration, amount, item.BoostTimeAmount, item.BoostCooldown, item.ProcessResult.ItemName, item.ProcessResultAmount);
+
+        inProcess.Add(process);
+        Debug.Log("Created process that will take " + process.TimeLeft.ToString() + " seconds");
+
+        process.ProcessFinished.AddListener(() => OnProcessFinished(process));
 
         ProcessCreated.Invoke(itemName, process);
+    }
+
+    void OnProcessFinished(Process process)
+    {
+        ItemManager.instance.AddItem(process.ResultItemName, process.ResultItemAmount, true);
+
+        inProcess.Remove(process);
     }
 }

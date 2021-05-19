@@ -10,6 +10,9 @@ public class Process
     public UnityEvent ProcessItemFinished;
     public UnityEvent ProcessFinished;
 
+    public string ResultItemName { get; private set; }
+    public int ResultItemAmount { get; private set; }
+
     public int AmountToDo { get; private set; }
     public int AmountDone { get; private set; }
 
@@ -23,9 +26,11 @@ public class Process
     public double BoostCooldown { get; private set; }
     public float BoostTimeAmount { get; private set; }
 
-
-    public Process(float durationPerItem, int amount, float boostTime, float boostCooldown)
+    public Process(float durationPerItem, int amount, float boostTime, float boostCooldown, string resultItemName, int resultItemAmount)
     {
+        this.ResultItemName = resultItemName;
+        this.ResultItemAmount = resultItemAmount;
+
         this.AmountToDo = amount;
         this.AmountDone = 0;
         this.DurationPerItem = durationPerItem;
@@ -58,9 +63,9 @@ public class Process
         double timeSinceLastTick = curTime - LastTickTime;
         TimeLeft -= timeSinceLastTick;
 
-        HandleFinishingProcess();
-
         LastTickTime = curTime;
+
+        HandleFinishingProcess();
 
         ProcessTick.Invoke();
     }
@@ -83,29 +88,24 @@ public class Process
 
     void HandleFinishingProcess()
     {
-        int amountDoneWithNewtime = (int)(TimeLeft / DurationPerItem);
-        if (amountDoneWithNewtime > AmountDone)
+        // TODO: Bad calculation? what's up?
+        double amountToDoWithNewTime = TimeLeft / DurationPerItem;
+        if ((amountToDoWithNewTime + 1) < AmountToDo)
         {
             FinishItem();
-            AmountDone = amountDoneWithNewtime;
-            if (AmountDone >= AmountToDo)
+            AmountToDo--;
+            // AmountDone = amountToDoWithNewTime;
+
+            if (AmountToDo <= 0)
             {
                 FinishProcess();
             }
         }
     }
 
-    void FinishItem()
-    {
+    void FinishItem() => ProcessItemFinished.Invoke();
 
-        ProcessItemFinished.Invoke();
-    }
-
-    void FinishProcess()
-    {
-
-        ProcessFinished.Invoke();
-    }
+    void FinishProcess() => ProcessFinished.Invoke();
 
     static double TimeSinceCenturyBegin(DateTime date)
     {
