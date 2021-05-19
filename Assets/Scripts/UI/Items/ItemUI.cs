@@ -16,13 +16,18 @@ public class ItemUI : MonoBehaviour
         itemQuantityText.text = itemQuantity.ToString();
 
         // TODO: #13 Move item event listeners to parent UI script
-        item.ItemUpdated.AddListener(UpdateUI);
-        item.ItemRemoved.AddListener(() => Destroy(gameObject));
+        ItemManager.ItemUpdated.AddListener(UpdateUI);
+        ItemManager.ItemRemoved.AddListener((item) =>
+        {
+            if (item.ItemName == itemNameText.text)
+                Destroy(gameObject);
+        });
     }
 
-    private void UpdateUI(int quantity)
+    private void UpdateUI(Item item, int quantity)
     {
-        itemQuantityText.text = quantity.ToString();
+        if (item.ItemName == itemNameText.text)
+            itemQuantityText.text = quantity.ToString();
     }
 
     private void OnDisable()

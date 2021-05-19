@@ -11,6 +11,8 @@ public class ItemManager : MonoBehaviour
     public static ItemManager instance;
 
     public static UnityEvent<Item, int> NewItemAdded = new UnityEvent<Item, int>();
+    public static UnityEvent<Item, int> ItemUpdated = new UnityEvent<Item, int>();
+    public static UnityEvent<Item> ItemRemoved = new UnityEvent<Item>();
 
     [field: SerializeField] public ItemsList itemsData { get; private set; }
     [field: SerializeField] public Dictionary<string, int> itemQuantity { get; private set; }
@@ -39,8 +41,7 @@ public class ItemManager : MonoBehaviour
 
     private void OnLoggedIn()
     {
-        GetCloudItems();
-
+        // GetCloudItems();
         SetupCloudListeners();
     }
 
@@ -58,7 +59,7 @@ public class ItemManager : MonoBehaviour
             if (itemQuantity.ContainsKey(itemName))
             {
                 itemQuantity[itemName] += amount;
-                item.ItemUpdated.Invoke(itemQuantity[itemName]);
+                ItemUpdated.Invoke(item, itemQuantity[itemName]);
 
                 if (syncCloud)
                     UpdateCloudItem(itemName, itemQuantity[itemName]);
@@ -79,7 +80,7 @@ public class ItemManager : MonoBehaviour
         if (itemQuantity[itemName] > amount)
         {
             itemQuantity[itemName] -= amount;
-            itemsData.GetItemByName(itemName).ItemUpdated.Invoke(amount);
+            ItemUpdated.Invoke(itemsData.GetItemByName(itemName), amount);
             UpdateCloudItem(itemName, itemQuantity[itemName]);
         }
         else if (itemQuantity[itemName] == amount)
@@ -160,7 +161,7 @@ public class ItemManager : MonoBehaviour
 
         itemQuantity[e.Snapshot.Key] = Convert.ToInt32(e.Snapshot.Value);
 
-        itemsData.GetItemByName(e.Snapshot.Key).ItemUpdated.Invoke(itemQuantity[e.Snapshot.Key]);
+        ItemUpdated.Invoke(itemsData.GetItemByName(e.Snapshot.Key), itemQuantity[e.Snapshot.Key]);
     }
 
     private void OnGlobalInventoryItemAdded(object sender, ChildChangedEventArgs e)
