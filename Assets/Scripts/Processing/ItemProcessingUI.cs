@@ -89,7 +89,7 @@ public class ItemProcessingUI : MonoBehaviour
 
     void AnimateBoostButton()
     {
-        var howLongForNextBoost = process.NextBoostTime - process.LastTickTime;
+        var howLongForNextBoost = (process.NextBoostTime - process.LastTickTime).TotalSeconds;
         float boostRatio = (float)(howLongForNextBoost / process.BoostCooldown);
         processBoostImage.color = Color.Lerp(boostReadyColor, boostBaseColor, boostRatio);
 

@@ -113,11 +113,23 @@ public class FirebaseCommunicator : MonoBehaviour
         yield break;
     }
 
+    public string Push(string firebaseReferenceName)
+    {
+        return database.Child(firebaseReferenceName).Child(familyId.ToString()).Push().Key;
+    }
+
     public void SendObject(string objJSON, string firebaseReferenceName, Action<Task> afterSendAction)
     {
         TaskScheduler scheduler = TaskScheduler.FromCurrentSynchronizationContext();
         Debug.Log($"saving {objJSON} to {firebaseReferenceName}/{familyId.ToString()}");
         database.Child(firebaseReferenceName).Child(familyId.ToString()).SetRawJsonValueAsync(objJSON).ContinueWith(afterSendAction, scheduler);
+    }
+
+    public void SendObject(string objJSON, string firebaseReferenceName, string extraReferenceName, Action<Task> afterSendAction)
+    {
+        TaskScheduler scheduler = TaskScheduler.FromCurrentSynchronizationContext();
+        Debug.Log($"saving {objJSON} to {firebaseReferenceName}/{familyId.ToString()}/{extraReferenceName}");
+        database.Child(firebaseReferenceName).Child(familyId.ToString()).Child(extraReferenceName).SetRawJsonValueAsync(objJSON).ContinueWith(afterSendAction, scheduler);
     }
 
     public void UpdateObject(Dictionary<string, System.Object> updates, string firebaseReferenceName, Action<Task> afterUpdateAction)
@@ -147,6 +159,8 @@ public class FirebaseCommunicator : MonoBehaviour
 
         database.Child(firebaseReferenceName).Child(familyId.ToString()).Child(objectToRemove).RemoveValueAsync().ContinueWith(afterRemoveAction, scheduler);
     }
+
+
 
     public void SetupListenForValueChangedEvents(string[] firebaseReferences, EventHandler<ValueChangedEventArgs> onValueChangedAction)
     {

@@ -1,6 +1,8 @@
 using System;
+using Newtonsoft.Json;
 using UnityEngine.Events;
 
+[JsonObject(MemberSerialization.OptIn)]
 public class Process
 {
     static readonly DateTime centuryBegin = new DateTime(2001, 1, 1);
@@ -10,24 +12,40 @@ public class Process
     public UnityEvent ProcessItemFinished;
     public UnityEvent ProcessFinished;
 
+    public string Key;
+
+    [JsonProperty]
+    public string ProcessedItemName { get; private set; }
+    [JsonProperty]
     public string ResultItemName { get; private set; }
+    [JsonProperty]
     public int ResultItemAmount { get; private set; }
 
+    [JsonProperty]
     public int AmountToDo { get; private set; }
     public int AmountDone { get; private set; }
 
+    [JsonProperty]
     public float DurationPerItem { get; private set; }
 
-    public double TimeLeft { get; private set; }
-    public double LastTickTime { get; private set; }
+    [JsonProperty]
+    public float TimeLeft { get; private set; }
+    [JsonProperty]
+    public DateTime LastTickTime { get; private set; }
 
-    public double LastBoostTime { get; private set; }
-    public double NextBoostTime { get; private set; }
-    public double BoostCooldown { get; private set; }
+    public DateTime LastBoostTime { get; private set; }
+    [JsonProperty]
+    public DateTime NextBoostTime { get; private set; }
+
+    [JsonProperty]
+    public float BoostCooldown { get; private set; }
     public float BoostTimeAmount { get; private set; }
 
-    public Process(float durationPerItem, int amount, float boostTime, float boostCooldown, string resultItemName, int resultItemAmount)
+    public Process(float durationPerItem, int amount, float boostTime, float boostCooldown, string resultItemName, int resultItemAmount, string processedItemName, string key)
     {
+        this.Key = key;
+
+        this.ProcessedItemName = processedItemName;
         this.ResultItemName = resultItemName;
         this.ResultItemAmount = resultItemAmount;
 
@@ -41,29 +59,57 @@ public class Process
         this.BoostCooldown = boostCooldown;
 
         DateTime currentDate = DateTime.UtcNow;
-        LastTickTime = TimeSinceCenturyBegin(currentDate);
+        LastTickTime = currentDate;
 
-        this.NextBoostTime = LastTickTime + BoostCooldown;
 
         ProcessTick = new UnityEvent();
         ProcessBoosted = new UnityEvent();
         ProcessItemFinished = new UnityEvent();
         ProcessFinished = new UnityEvent();
+
+
+        this.NextBoostTime = LastTickTime.AddSeconds(BoostCooldown);
     }
 
-    public Process(float lastTickTime, float durationPerItem, int amount, float timeLeft)
+    [JsonConstructor]
+    public Process(float durationPerItem, int amount, float boostTimeAmount, float boostCooldown, string resultItemName, int resultItemAmount, string processedItemName, string key, float timeLeft, DateTime lastTickTime, DateTime nextBoostTime)
     {
+        this.Key = key;
+
+        this.ProcessedItemName = processedItemName;
+        this.ResultItemName = resultItemName;
+        this.ResultItemAmount = resultItemAmount;
+
+        this.AmountToDo = amount;
+        this.AmountDone = 0;
+        this.DurationPerItem = durationPerItem;
+
+        this.TimeLeft = timeLeft;
+
+        this.BoostTimeAmount = boostTimeAmount;
+        this.BoostCooldown = boostCooldown;
+
+        LastTickTime = lastTickTime;
+
+        ProcessTick = new UnityEvent();
+        ProcessBoosted = new UnityEvent();
+        ProcessItemFinished = new UnityEvent();
+        ProcessFinished = new UnityEvent();
+
+        DoTick();
+
+        this.NextBoostTime = nextBoostTime;
 
     }
 
     public void DoTick()
     {
-        double curTime = TimeSinceCenturyBegin(DateTime.UtcNow);
 
-        double timeSinceLastTick = curTime - LastTickTime;
-        TimeLeft -= timeSinceLastTick;
 
-        LastTickTime = curTime;
+        TimeSpan timeSinceLastTick = DateTime.UtcNow - LastTickTime;
+        TimeLeft -= (float)timeSinceLastTick.TotalSeconds;
+
+        LastTickTime = DateTime.UtcNow;
 
         HandleFinishingProcess();
 
@@ -72,15 +118,14 @@ public class Process
 
     public void Boost()
     {
-        double curTime = TimeSinceCenturyBegin(DateTime.UtcNow);
-
-        if (curTime >= NextBoostTime)
+        DateTime today = DateTime.UtcNow;
+        if (today >= NextBoostTime)
         {
             TimeLeft -= BoostTimeAmount;
 
             HandleFinishingProcess();
 
-            NextBoostTime = curTime + BoostCooldown;
+            NextBoostTime = today.AddSeconds(BoostCooldown);
 
             ProcessBoosted.Invoke();
         }
@@ -88,7 +133,6 @@ public class Process
 
     void HandleFinishingProcess()
     {
-        // TODO: Bad calculation? what's up?
         double amountToDoWithNewTime = TimeLeft / DurationPerItem;
         if ((amountToDoWithNewTime + 1) < AmountToDo)
         {
