@@ -41,6 +41,11 @@ public class FileUtils
         }
     }
 
+    public static void DeleteFile(string path)
+    {
+        File.Delete(path);
+    }
+
     private static void AddText(FileStream fs, string value)
     {
         byte[] info = new UTF8Encoding(true).GetBytes(value);

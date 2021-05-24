@@ -12,6 +12,7 @@ public class FirebaseCommunicator : MonoBehaviour
 {
     public static FirebaseCommunicator instance;
     public static UnityEvent LoggedIn = new UnityEvent();
+    public static UnityEvent LoggedOut = new UnityEvent();
     public static string familyIDSavePath = "family.dat";
 
     public FirebaseUser User { get; private set; }
@@ -50,8 +51,14 @@ public class FirebaseCommunicator : MonoBehaviour
         if (!string.IsNullOrEmpty(familyId))
         {
             Debug.Log("Already have id! Logging in...");
-            StartCoroutine(LoginAnonymously());
+            LoginAnonymously(familyId);
         }
+    }
+
+    public void LoginAnonymously(string familyId)
+    {
+        this.familyId = Int32.Parse(familyId);
+        StartCoroutine(LoginAnonymously());
     }
 
     public IEnumerator LoginAnonymously()
@@ -83,6 +90,12 @@ public class FirebaseCommunicator : MonoBehaviour
         Debug.LogFormat("User signed in successfully: {0} ({1})", user.DisplayName, user.UserId);
         LoggedIn.Invoke();
         yield break;
+    }
+
+    public void Logout()
+    {
+        FileUtils.DeleteFile(FileUtils.GetPathToPersistent(familyIDSavePath));
+        LoggedOut.Invoke();
     }
 
     public IEnumerator LoginWithEmailAndPassword(string email, string password, Action<bool> afterLoginAction)

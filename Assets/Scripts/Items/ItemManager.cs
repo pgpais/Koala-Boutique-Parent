@@ -42,6 +42,7 @@ public class ItemManager : MonoBehaviour
     private void OnLoggedIn()
     {
         // GetCloudItems();
+        itemQuantity = new Dictionary<string, int>();
         SetupCloudListeners();
     }
 

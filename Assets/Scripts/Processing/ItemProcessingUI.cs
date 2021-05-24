@@ -75,7 +75,7 @@ public class ItemProcessingUI : MonoBehaviour
 
     void UpdateProcessSlider()
     {
-        processSlider.value = 1f - (float)process.TimeLeft / (process.DurationPerItem * process.AmountToDo);
+        processSlider.value = 1f - (process.TimeLeft / (process.DurationPerItem * process.AmountToDo));
 
         AnimateBoostButton();
 
@@ -93,7 +93,8 @@ public class ItemProcessingUI : MonoBehaviour
         float boostRatio = (float)(howLongForNextBoost / process.BoostCooldown);
         processBoostImage.color = Color.Lerp(boostReadyColor, boostBaseColor, boostRatio);
 
-        anim.SetBool("BoostReady", howLongForNextBoost <= 0);
+        if (anim)
+            anim.SetBool("BoostReady", howLongForNextBoost <= 0);
 
     }
 
@@ -102,7 +103,8 @@ public class ItemProcessingUI : MonoBehaviour
         processBoostImage.color = boostBaseColor;
         howLongForNextBoost = timeBetweenProcessBosts;
 
-        anim.SetBool("BoostReady", false);
+        if (anim)
+            anim.SetBool("BoostReady", false);
     }
 
     void StartProcessing()

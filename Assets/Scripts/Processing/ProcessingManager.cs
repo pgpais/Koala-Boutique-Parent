@@ -7,10 +7,11 @@ using UnityEngine.Events;
 
 public class ProcessingManager : MonoBehaviour
 {
-    static string firebaseReferenceName = "processes";
-
+    public static ProcessingManager instance;
+    public static string firebaseReferenceName = "processes";
     public static UnityEvent<string, Process> ProcessCreated = new UnityEvent<string, Process>();
 
+    [SerializeField] NewProcessMenu newProcessMenu;
     [SerializeField] bool startProcessing;
 
     List<Process> inProcess;
@@ -19,6 +20,15 @@ public class ProcessingManager : MonoBehaviour
     {
         inProcess = new List<Process>();
         FirebaseCommunicator.LoggedIn.AddListener(Initialize);
+
+        if (instance != null)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            instance = this;
+        }
     }
 
     // Start is called before the first frame update
@@ -74,6 +84,11 @@ public class ProcessingManager : MonoBehaviour
         {
             inProcess[i].DoTick();
         }
+    }
+
+    public void ShowNewProcessMenu(string itemName, int minAmount, int maxAmount)
+    {
+        newProcessMenu.Init(itemName, minAmount, maxAmount);
     }
 
     public void StartProcessing(string itemName, int amount)

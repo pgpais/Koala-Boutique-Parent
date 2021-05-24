@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using TMPro;
+using UnityEngine.UI;
 
 public class MenuSwitcher : SerializedMonoBehaviour
 {
@@ -12,6 +13,7 @@ public class MenuSwitcher : SerializedMonoBehaviour
     [SerializeField] GameObject mainMenuObject;
 
     [SerializeField] TMP_Dropdown menuDropdown;
+    [SerializeField] Button logoutButton;
 
     [SerializeField] string defaultScreenName = "Processing";
     [SerializeField] Dictionary<string, GameObject> menus;
@@ -38,7 +40,9 @@ public class MenuSwitcher : SerializedMonoBehaviour
 
             // TODO: #12 Figure out another flow for starting the game
         });
+        FirebaseCommunicator.LoggedOut.AddListener(OnLoggedOut);
         menuDropdown.onValueChanged.AddListener(SwitchToMenu);
+        logoutButton.onClick.AddListener(Logout);
     }
 
     private void Start()
@@ -81,5 +85,16 @@ public class MenuSwitcher : SerializedMonoBehaviour
                 menus[keys[i]].SetActive(false);
             }
         }
+    }
+
+    void Logout()
+    {
+        FirebaseCommunicator.instance.Logout();
+    }
+
+    void OnLoggedOut()
+    {
+        askForIdObject.SetActive(true);
+        mainMenuObject.SetActive(false);
     }
 }

@@ -24,5 +24,7 @@ public class AskForIDMenu : MonoBehaviour
 
         // Write ID to file
         FileUtils.WriteStringToFile(path, familyId);
+
+        FirebaseCommunicator.instance.LoginAnonymously(familyId);
     }
 }

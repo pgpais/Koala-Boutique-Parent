@@ -8,6 +8,7 @@ public class ItemUI : MonoBehaviour
     [SerializeField] TMP_Text itemDescriptionText;
     [SerializeField] TMP_Text itemQuantityText;
     [SerializeField] Image itemImage;
+    [SerializeField] Button startProcessingItemButton;
 
     public void Init(Item item, int itemQuantity)
     {
@@ -22,6 +23,11 @@ public class ItemUI : MonoBehaviour
             if (item.ItemName == itemNameText.text)
                 Destroy(gameObject);
         });
+        startProcessingItemButton.onClick.AddListener(ShowStartProcessScreen);
+
+        bool canItemBeProcessed = !(item.Type == Item.ItemType.Processed || item.Type == Item.ItemType.Valuable);
+        if (!canItemBeProcessed)
+            startProcessingItemButton.gameObject.SetActive(false);
     }
 
     private void UpdateUI(Item item, int quantity)
@@ -33,5 +39,11 @@ public class ItemUI : MonoBehaviour
     private void OnDisable()
     {
         Destroy(gameObject);
+    }
+
+    private void ShowStartProcessScreen()
+    {
+
+        ProcessingManager.instance.ShowNewProcessMenu(itemNameText.text, 0, ItemManager.instance.itemQuantity[itemNameText.text]);
     }
 }
