@@ -34,10 +34,12 @@ public class MenuSwitcher : SerializedMonoBehaviour
 
         FirebaseCommunicator.LoggedIn.AddListener(() =>
         {
+            Debug.Log("Logged in! Enabling menu...");
             askForIdObject.SetActive(false);
             mainMenuObject.SetActive(true);
-            Debug.Log("Logged in! Enabling menu...");
 
+
+            PopulateDropdownAndSetDefault();
             // TODO: #12 Figure out another flow for starting the game
         });
         FirebaseCommunicator.LoggedOut.AddListener(OnLoggedOut);

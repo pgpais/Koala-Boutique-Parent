@@ -13,12 +13,18 @@ public class ItemListUI : MonoBehaviour
 
     private void Start()
     {
-        ItemManager.NewItemAdded.AddListener(NewItemAdded);
+
     }
 
     private void OnEnable()
     {
+        ItemManager.NewItemAdded.AddListener(NewItemAdded);
         Init(ItemManager.instance.itemQuantity);
+    }
+
+    private void OnDisable()
+    {
+        ItemManager.NewItemAdded.RemoveListener(NewItemAdded);
     }
 
     public void Init(Dictionary<string, int> itemsQuantity)
