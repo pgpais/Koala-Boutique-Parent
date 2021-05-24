@@ -12,13 +12,14 @@ public class FirebaseCommunicator : MonoBehaviour
 {
     public static FirebaseCommunicator instance;
     public static UnityEvent LoggedIn = new UnityEvent();
+    public static string familyIDSavePath = "family.dat";
 
     public FirebaseUser User { get; private set; }
 
     public int FamilyId => familyId;
     [SerializeField] int familyId = 1234;
 
-    Firebase.Auth.FirebaseAuth auth;
+    FirebaseAuth auth;
     DatabaseReference database;
 
 
@@ -41,13 +42,21 @@ public class FirebaseCommunicator : MonoBehaviour
 
         auth = Firebase.Auth.FirebaseAuth.DefaultInstance;
         database = FirebaseDatabase.DefaultInstance.RootReference;
+    }
 
-        StartCoroutine(LoginAnonymously());
+    private void Start()
+    {
+        string familyId = FileUtils.ReadFileToString(FileUtils.GetPathToPersistent(familyIDSavePath));
+        if (!string.IsNullOrEmpty(familyId))
+        {
+            Debug.Log("Already have id! Logging in...");
+            StartCoroutine(LoginAnonymously());
+        }
     }
 
     public IEnumerator LoginAnonymously()
     {
-        var task = new YieldTask<Firebase.Auth.FirebaseUser>(auth.SignInAnonymouslyAsync());
+        var task = new YieldTask<FirebaseUser>(auth.SignInAnonymouslyAsync());
         yield return task;
 
         if (task.Task.IsCanceled)
