@@ -907,7 +907,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.95565015}
-  m_AnchoredPosition: {x: 0, y: 0.34466553}
+  m_AnchoredPosition: {x: 0, y: 0.3446045}
   m_SizeDelta: {x: 0, y: 0.6890869}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &133374764
@@ -1075,14 +1075,14 @@ MonoBehaviour:
   m_VerticalScrollbarEventHandler: {fileID: 0}
   m_LayoutGroup: {fileID: 0}
   m_ScrollSensitivity: 1
-  m_ContentType: 0
+  m_ContentType: 2
   m_InputType: 0
   m_AsteriskChar: 42
-  m_KeyboardType: 0
+  m_KeyboardType: 4
   m_LineType: 0
   m_HideMobileInput: 0
   m_HideSoftKeyboard: 0
-  m_CharacterValidation: 0
+  m_CharacterValidation: 2
   m_RegexValue: 
   m_GlobalPointSize: 14
   m_CharacterLimit: 0
@@ -7958,7 +7958,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.95565015}
-  m_AnchoredPosition: {x: 0, y: -0.0044555664}
+  m_AnchoredPosition: {x: 0, y: -0.0045166016}
   m_SizeDelta: {x: 0, y: -0.008911133}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1226501847
@@ -10495,7 +10495,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.95565015}
-  m_AnchoredPosition: {x: 0, y: 0.34466553}
+  m_AnchoredPosition: {x: 0, y: 0.3446045}
   m_SizeDelta: {x: 0, y: 0.6890869}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1650380973
