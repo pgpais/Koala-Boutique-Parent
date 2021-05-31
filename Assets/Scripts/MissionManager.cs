@@ -65,8 +65,16 @@ public class MissionManager : MonoBehaviour
             if (task.IsCompleted)
             {
                 Debug.Log("yey got mission");
-                CurrentMission = JsonConvert.DeserializeObject<Mission>(task.Result.GetRawJsonValue());
-                MissionUpdated.Invoke(CurrentMission);
+                string json = task.Result.GetRawJsonValue();
+                if (!string.IsNullOrEmpty(json))
+                {
+                    CurrentMission = JsonConvert.DeserializeObject<Mission>(json);
+                    MissionUpdated.Invoke(CurrentMission);
+                }
+                else
+                {
+                    CurrentMission = null;
+                }
             }
         });
     }

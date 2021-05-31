@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
 public class MissionInfoScreen : MonoBehaviour
 {
@@ -19,12 +20,27 @@ public class MissionInfoScreen : MonoBehaviour
     {
         // Get mission from manager and update values
         Mission currentMission = GetMission();
-        UpdateUI(currentMission);
+        if (currentMission != null)
+        {
+            UpdateUI(currentMission);
+        }
+        else
+        {
+            ClearUI();
+        }
 
         // listen for onChangeEvents 
         MissionManager.MissionUpdated.AddListener(OnMissionUpdated);
 
         createMissionButton.onClick.AddListener(SwitchToCreateMissionScreen);
+    }
+
+    private void ClearUI()
+    {
+        seedText.text = "";
+        zoneText.text = "";
+        difficultyText.text = "";
+        missionCompletedText.text = "";
     }
 
     private Mission GetMission()
