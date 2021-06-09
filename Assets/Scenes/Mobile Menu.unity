@@ -9952,6 +9952,7 @@ GameObject:
   - component: {fileID: 1506964902}
   - component: {fileID: 1506964903}
   - component: {fileID: 1506964904}
+  - component: {fileID: 1506964905}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -10025,6 +10026,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   newProcessMenu: {fileID: 1896749788}
   startProcessing: 0
+--- !u!114 &1506964905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1506964899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2668d03eb0a2d2a4d8f7eb4db8836326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: costModifierToday
+      Entry: 6
+      Data: 
+  testUpload: 0
 --- !u!1 &1566409786
 GameObject:
   m_ObjectHideFlags: 0

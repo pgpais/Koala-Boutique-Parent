@@ -76,6 +76,16 @@ public class ItemManager : MonoBehaviour
         }
     }
 
+    public void SellItem(string itemName, int amount)
+    {
+        if (!HasEnoughItem(itemName, amount))
+        {
+            return;
+        }
+
+        // TODO: get gold and remove item
+    }
+
     public void RemoveItem(string itemName, int amount)
     {
         if (itemQuantity[itemName] > amount)

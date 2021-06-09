@@ -6,6 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ItemsList", menuName = "Ye Olde Shop/ItemsList", order = 0)]
 public class ItemsList : ScriptableObject
 {
+    public List<Item> Items => items;
     [SerializeField] List<Item> items;
 
     public bool ContainsByName(string itemName)

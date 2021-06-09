@@ -42,6 +42,10 @@ public class Item : ScriptableObject
     [HideIf("@this.Type == ItemType.Valuable || this.Type == ItemType.Processed")]
     [SerializeField] float processDuration = 15f;
 
+    [field: SerializeField] public int GoldValue { get; private set; } = 100;
+    [field: SerializeField] public int MaxModifier { get; private set; } = 10;
+    [field: SerializeField] public int MinModifier { get; private set; } = -10;
+
 
     internal void InitializeEvent()
     {

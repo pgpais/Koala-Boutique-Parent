@@ -147,11 +147,35 @@ public class FirebaseCommunicator : MonoBehaviour
         database.Child(firebaseReferenceName).Child(familyId.ToString()).SetRawJsonValueAsync(objJSON).ContinueWith(afterSendAction, scheduler);
     }
 
+
     public void SendObject(string objJSON, string firebaseReferenceName, string extraReferenceName, Action<Task> afterSendAction)
     {
         TaskScheduler scheduler = TaskScheduler.FromCurrentSynchronizationContext();
         Debug.Log($"saving {objJSON} to {firebaseReferenceName}/{familyId.ToString()}/{extraReferenceName}");
         database.Child(firebaseReferenceName).Child(familyId.ToString()).Child(extraReferenceName).SetRawJsonValueAsync(objJSON).ContinueWith(afterSendAction, scheduler);
+    }
+
+    /// <summary>
+    /// Saves object to cloud without familyId
+    /// </summary>
+    /// <param name="objJSON"></param>
+    /// <param name="firebaseReferenceNames"></param>
+    /// <param name="afterSendAction"></param>
+    public void SendObject(string objJSON, string[] firebaseReferenceNames, Action<Task> afterSendAction)
+    {
+        TaskScheduler scheduler = TaskScheduler.FromCurrentSynchronizationContext();
+        Debug.Log($"saving {objJSON} to {firebaseReferenceNames}");
+
+        var db = database;
+        Debug.Log(db.Key);
+
+        foreach (var referenceName in firebaseReferenceNames)
+        {
+            Debug.Log(referenceName);
+            db = db.Child(referenceName);
+            Debug.Log(db.Key);
+        }
+        db.SetRawJsonValueAsync(objJSON).ContinueWith(afterSendAction, scheduler);
     }
 
     public void UpdateObject(Dictionary<string, System.Object> updates, string firebaseReferenceName, Action<Task> afterUpdateAction)
@@ -172,6 +196,21 @@ public class FirebaseCommunicator : MonoBehaviour
         Debug.Log($"getting from {firebaseReferenceName}/{familyId.ToString()}");
 
         database.Child(firebaseReferenceName).Child(familyId.ToString()).GetValueAsync().ContinueWith(afterSendAction, scheduler);
+    }
+
+    public void GetObject(string[] firebaseReferenceNames, Action<Task<DataSnapshot>> afterSendAction)
+    {
+        TaskScheduler scheduler = TaskScheduler.FromCurrentSynchronizationContext();
+        Debug.Log($"getting from {firebaseReferenceNames}/{familyId.ToString()}");
+
+        var db = database;
+
+        foreach (var reference in firebaseReferenceNames)
+        {
+            db = db.Child(reference);
+        }
+
+        db.GetValueAsync().ContinueWith(afterSendAction, scheduler);
     }
 
     public void RemoveObject(string firebaseReferenceName, string objectToRemove, Action<Task, object> afterRemoveAction)
