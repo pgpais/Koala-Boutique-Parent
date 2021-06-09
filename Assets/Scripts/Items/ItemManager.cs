@@ -17,6 +17,8 @@ public class ItemManager : MonoBehaviour
     [field: SerializeField] public ItemsList itemsData { get; private set; }
     [field: SerializeField] public Dictionary<string, int> itemQuantity { get; private set; }
 
+    [SerializeField] SellScreen SellMenu;
+
 
     private void Awake()
     {
@@ -73,6 +75,14 @@ public class ItemManager : MonoBehaviour
                 if (syncCloud)
                     UpdateCloudItem(itemName, amount);
             }
+        }
+    }
+
+    public void ShowSellMenu(string itemName, int minAmount, int maxAmount)
+    {
+        if (SellMenu != null)
+        {
+            SellMenu.Init(itemName, minAmount, maxAmount);
         }
     }
 
@@ -157,6 +167,7 @@ public class ItemManager : MonoBehaviour
             }
         });
     }
+
 
     private void SetupCloudListeners()
     {

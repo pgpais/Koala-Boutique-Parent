@@ -11,8 +11,12 @@ public class ItemUI : MonoBehaviour
     [SerializeField] Button startProcessingItemButton;
     [SerializeField] Button sellItemButton;
 
+    private Item item;
+
     public void Init(Item item, int itemQuantity)
     {
+        this.item = item;
+
         itemNameText.text = item.ItemName;
         itemDescriptionText.text = item.Description;
         itemQuantityText.text = itemQuantity.ToString();
@@ -26,7 +30,7 @@ public class ItemUI : MonoBehaviour
         });
         startProcessingItemButton.onClick.AddListener(ShowStartProcessScreen);
         // TODO: #25 Make amount selection screen (copy from processScreen)
-        sellItemButton.onClick.AddListener(() => ItemManager.instance.SellItem(itemNameText.text, 1));
+        sellItemButton.onClick.AddListener(ShowSellScreen);
 
         bool canItemBeProcessed = !(item.Type == Item.ItemType.Processed || item.Type == Item.ItemType.Valuable);
         if (!canItemBeProcessed)
@@ -48,5 +52,10 @@ public class ItemUI : MonoBehaviour
     {
 
         ProcessingManager.instance.ShowNewProcessMenu(itemNameText.text, 0, ItemManager.instance.itemQuantity[itemNameText.text]);
+    }
+
+    private void ShowSellScreen()
+    {
+        ItemManager.instance.ShowSellMenu(item.ItemName, 0, ItemManager.instance.itemQuantity[item.ItemName]);
     }
 }

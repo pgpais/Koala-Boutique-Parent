@@ -8,26 +8,7 @@ public class MarketPrices : SerializedMonoBehaviour
 {
     public static MarketPrices instance;
     public static string referenceName = "marketPrices";
-    // TODO: hardcoded market prices by day (for a month? repeat?)
 
-    /*
-    marketCosts: {
-        "Monday":{
-            "0": {
-                "item1": 123,
-                "item2": 321
-            },
-            "1": {
-                "item1": 143,
-                "item2": 327
-            }
-        },
-        "Tuesday":{
-            "item1": 121,
-            "item2": 220
-        }
-    }
-    */
     [SerializeField] List<Dictionary<string, int>> costModifierToday;
 
     [SerializeField] bool testUpload;
