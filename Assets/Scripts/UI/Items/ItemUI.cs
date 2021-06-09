@@ -9,6 +9,7 @@ public class ItemUI : MonoBehaviour
     [SerializeField] TMP_Text itemQuantityText;
     [SerializeField] Image itemImage;
     [SerializeField] Button startProcessingItemButton;
+    [SerializeField] Button sellItemButton;
 
     public void Init(Item item, int itemQuantity)
     {
@@ -24,6 +25,8 @@ public class ItemUI : MonoBehaviour
                 Destroy(gameObject);
         });
         startProcessingItemButton.onClick.AddListener(ShowStartProcessScreen);
+        // TODO: #25 Make amount selection screen (copy from processScreen)
+        sellItemButton.onClick.AddListener(() => ItemManager.instance.SellItem(itemNameText.text, 1));
 
         bool canItemBeProcessed = !(item.Type == Item.ItemType.Processed || item.Type == Item.ItemType.Valuable);
         if (!canItemBeProcessed)

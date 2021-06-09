@@ -6,6 +6,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 public class MarketPrices : SerializedMonoBehaviour
 {
+    public static MarketPrices instance;
     public static string referenceName = "marketPrices";
     // TODO: hardcoded market prices by day (for a month? repeat?)
 
@@ -36,6 +37,15 @@ public class MarketPrices : SerializedMonoBehaviour
 
     private void Awake()
     {
+        if (instance != null)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            instance = this;
+        }
+
         FirebaseCommunicator.LoggedIn.AddListener(GetPricesForToday);
     }
 
@@ -83,6 +93,11 @@ public class MarketPrices : SerializedMonoBehaviour
         });
     }
 
+    public int GetCostModifierForItem(string itemName)
+    {
+        return costModifierToday[indexOfActiveCosts][itemName];
+    }
+
     public static List<Dictionary<string, int>> GenerateMarketPrices()
     {
         List<Dictionary<string, int>> newDayPrices = new List<Dictionary<string, int>>();
@@ -123,6 +138,4 @@ public class MarketPrices : SerializedMonoBehaviour
             }
         });
     }
-
-
 }

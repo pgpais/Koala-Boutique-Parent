@@ -9953,6 +9953,7 @@ GameObject:
   - component: {fileID: 1506964903}
   - component: {fileID: 1506964904}
   - component: {fileID: 1506964905}
+  - component: {fileID: 1506964906}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -10050,6 +10051,20 @@ MonoBehaviour:
     - Name: costModifierToday
       Entry: 6
       Data: 
+  testUpload: 0
+--- !u!114 &1506964906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1506964899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 422354da128d7c846a0e306a8925dbbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <CurrentGold>k__BackingField: 0
   testUpload: 0
 --- !u!1 &1566409786
 GameObject:

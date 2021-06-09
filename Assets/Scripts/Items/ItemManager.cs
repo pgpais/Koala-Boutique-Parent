@@ -83,7 +83,8 @@ public class ItemManager : MonoBehaviour
             return;
         }
 
-        // TODO: get gold and remove item
+        RemoveItem(itemName, amount);
+        GoldManager.instance.SellItem(itemsData.GetItemByName(itemName), amount);
     }
 
     public void RemoveItem(string itemName, int amount)
