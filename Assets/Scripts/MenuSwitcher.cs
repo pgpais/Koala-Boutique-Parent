@@ -9,6 +9,8 @@ public class MenuSwitcher : SerializedMonoBehaviour
 {
     public static MenuSwitcher instance;
 
+    [SerializeField] Button logoutButton;
+
     [SerializeField] GameObject askForIdObject;
     [SerializeField] GameObject mainMenuObject;
 
@@ -50,7 +52,7 @@ public class MenuSwitcher : SerializedMonoBehaviour
         });
         FirebaseCommunicator.LoggedOut.AddListener(OnLoggedOut);
         // menuDropdown.onValueChanged.AddListener(SwitchToMenu);
-        // logoutButton.onClick.AddListener(Logout);
+        logoutButton.onClick.AddListener(Logout);
     }
 
     private void Start()
