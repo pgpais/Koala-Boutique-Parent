@@ -18,6 +18,7 @@ public class Item : ScriptableObject
 
     public UnityEvent<int> ItemUpdated { get; private set; }
     public UnityEvent ItemRemoved { get; private set; }
+    [field: SerializeField] public Sprite ItemSprite { get; private set; }
     [field: SerializeField] public string ItemName { get; private set; }
     [field: SerializeField] public string Description { get; private set; }
     [field: SerializeField] public ItemType Type { get; private set; }
