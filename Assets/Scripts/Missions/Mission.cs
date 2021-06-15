@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 [Serializable]
 public class Mission
@@ -10,6 +11,8 @@ public class Mission
     public MissionZone zone;
     public MissionDifficulty difficulty;
 
+    public List<string> BoughtBuffs;
+
 
 
     public Mission()
@@ -18,10 +21,11 @@ public class Mission
         completed = false;
     }
 
-    public Mission(MissionZone zone, MissionDifficulty difficulty) : this()
+    public Mission(MissionZone zone, MissionDifficulty difficulty, List<string> buffNames) : this()
     {
         this.zone = zone;
         this.difficulty = difficulty;
+        this.BoughtBuffs = buffNames;
     }
 
     public string GetFirebaseReferenceName() => firebaseReferenceName;

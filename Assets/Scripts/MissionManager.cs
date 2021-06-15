@@ -45,8 +45,14 @@ public class MissionManager : MonoBehaviour
 
     public void CreateMission(MissionZone zone, MissionDifficulty difficulty)
     {
-        CurrentMission = new Mission(zone, difficulty);
+        CurrentMission = new Mission(zone, difficulty, new List<string>());
 
+        SaveMission(CurrentMission);
+    }
+
+    public void CreateMission(MissionZone zone, MissionDifficulty difficulty, List<string> buffs)
+    {
+        CurrentMission = new Mission(zone, difficulty, buffs);
 
         SaveMission(CurrentMission);
     }

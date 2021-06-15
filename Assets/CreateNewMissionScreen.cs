@@ -10,6 +10,10 @@ public class CreateNewMissionScreen : MonoBehaviour
 {
     [SerializeField] TMP_Dropdown missionZone;
     [SerializeField] TMP_Dropdown missionDifficulty;
+    [Tooltip("Buffs that can be sent on the mission")]
+    [SerializeField] BuffList supportBuffs;
+    [SerializeField] ToggleGroup supportBuffsGroup;
+    [SerializeField] BuffUI buffUIPrefab;
     // TODO: #11 Add items to missions
 
     [SerializeField] Button createMissionButton;
@@ -28,6 +32,7 @@ public class CreateNewMissionScreen : MonoBehaviour
     void Start()
     {
         PopulateDropdowns();
+        PopulateSupportItems();
 
         createMissionButton.onClick.AddListener(OnCreateMission);
     }
@@ -50,8 +55,14 @@ public class CreateNewMissionScreen : MonoBehaviour
     {
         var zone = (MissionZone)missionZone.value;
         var difficulty = (MissionDifficulty)missionDifficulty.value;
+        List<string> buffNames = new List<string>();
+        foreach (var toggle in supportBuffsGroup.ActiveToggles())
+        {
+            BuffUI buff = toggle.GetComponentInParent<BuffUI>();
+            buffNames.Add(buff.BuffName);
+        }
 
-        MissionManager.instance.CreateMission(zone, difficulty);
+        MissionManager.instance.CreateMission(zone, difficulty, buffNames);
         SwitchToMissionInfoScreen();
     }
 
@@ -64,6 +75,14 @@ public class CreateNewMissionScreen : MonoBehaviour
         missionDifficulty.ClearOptions();
         string[] difficultyNames = Enum.GetNames(typeof(MissionDifficulty));
         missionDifficulty.AddOptions(new List<string>(difficultyNames));
+    }
+
+    void PopulateSupportItems()
+    {
+        foreach (var buff in supportBuffs.buffs)
+        {
+            Instantiate(buffUIPrefab, supportBuffsGroup.transform).Init(buff, supportBuffsGroup);
+        }
     }
 
     void SwitchToMissionInfoScreen()
