@@ -32,15 +32,12 @@ public class ItemListUI : MonoBehaviour
         var items = itemsQuantity.Keys;
         foreach (var itemName in items)
         {
-            Debug.Log("trying item " + itemName);
             var itemdata = ItemManager.instance.itemsData;
             if (itemdata == null)
                 Debug.LogError("NULL ITEMDATA");
-            Debug.Log("got item data");
             var item = itemdata.GetItemByName(itemName);
             if (item == null)
                 Debug.LogError("NULL ITEM");
-            Debug.Log("Instantiating item");
             if (itemUIPrefab == null)
                 Debug.LogError("NULL PREFAB");
             Instantiate(itemUIPrefab, transform).Init(item, itemsQuantity[itemName]);
