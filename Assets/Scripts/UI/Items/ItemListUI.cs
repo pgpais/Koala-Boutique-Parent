@@ -46,7 +46,6 @@ public class ItemListUI : MonoBehaviour
 
     public void NewItemAdded(Item item, int itemQuantity)
     {
-        Debug.Log("Instantiating item");
         Instantiate(itemUIPrefab, transform).Init(item, itemQuantity);
     }
 }
