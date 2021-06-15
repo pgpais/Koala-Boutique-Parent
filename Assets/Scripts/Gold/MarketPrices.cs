@@ -13,6 +13,8 @@ public class MarketPrices : SerializedMonoBehaviour
 
     public static UnityEvent GotMarketPrices = new UnityEvent();
 
+    public bool hasPrices => costModifierToday != null;
+
     [SerializeField] List<Dictionary<string, int>> costModifierToday;
 
     [SerializeField] bool testUpload;

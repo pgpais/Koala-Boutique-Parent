@@ -12,6 +12,8 @@ public class ItemUI : MonoBehaviour
     [SerializeField] Button startProcessingItemButton;
     [SerializeField] Button sellItemButton;
 
+    private bool available = false;
+
     private Item item;
 
     private void Awake()
@@ -25,25 +27,33 @@ public class ItemUI : MonoBehaviour
 
         itemNameText.text = item.ItemName;
         itemDescriptionText.text = item.Description;
-        itemQuantityText.text = itemQuantity.ToString();
         this.itemValueText.transform.parent.gameObject.SetActive(false);
 
-        // TODO: #29 Add Item images
+        available = true;
+        MakeAvailable(itemQuantity);
 
-        // TODO: #13 Move item event listeners to parent UI script
-        ItemManager.ItemUpdated.AddListener(UpdateUI);
-        ItemManager.ItemRemoved.AddListener((item) =>
+        if (MarketPrices.instance.hasPrices)
         {
-            if (item.ItemName == itemNameText.text)
-                Destroy(gameObject);
-        });
-        startProcessingItemButton.onClick.AddListener(ShowStartProcessScreen);
-        // TODO: #25 Make amount selection screen (copy from processScreen)
-        sellItemButton.onClick.AddListener(ShowSellScreen);
+            UpdateItemPrices();
+        }
+    }
 
-        bool canItemBeProcessed = !(item.Type == Item.ItemType.Processed || item.Type == Item.ItemType.Valuable);
-        if (!canItemBeProcessed)
-            startProcessingItemButton.gameObject.SetActive(false);
+    public void Init(Item item)
+    {
+        this.item = item;
+
+        itemNameText.text = item.ItemName;
+        itemDescriptionText.text = item.Description;
+        this.itemValueText.transform.parent.gameObject.SetActive(false);
+
+        available = false;
+        MakeUnavailable();
+
+        if (MarketPrices.instance.hasPrices)
+        {
+            UpdateItemPrices();
+        }
+
     }
 
     private void UpdateUI(Item item, int quantity)
@@ -52,8 +62,14 @@ public class ItemUI : MonoBehaviour
             itemQuantityText.text = quantity.ToString();
     }
 
+    private void OnEnable()
+    {
+        MarketPrices.GotMarketPrices.AddListener(UpdateItemPrices);
+    }
+
     private void OnDisable()
     {
+        MarketPrices.GotMarketPrices.RemoveListener(UpdateItemPrices);
         Destroy(gameObject);
     }
 
@@ -75,5 +91,33 @@ public class ItemUI : MonoBehaviour
         int itemValue = item.GoldValue;
         itemValue += MarketPrices.instance.GetCostModifierForItem(item.ItemName);
         this.itemValueText.text = itemValue.ToString();
+    }
+
+    public void MakeUnavailable()
+    {
+        itemQuantityText.gameObject.SetActive(false);
+        sellItemButton.gameObject.SetActive(false);
+        startProcessingItemButton.gameObject.SetActive(false);
+    }
+
+    public void MakeAvailable(int itemQuantity)
+    {
+        itemQuantityText.gameObject.SetActive(true);
+        sellItemButton.gameObject.SetActive(true);
+        startProcessingItemButton.gameObject.SetActive(true);
+
+        itemQuantityText.text = itemQuantity.ToString();
+
+        // TODO: #29 Add Item images
+
+        // TODO: #13 Move item event listeners to parent UI script
+        ItemManager.ItemUpdated.AddListener(UpdateUI);
+        startProcessingItemButton.onClick.AddListener(ShowStartProcessScreen);
+        // TODO: #25 Make amount selection screen (copy from processScreen)
+        sellItemButton.onClick.AddListener(ShowSellScreen);
+
+        bool canItemBeProcessed = !(item.Type == Item.ItemType.Processed || item.Type == Item.ItemType.Valuable);
+        if (!canItemBeProcessed)
+            startProcessingItemButton.gameObject.SetActive(false);
     }
 }

@@ -43,8 +43,8 @@ public class ItemManager : MonoBehaviour
 
     private void OnLoggedIn()
     {
-        // GetCloudItems();
         itemQuantity = new Dictionary<string, int>();
+        GetCloudItems();
         SetupCloudListeners();
     }
 
@@ -162,7 +162,7 @@ public class ItemManager : MonoBehaviour
                 Dictionary<string, object> dictionary = task.Result.Value as Dictionary<string, object>;
                 foreach (var key in dictionary.Keys)
                 {
-                    AddItem(key, Convert.ToInt32(dictionary[key]), false);
+                    itemQuantity[key] = Convert.ToInt32(dictionary[key]);
                 }
             }
         });
@@ -202,6 +202,6 @@ public class ItemManager : MonoBehaviour
 
         itemQuantity.Remove(e.Snapshot.Key);
 
-        itemsData.GetItemByName(e.Snapshot.Key).ItemRemoved.Invoke();
+        ItemRemoved.Invoke(itemsData.GetItemByName(e.Snapshot.Key));
     }
 }
