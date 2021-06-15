@@ -11,7 +11,7 @@ public class Mission
     public MissionZone zone;
     public MissionDifficulty difficulty;
 
-    public List<string> BoughtBuffs;
+    public List<string> boughtBuffs;
 
 
 
@@ -25,7 +25,7 @@ public class Mission
     {
         this.zone = zone;
         this.difficulty = difficulty;
-        this.BoughtBuffs = buffNames;
+        this.boughtBuffs = buffNames;
     }
 
     public string GetFirebaseReferenceName() => firebaseReferenceName;
