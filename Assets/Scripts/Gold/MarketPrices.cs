@@ -4,10 +4,14 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Events;
+
 public class MarketPrices : SerializedMonoBehaviour
 {
     public static MarketPrices instance;
     public static string referenceName = "marketPrices";
+
+    public static UnityEvent GotMarketPrices = new UnityEvent();
 
     [SerializeField] List<Dictionary<string, int>> costModifierToday;
 
@@ -70,6 +74,7 @@ public class MarketPrices : SerializedMonoBehaviour
                 string json = task.Result.GetRawJsonValue();
                 costModifierToday = JsonConvert.DeserializeObject<List<Dictionary<string, int>>>(json);
                 curDay = DateTime.ParseExact(task.Result.Key, "yyyyMMdd", null);
+                GotMarketPrices.Invoke();
             }
         });
     }

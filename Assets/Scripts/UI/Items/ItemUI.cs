@@ -7,11 +7,17 @@ public class ItemUI : MonoBehaviour
     [SerializeField] TMP_Text itemNameText;
     [SerializeField] TMP_Text itemDescriptionText;
     [SerializeField] TMP_Text itemQuantityText;
+    [SerializeField] TMP_Text itemValueText;
     [SerializeField] Image itemImage;
     [SerializeField] Button startProcessingItemButton;
     [SerializeField] Button sellItemButton;
 
     private Item item;
+
+    private void Awake()
+    {
+        MarketPrices.GotMarketPrices.AddListener(UpdateItemPrices);
+    }
 
     public void Init(Item item, int itemQuantity)
     {
@@ -20,6 +26,9 @@ public class ItemUI : MonoBehaviour
         itemNameText.text = item.ItemName;
         itemDescriptionText.text = item.Description;
         itemQuantityText.text = itemQuantity.ToString();
+        this.itemValueText.transform.parent.gameObject.SetActive(false);
+
+        // TODO: #29 Add Item images
 
         // TODO: #13 Move item event listeners to parent UI script
         ItemManager.ItemUpdated.AddListener(UpdateUI);
@@ -57,5 +66,14 @@ public class ItemUI : MonoBehaviour
     private void ShowSellScreen()
     {
         ItemManager.instance.ShowSellMenu(item.ItemName, 0, ItemManager.instance.itemQuantity[item.ItemName]);
+    }
+
+    void UpdateItemPrices()
+    {
+        this.itemValueText.transform.parent.gameObject.SetActive(true);
+
+        int itemValue = item.GoldValue;
+        itemValue += MarketPrices.instance.GetCostModifierForItem(item.ItemName);
+        this.itemValueText.text = itemValue.ToString();
     }
 }
