@@ -36,6 +36,11 @@ public class ItemUI : MonoBehaviour
         {
             UpdateItemPrices();
         }
+
+        if (item.ItemSprite != null)
+        {
+            itemImage.sprite = item.ItemSprite;
+        }
     }
 
     public void Init(Item item)
@@ -54,6 +59,10 @@ public class ItemUI : MonoBehaviour
             UpdateItemPrices();
         }
 
+        if (item.ItemSprite != null)
+        {
+            itemImage.sprite = item.ItemSprite;
+        }
     }
 
     private void UpdateUI(Item item, int quantity)
