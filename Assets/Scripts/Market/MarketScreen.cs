@@ -14,6 +14,7 @@ public class MarketScreen : MonoBehaviour
         marketItems = new Dictionary<string, MarketItem>();
 
         FirebaseCommunicator.LoggedIn.AddListener(Init);
+        FirebaseCommunicator.LoggedOut.AddListener(OnLogout);
 
         MarketPrices.GotMarketPrices.AddListener(() =>
         {
@@ -84,5 +85,14 @@ public class MarketScreen : MonoBehaviour
     void SortMarketItems()
     {
 
+    }
+
+    void OnLogout()
+    {
+        foreach (var marketItem in marketItems)
+        {
+            Destroy(marketItem.Value.gameObject);
+        }
+        marketItems = new Dictionary<string, MarketItem>();
     }
 }

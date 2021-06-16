@@ -55,8 +55,17 @@ public class GoldManager : MonoBehaviour
             {
                 Debug.Log("yey got gold");
                 string json = task.Result.GetRawJsonValue();
-                CurrentGold = int.Parse(json);
-                GoldChanged.Invoke(CurrentGold);
+                Debug.Log("gold: " + json);
+                if (string.IsNullOrEmpty(json))
+                {
+                    CurrentGold = 0;
+                    GoldChanged.Invoke(CurrentGold);
+                }
+                else
+                {
+                    CurrentGold = int.Parse(json);
+                    GoldChanged.Invoke(CurrentGold);
+                }
             }
         });
     }

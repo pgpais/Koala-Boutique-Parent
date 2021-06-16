@@ -21,7 +21,6 @@ public class CreateNewMissionScreen : MonoBehaviour
     [Tooltip("Used to switch back to screen")]
     [SerializeField] GameObject missionInfoScreen;
     [SerializeField] Button BackButton;
-    [SerializeField] Button LogoutButton;
 
     private void Awake()
     {
@@ -40,14 +39,12 @@ public class CreateNewMissionScreen : MonoBehaviour
     private void OnEnable()
     {
         BackButton.gameObject.SetActive(true);
-        LogoutButton.gameObject.SetActive(false);
         BackButton.onClick.AddListener(SwitchToMissionInfoScreen);
     }
 
     private void OnDisable()
     {
         BackButton.gameObject.SetActive(false);
-        LogoutButton.gameObject.SetActive(true);
         BackButton.onClick.RemoveListener(SwitchToMissionInfoScreen);
     }
 

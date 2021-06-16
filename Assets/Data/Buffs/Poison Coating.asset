@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c5225bbb80239445ba5091cce00c67d, type: 3}
   m_Name: Poison Coating
   m_EditorClassIdentifier: 
-  <icon>k__BackingField: {fileID: 0}
+  <icon>k__BackingField: {fileID: -5227622578618380066, guid: 94f8b294102840a4ab78bb8a1bd4af74, type: 3}
   <buffName>k__BackingField: Poison Coating
   <description>k__BackingField: Coats your weapon with poison, dealing damage over
     time to enemies hit.
+  <price>k__BackingField: 100
