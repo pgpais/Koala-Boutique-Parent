@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GoldManager : MonoBehaviour
 {
     public static GoldManager instance;
     public static string referenceName = "gold";
+    public static UnityEvent<int> GoldChanged = new UnityEvent<int>();
 
     [field: SerializeField] public int CurrentGold { get; private set; } = 0;
 
@@ -54,6 +56,7 @@ public class GoldManager : MonoBehaviour
                 Debug.Log("yey got gold");
                 string json = task.Result.GetRawJsonValue();
                 CurrentGold = int.Parse(json);
+                GoldChanged.Invoke(CurrentGold);
             }
         });
     }
@@ -72,6 +75,8 @@ public class GoldManager : MonoBehaviour
             {
                 Debug.Log("yey updated gold");
             }
+
+            GetGold();
         });
     }
 

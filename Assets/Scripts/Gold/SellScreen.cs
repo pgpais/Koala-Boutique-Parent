@@ -64,7 +64,7 @@ public class SellScreen : MonoBehaviour
 
     void UpdateResultText(int currentAmount)
     {
-        resultText.text = $"You will sell {currentAmount} of {itemName} for {item.GoldValue * currentAmount} gold.";
+        resultText.text = $"You will sell {currentAmount} of {itemName} for {(item.GoldValue * currentAmount) + MarketPrices.instance.GetCostModifierForItem(itemName)} gold.";
     }
 
     void CloseMenu()
