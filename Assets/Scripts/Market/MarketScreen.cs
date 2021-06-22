@@ -13,11 +13,13 @@ public class MarketScreen : MonoBehaviour
     {
         marketItems = new Dictionary<string, MarketItem>();
 
-        FirebaseCommunicator.LoggedIn.AddListener(Init);
+        // FirebaseCommunicator.LoggedIn.AddListener(Init);
         FirebaseCommunicator.LoggedOut.AddListener(OnLogout);
 
         MarketPrices.GotMarketPrices.AddListener(() =>
         {
+            Init();
+
             ItemsList items = ItemManager.instance.itemsData;
 
             foreach (var marketItem in marketItems.Values)
@@ -27,24 +29,6 @@ public class MarketScreen : MonoBehaviour
 
                 marketItem.UpdateValue(item.GoldValue + valueModifier);
             }
-        });
-
-        ItemManager.NewItemAdded.AddListener((item, quantity) =>
-        {
-            int valueModifier = 0;
-            if (MarketPrices.instance.hasPrices)
-                valueModifier = MarketPrices.instance.GetCostModifierForItem(item.name);
-
-            marketItems[item.ItemName].UpdateUI(item.ItemName, item.GoldValue + valueModifier, item.ItemSprite);
-        });
-
-        ItemManager.ItemRemoved.AddListener((item) =>
-        {
-            int valueModifier = 0;
-            if (MarketPrices.instance.hasPrices)
-                valueModifier = MarketPrices.instance.GetCostModifierForItem(item.name);
-
-            marketItems[item.ItemName].UpdateUI(item.ItemName, item.GoldValue + valueModifier, item.ItemSprite);
         });
     }
 
@@ -69,6 +53,24 @@ public class MarketScreen : MonoBehaviour
 
             marketItems.Add(item.ItemName, marketItem);
         }
+
+        ItemManager.NewItemAdded.AddListener((item, quantity) =>
+       {
+           int valueModifier = 0;
+           if (MarketPrices.instance.hasPrices)
+               valueModifier = MarketPrices.instance.GetCostModifierForItem(item.name);
+
+           marketItems[item.ItemName].UpdateUI(item.ItemName, item.GoldValue + valueModifier, item.ItemSprite);
+       });
+
+        ItemManager.ItemRemoved.AddListener((item) =>
+        {
+            int valueModifier = 0;
+            if (MarketPrices.instance.hasPrices)
+                valueModifier = MarketPrices.instance.GetCostModifierForItem(item.name);
+
+            marketItems[item.ItemName].UpdateUI(item.ItemName, item.GoldValue + valueModifier, item.ItemSprite);
+        });
     }
 
     private void OnEnable()

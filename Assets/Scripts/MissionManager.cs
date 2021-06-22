@@ -43,20 +43,31 @@ public class MissionManager : MonoBehaviour
 
     }
 
-    public void CreateMission(MissionZone zone, MissionDifficulty difficulty)
+    public void CreateMission(MissionZone zone, MissionDifficulty difficulty, List<string> buffs, string diseasedItemName)
     {
-        CurrentMission = new Mission(zone, difficulty, new List<string>());
+        CurrentMission = new Mission(zone, difficulty, buffs);
+        CurrentMission.diseasedItemName = diseasedItemName;
 
         SaveMission(CurrentMission);
     }
 
     public void CreateMission(MissionZone zone, MissionDifficulty difficulty, List<string> buffs)
     {
-        CurrentMission = new Mission(zone, difficulty, buffs);
+        // TODO: clean up this part
+        Item item = ItemManager.instance.itemsData.Items[Random.Range(0, ItemManager.instance.itemsData.Items.Count)];
 
-        SaveMission(CurrentMission);
+        CreateMission(zone, difficulty, buffs, item.ItemName);
     }
 
+    public void CreateMission(MissionZone zone, MissionDifficulty difficulty)
+    {
+        CreateMission(zone, difficulty, new List<string>());
+    }
+
+    public void CreateMission(MissionZone zone, MissionDifficulty difficulty, string diseasedItemName)
+    {
+        CreateMission(zone, difficulty, new List<string>(), diseasedItemName);
+    }
 
 
     void GetMissionFromCloud()

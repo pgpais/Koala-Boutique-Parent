@@ -164,6 +164,8 @@ public class ItemManager : MonoBehaviour
                 {
                     itemQuantity[key] = Convert.ToInt32(dictionary[key]);
                 }
+
+                MarketPrices.instance.GetPricesForToday();
             }
         });
     }

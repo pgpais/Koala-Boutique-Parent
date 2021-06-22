@@ -11,6 +11,7 @@ public class MissionInfoScreen : MonoBehaviour
     [SerializeField] TMP_Text zoneText;
     [SerializeField] TMP_Text difficultyText;
     [SerializeField] TMP_Text missionCompletedText;
+    [SerializeField] TMP_Text diseasedItemText;
 
     [Space]
     [SerializeField] GameObject createMissionScreen;
@@ -50,11 +51,11 @@ public class MissionInfoScreen : MonoBehaviour
 
     private void UpdateUI(Mission mission)
     {
-        // TODO: #10 null mission 
         seedText.text = mission.seed.ToString();
         zoneText.text = mission.zone.ToString();
         difficultyText.text = mission.difficulty.ToString();
         missionCompletedText.text = mission.completed.ToString();
+        diseasedItemText.text = mission.diseasedItemName;
     }
 
     private void OnDisable()

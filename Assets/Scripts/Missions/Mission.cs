@@ -10,6 +10,7 @@ public class Mission
     public bool completed;
     public MissionZone zone;
     public MissionDifficulty difficulty;
+    public string diseasedItemName;
 
     public List<string> boughtBuffs;
 
