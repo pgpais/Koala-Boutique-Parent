@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
+using System.Linq;
 
 public class CreateNewMissionScreen : MonoBehaviour
 {
     [SerializeField] TMP_Dropdown missionZone;
     [SerializeField] TMP_Dropdown missionDifficulty;
+    [SerializeField] TMP_Dropdown missionGatherable;
     [Tooltip("Buffs that can be sent on the mission")]
     [SerializeField] BuffList supportBuffs;
     [SerializeField] ToggleGroup supportBuffsGroup;
@@ -72,6 +73,10 @@ public class CreateNewMissionScreen : MonoBehaviour
         missionDifficulty.ClearOptions();
         string[] difficultyNames = Enum.GetNames(typeof(MissionDifficulty));
         missionDifficulty.AddOptions(new List<string>(difficultyNames));
+
+        missionGatherable.ClearOptions();
+        List<string> gatherableNames = ItemManager.instance.itemsData.Items.Where(item => item.Type == Item.ItemType.Gatherable).Select(item => item.ItemName).ToList();
+        missionGatherable.AddOptions(gatherableNames);
     }
 
     void PopulateSupportItems()

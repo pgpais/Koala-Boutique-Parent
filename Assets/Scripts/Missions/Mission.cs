@@ -11,6 +11,7 @@ public class Mission
     public MissionZone zone;
     public MissionDifficulty difficulty;
     public string diseasedItemName;
+    public string gatherableItemName;
 
     public List<string> boughtBuffs;
 

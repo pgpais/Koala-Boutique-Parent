@@ -12,7 +12,7 @@ public class MissionInfoScreen : MonoBehaviour
     [SerializeField] TMP_Text difficultyText;
     [SerializeField] TMP_Text missionCompletedText;
     [SerializeField] TMP_Text diseasedItemText;
-
+    [SerializeField] TMP_Text spawnGatherable;
     [Space]
     [SerializeField] GameObject createMissionScreen;
     [SerializeField] Button createMissionButton;
@@ -42,6 +42,8 @@ public class MissionInfoScreen : MonoBehaviour
         zoneText.text = "";
         difficultyText.text = "";
         missionCompletedText.text = "";
+        spawnGatherable.text = "";
+        diseasedItemText.text = "";
     }
 
     private Mission GetMission()
@@ -56,6 +58,7 @@ public class MissionInfoScreen : MonoBehaviour
         difficultyText.text = mission.difficulty.ToString();
         missionCompletedText.text = mission.completed.ToString();
         diseasedItemText.text = mission.diseasedItemName;
+        spawnGatherable.text = mission.gatherableItemName;
     }
 
     private void OnDisable()
