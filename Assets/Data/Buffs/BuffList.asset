@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: BuffList
   m_EditorClassIdentifier: 
   <buffs>k__BackingField:
+  - {fileID: 11400000, guid: 434737df4372e0344bc56b0c0edde60f, type: 2}
   - {fileID: 11400000, guid: c3a3bcbd3c89d8445af786a12d8d3bcd, type: 2}
   - {fileID: 11400000, guid: 330c498bb0709e04cb4ef5b4830c0a08, type: 2}
