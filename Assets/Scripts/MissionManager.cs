@@ -43,30 +43,31 @@ public class MissionManager : MonoBehaviour
 
     }
 
-    public void CreateMission(MissionZone zone, MissionDifficulty difficulty, List<string> buffs, string diseasedItemName)
+    public void CreateMission(MissionZone zone, MissionDifficulty difficulty, List<string> buffs, string diseasedItemName, string gatherableItemName)
     {
         CurrentMission = new Mission(zone, difficulty, buffs);
         CurrentMission.diseasedItemName = diseasedItemName;
+        CurrentMission.gatherableItemName = gatherableItemName;
 
         SaveMission(CurrentMission);
     }
 
-    public void CreateMission(MissionZone zone, MissionDifficulty difficulty, List<string> buffs)
+    public void CreateMission(MissionZone zone, MissionDifficulty difficulty, List<string> buffs, string gatherableItemName)
     {
         // TODO: clean up this part
         Item item = ItemManager.instance.itemsData.Items[Random.Range(0, ItemManager.instance.itemsData.Items.Count)];
 
-        CreateMission(zone, difficulty, buffs, item.ItemName);
+        CreateMission(zone, difficulty, buffs, item.ItemName, gatherableItemName);
     }
 
-    public void CreateMission(MissionZone zone, MissionDifficulty difficulty)
+    public void CreateMission(MissionZone zone, MissionDifficulty difficulty, string gatherableItemName)
     {
-        CreateMission(zone, difficulty, new List<string>());
+        CreateMission(zone, difficulty, new List<string>(), gatherableItemName);
     }
 
-    public void CreateMission(MissionZone zone, MissionDifficulty difficulty, string diseasedItemName)
+    public void CreateMission(MissionZone zone, MissionDifficulty difficulty, string diseasedItemName, string gatherableItemName)
     {
-        CreateMission(zone, difficulty, new List<string>(), diseasedItemName);
+        CreateMission(zone, difficulty, new List<string>(), diseasedItemName, gatherableItemName);
     }
 
 

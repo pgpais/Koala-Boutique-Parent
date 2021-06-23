@@ -60,7 +60,7 @@ public class CreateNewMissionScreen : MonoBehaviour
             buffNames.Add(buff.BuffName);
         }
 
-        MissionManager.instance.CreateMission(zone, difficulty, buffNames);
+        MissionManager.instance.CreateMission(zone, difficulty, buffNames, missionGatherable.captionText.text);
         SwitchToMissionInfoScreen();
     }
 
