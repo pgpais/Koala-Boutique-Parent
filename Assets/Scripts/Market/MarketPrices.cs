@@ -18,6 +18,7 @@ public class MarketPrices : SerializedMonoBehaviour
     [SerializeField] List<Dictionary<string, int>> costModifierToday;
 
     [SerializeField] bool testUpload;
+    [SerializeField] int howManyDays;
 
     private int indexOfActiveCosts = 0;
     private DateTime curDay;
@@ -49,7 +50,11 @@ public class MarketPrices : SerializedMonoBehaviour
         if (testUpload)
         {
             testUpload = false;
-            CreateMarketPricesForDay(today);
+            for (int i = 0; i < howManyDays; i++)
+            {
+                var daySpan = new TimeSpan(i, 0, 0, 0, 0);
+                CreateMarketPricesForDay(today + daySpan);
+            }
         }
 
         indexOfActiveCosts = today.Hour / 3;
