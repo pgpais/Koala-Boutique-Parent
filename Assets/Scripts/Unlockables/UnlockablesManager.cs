@@ -64,34 +64,36 @@ public class UnlockablesManager : MonoBehaviour
         });
     }
 
-    internal void Unlock(Unlockable unlockable)
+    internal bool Unlock(Unlockable unlockable)
     {
-        bool success = true;
-
         foreach (var requirement in unlockable.Requirements)
         {
             if (!requirement.Unlocked)
-                success = false;
+                return false;
         }
 
-        foreach (var cost in unlockable.Cost)
+        foreach (var cost in unlockable.ItemCost)
         {
             if (!ItemManager.instance.HasEnoughItem(cost.Key.ItemName, cost.Value))
             {
-                success = false;
+                return false;
             }
         }
 
-        if (success)
+        if (!GoldManager.instance.HasEnoughGems(unlockable.GemCost) || !GoldManager.instance.HasEnoughGold(unlockable.GoldCost))
         {
-            foreach (var cost in unlockable.Cost)
-            {
-                ItemManager.instance.RemoveItem(cost.Key.ItemName, cost.Value);
-            }
-
-            unlockable.Unlock();
-            SaveUnlockOnCloud();
+            return false;
         }
+
+        foreach (var cost in unlockable.ItemCost)
+        {
+            ItemManager.instance.RemoveItem(cost.Key.ItemName, cost.Value);
+        }
+        GoldManager.instance.BuyUnlockable(unlockable);
+
+        unlockable.Unlock();
+        SaveUnlockOnCloud();
+        return true;
     }
 
     void SaveUnlockOnCloud()

@@ -11,6 +11,7 @@ public class ShopUI : MonoBehaviour
 
     [Header("References")]
     [SerializeField] TMP_Text goldText;
+    [SerializeField] TMP_Text gemText;
     [SerializeField] TMP_Text shopPresenceText;
     [SerializeField] TMP_Text shopNameText;
 
@@ -35,6 +36,11 @@ public class ShopUI : MonoBehaviour
         GoldManager.GoldChanged.AddListener((gold) =>
         {
             goldText.text = gold.ToString();
+        });
+
+        GoldManager.GemChanged.AddListener((gem) =>
+        {
+            gemText.text = gem.ToString();
         });
     }
 

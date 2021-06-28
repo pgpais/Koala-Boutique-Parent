@@ -6,10 +6,13 @@ using UnityEngine.Events;
 public class GoldManager : MonoBehaviour
 {
     public static GoldManager instance;
-    public static string referenceName = "gold";
+    public static string goldReferenceName = "gold";
+    public static string gemsReferenceName = "gems";
     public static UnityEvent<int> GoldChanged = new UnityEvent<int>();
+    public static UnityEvent<int> GemChanged = new UnityEvent<int>();
 
     [field: SerializeField] public int CurrentGold { get; private set; } = 0;
+    [field: SerializeField] public int CurrentGems { get; private set; } = 0;
 
     [SerializeField] bool testUpload = false;
 
@@ -24,7 +27,7 @@ public class GoldManager : MonoBehaviour
             instance = this;
         }
 
-        FirebaseCommunicator.LoggedIn.AddListener(GetGold);
+        FirebaseCommunicator.LoggedIn.AddListener(GetCurrency);
     }
 
     private void Start()
@@ -41,9 +44,9 @@ public class GoldManager : MonoBehaviour
         }
     }
 
-    public void GetGold()
+    public void GetCurrency()
     {
-        FirebaseCommunicator.instance.GetObject(referenceName, (task) =>
+        FirebaseCommunicator.instance.GetObject(goldReferenceName, (task) =>
         {
             if (task.IsFaulted)
             {
@@ -59,20 +62,57 @@ public class GoldManager : MonoBehaviour
                 if (string.IsNullOrEmpty(json))
                 {
                     CurrentGold = 0;
-                    GoldChanged.Invoke(CurrentGold);
+
                 }
                 else
                 {
                     CurrentGold = int.Parse(json);
-                    GoldChanged.Invoke(CurrentGold);
                 }
+
+                GoldChanged.Invoke(CurrentGold);
+            }
+        });
+
+        FirebaseCommunicator.instance.GetObject(gemsReferenceName, (task) =>
+        {
+            if (task.IsFaulted)
+            {
+                Debug.LogError("smth went wrong. " + task.Exception.ToString());
+                return;
+            }
+
+            if (task.IsCompleted)
+            {
+                Debug.Log("yey got gems");
+                string json = task.Result.GetRawJsonValue();
+                Debug.Log("gems: " + json);
+                if (string.IsNullOrEmpty(json))
+                {
+                    CurrentGems = 0;
+                }
+                else
+                {
+                    CurrentGems = int.Parse(json);
+                }
+
+                GemChanged.Invoke(CurrentGems);
             }
         });
     }
 
+    public bool HasEnoughGold(int amount)
+    {
+        return CurrentGold >= amount;
+    }
+
+    public bool HasEnoughGems(int amount)
+    {
+        return CurrentGems >= amount;
+    }
+
     public void UploadGold()
     {
-        FirebaseCommunicator.instance.SendObject(CurrentGold.ToString(), referenceName, (task) =>
+        FirebaseCommunicator.instance.SendObject(CurrentGold.ToString(), goldReferenceName, (task) =>
         {
             if (task.IsFaulted)
             {
@@ -85,13 +125,45 @@ public class GoldManager : MonoBehaviour
                 Debug.Log("yey updated gold");
             }
 
-            GetGold();
+            GetCurrency();
+        });
+    }
+
+    public void UploadGems()
+    {
+        FirebaseCommunicator.instance.SendObject(CurrentGems.ToString(), gemsReferenceName, (task) =>
+        {
+            if (task.IsFaulted)
+            {
+                Debug.LogError("smth went wrong. " + task.Exception.ToString());
+                return;
+            }
+
+            if (task.IsCompleted)
+            {
+                Debug.Log("yey updated gem");
+            }
+
+            GetCurrency();
         });
     }
 
     public void SellItem(Item item, int amount)
     {
         CurrentGold += (item.GoldValue + MarketPrices.instance.GetCostModifierForItem(item.ItemName)) * amount;
+        UploadGold();
+    }
+
+    public void BuyItem(Item item, int amount)
+    {
+        CurrentGold -= item.GoldValue * amount;
+        UploadGold();
+    }
+    public void BuyUnlockable(Unlockable unlockable)
+    {
+        CurrentGems -= unlockable.GemCost;
+        CurrentGold -= unlockable.GoldCost;
+        UploadGems();
         UploadGold();
     }
 }

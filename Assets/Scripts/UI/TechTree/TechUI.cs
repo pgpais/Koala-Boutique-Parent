@@ -32,7 +32,7 @@ public class TechUI : MonoBehaviour
 
         InitializeRequirements(unlockable.Requirements);
 
-        InitializeCosts(unlockable.Cost);
+        InitializeCosts(unlockable.ItemCost);
 
         unlockable.UnlockableUpdated.AddListener(UpdateUI);
     }
