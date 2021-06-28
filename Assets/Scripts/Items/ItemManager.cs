@@ -159,6 +159,12 @@ public class ItemManager : MonoBehaviour
             if (task.IsCompleted)
             {
                 Debug.Log("yey got items");
+                if (string.IsNullOrEmpty(task.Result.GetRawJsonValue()))
+                {
+                    MarketPrices.instance.GetPricesForToday();
+                    return;
+                }
+
                 Dictionary<string, object> dictionary = task.Result.Value as Dictionary<string, object>;
                 foreach (var key in dictionary.Keys)
                 {

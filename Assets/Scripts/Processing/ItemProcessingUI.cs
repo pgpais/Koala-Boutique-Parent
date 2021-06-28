@@ -37,6 +37,9 @@ public class ItemProcessingUI : MonoBehaviour
 
     public void Init(string itemName, Process process)
     {
+        var item = ItemManager.instance.itemsData.GetItemByName(itemName);
+        var processResult = item.ProcessResult;
+
         processSlider.value = 0f;
 
         anim = GetComponent<Animator>();
@@ -44,6 +47,7 @@ public class ItemProcessingUI : MonoBehaviour
         itemButton = itemImage.GetComponent<Button>();
         processBoostButton = processBoostImage.GetComponent<Button>();
 
+        itemImage.sprite = processResult.ItemSprite;
 
         timeElapsed = 0f;
         howLongForNextBoost = timeBetweenProcessBosts;

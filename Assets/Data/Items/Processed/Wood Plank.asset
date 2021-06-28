@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18baa68dae152644da0fd92a094edbe8, type: 3}
+  m_Name: Wood Plank
+  m_EditorClassIdentifier: 
+  <ItemSprite>k__BackingField: {fileID: 21300000, guid: 5ab58676f3b61634bad17b81c7135576,
+    type: 3}
+  <ItemName>k__BackingField: Wood Plank
+  <Description>k__BackingField: 
+  <Type>k__BackingField: 3
+  processResult: {fileID: 0}
+  processResultAmount: 1
+  boostTimeAmount: 5
+  boostCooldown: 5
+  processDuration: 15
+  <GoldValue>k__BackingField: 100
+  <MaxModifier>k__BackingField: 10
+  <MinModifier>k__BackingField: -10
