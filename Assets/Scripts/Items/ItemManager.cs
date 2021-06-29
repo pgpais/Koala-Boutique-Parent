@@ -97,6 +97,17 @@ public class ItemManager : MonoBehaviour
         GoldManager.instance.SellItem(itemsData.GetItemByName(itemName), amount);
     }
 
+    public void SellItem(string itemName, int amount, float modifier)
+    {
+        if (!HasEnoughItem(itemName, amount))
+        {
+            return;
+        }
+
+        RemoveItem(itemName, amount);
+        GoldManager.instance.SellItem(itemsData.GetItemByName(itemName), amount, modifier);
+    }
+
     public void RemoveItem(string itemName, int amount)
     {
         if (itemQuantity[itemName] > amount)

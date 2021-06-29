@@ -148,10 +148,20 @@ public class GoldManager : MonoBehaviour
         });
     }
 
-    public void SellItem(Item item, int amount)
+    public int SellItem(Item item, int amount)
     {
-        CurrentGold += (item.GoldValue + MarketPrices.instance.GetCostModifierForItem(item.ItemName)) * amount;
+        int value = (item.GoldValue + MarketPrices.instance.GetCostModifierForItem(item.ItemName)) * amount;
+        CurrentGold += value;
         UploadGold();
+        return value;
+    }
+
+    public int SellItem(Item item, int amount, float modifier)
+    {
+        int value = (int)((item.GoldValue + MarketPrices.instance.GetCostModifierForItem(item.ItemName)) * modifier * amount);
+        CurrentGold += value;
+        UploadGold();
+        return value;
     }
 
     public void BuyItem(Item item, int amount)
