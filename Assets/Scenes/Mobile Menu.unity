@@ -3982,7 +3982,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.461, g: 0.461, b: 0.461, a: 1}
+  m_Color: {r: 0.25, g: 0.25, b: 0.25, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6184,7 +6184,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &597000188
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11848,7 +11848,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -13933,7 +13933,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: -80}
+  m_SizeDelta: {x: 14, y: -80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1364840603
 MonoBehaviour:
@@ -15678,7 +15678,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <itemsData>k__BackingField: {fileID: 11400000, guid: 6652dfe5d0ee7164196c7e544d21409b,
     type: 2}
-  SellMenu: {fileID: 908825261}
+  sellingGame: {fileID: 0}
 --- !u!114 &1506964904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22572,7 +22572,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2067106802
 RectTransform:
   m_ObjectHideFlags: 0
@@ -22609,7 +22609,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0956f4b6602232a4f88593b490280220, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameSpeed: 2
+  defaultGameSpeed: 2
   gameSpeedModifier: 2
   tooCheapPriceModifier: 0
   veryCheapPriceModifier: 0.5
@@ -22841,7 +22841,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1765788050}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.99948597
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

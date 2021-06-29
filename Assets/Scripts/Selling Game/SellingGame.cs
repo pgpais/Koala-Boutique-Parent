@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class SellingGame : MonoBehaviour
 {
-    [SerializeField] float gameSpeed = 2f;
+    [SerializeField] float defaultGameSpeed = 2f;
     [SerializeField] float gameSpeedModifier = 2f;
 
     [Header("Price Modifiers (By zone)")]
@@ -52,6 +52,7 @@ public class SellingGame : MonoBehaviour
     [SerializeField] Image centerImage;
     [SerializeField] Image expensiveZoneImage;
     [SerializeField] Button sellButton;
+    [SerializeField] Button backButton;
 
     [Header("UI Stuff")]
     [SerializeField] TMP_Text titleText;
@@ -63,6 +64,7 @@ public class SellingGame : MonoBehaviour
     [SerializeField] TMP_Text tooExpensivePriceText;
 
     [Header("DEBUG")]
+    private float gameSpeed;
     [SerializeField] private Item item;
     [SerializeField] private int maxAmount;
     private int currentAmount = 1;
@@ -84,15 +86,17 @@ public class SellingGame : MonoBehaviour
         ChangeCenterSize();
         ChangeExpensiveSize();
 
-        sellButton.onClick.AddListener(OnSellButton);
-
-
+        backButton.onClick.AddListener(CloseMenu);
     }
 
     public void Initialize(Item item, int maxAmount)
     {
         this.item = item;
         this.maxAmount = maxAmount;
+        currentAmount = 1;
+        amountSold = 0;
+        incomeSoFar = 0;
+        gameSpeed = defaultGameSpeed;
 
         UpdateUI();
 
@@ -139,6 +143,7 @@ public class SellingGame : MonoBehaviour
 
     private void OnEnable()
     {
+        sellButton.onClick.AddListener(OnSellButton);
         if (item != null)
         {
             Initialize(item, maxAmount);
@@ -148,6 +153,7 @@ public class SellingGame : MonoBehaviour
     private void OnDisable()
     {
         StopCoroutine(coroutine);
+        sellButton.onClick.RemoveListener(OnSellButton);
     }
 
     void OnSellButton()
@@ -186,12 +192,35 @@ public class SellingGame : MonoBehaviour
         else
         {
             // TODO: don't sell, too expensive
-            incomeSoFar += GoldManager.instance.SellItem(item, currentAmount, tooExpensivePriceModifier);
+            incomeSoFar += GoldManager.instance.SellItem(item, 0, tooExpensivePriceModifier);
             gameSpeed *= gameSpeedModifier;
             currentAmount = (int)(currentAmount * expensiveAmountModifier);
         }
 
+
+        currentAmount = Mathf.Clamp(currentAmount, 1, maxAmount - amountSold);
+
+
+
         UpdateUI();
+
+        if (amountSold == maxAmount)
+        {
+            StopGame();
+        }
+    }
+
+    void StopGame()
+    {
+        StopCoroutine(coroutine);
+        titleText.text = $"You don't have any {item.ItemName} left to sell!";
+        sellButton.onClick.RemoveListener(OnSellButton);
+    }
+
+    void CloseMenu()
+    {
+        gameObject.SetActive(false);
+        transform.parent.gameObject.SetActive(false);
     }
 
     private void OnValidate()
@@ -266,5 +295,4 @@ public class SellingGame : MonoBehaviour
         expensiveRect.offsetMax = new Vector2(0, expensiveRect.offsetMax.y);
         expensiveRect.offsetMin = new Vector2(0, expensiveRect.offsetMin.y);
     }
-
 }

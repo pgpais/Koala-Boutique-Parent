@@ -17,7 +17,7 @@ public class ItemManager : MonoBehaviour
     [field: SerializeField] public ItemsList itemsData { get; private set; }
     [field: SerializeField] public Dictionary<string, int> itemQuantity { get; private set; }
 
-    [SerializeField] SellScreen SellMenu;
+    [SerializeField] SellingGame sellingGame;
 
 
     private void Awake()
@@ -80,9 +80,9 @@ public class ItemManager : MonoBehaviour
 
     public void ShowSellMenu(string itemName, int minAmount, int maxAmount)
     {
-        if (SellMenu != null)
+        if (sellingGame != null)
         {
-            SellMenu.Init(itemName, minAmount, maxAmount);
+            sellingGame.Initialize(itemsData.GetItemByName(itemName), itemQuantity[itemName]);
         }
     }
 
