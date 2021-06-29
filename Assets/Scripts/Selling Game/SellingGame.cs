@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class SellingGame : MonoBehaviour
 {
-    [SerializeField] float defaultGameSpeed = 2f;
+    [SerializeField] float defaultGameSpeed = 1f;
     [SerializeField] float gameSpeedModifier = 2f;
 
     [Header("Price Modifiers (By zone)")]
@@ -91,6 +91,8 @@ public class SellingGame : MonoBehaviour
 
     public void Initialize(Item item, int maxAmount)
     {
+        ShowMenu();
+
         this.item = item;
         this.maxAmount = maxAmount;
         currentAmount = 1;
@@ -215,6 +217,12 @@ public class SellingGame : MonoBehaviour
         StopCoroutine(coroutine);
         titleText.text = $"You don't have any {item.ItemName} left to sell!";
         sellButton.onClick.RemoveListener(OnSellButton);
+    }
+
+    void ShowMenu()
+    {
+        gameObject.SetActive(true);
+        transform.parent.gameObject.SetActive(true);
     }
 
     void CloseMenu()

@@ -15678,7 +15678,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <itemsData>k__BackingField: {fileID: 11400000, guid: 6652dfe5d0ee7164196c7e544d21409b,
     type: 2}
-  sellingGame: {fileID: 0}
+  sellingGame: {fileID: 2067106803}
 --- !u!114 &1506964904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22609,7 +22609,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0956f4b6602232a4f88593b490280220, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultGameSpeed: 2
+  defaultGameSpeed: 1
   gameSpeedModifier: 2
   tooCheapPriceModifier: 0
   veryCheapPriceModifier: 0.5
@@ -22628,6 +22628,7 @@ MonoBehaviour:
   centerImage: {fileID: 1330931270}
   expensiveZoneImage: {fileID: 1195556133}
   sellButton: {fileID: 63076043}
+  backButton: {fileID: 475758362}
   titleText: {fileID: 1219147758}
   resultText: {fileID: 424065995}
   tooCheapPriceText: {fileID: 1795557277}
