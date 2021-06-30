@@ -72,7 +72,8 @@ MonoBehaviour:
       m_Calls: []
   <UnlockableName>k__BackingField: Torch
   <UnlockableDescription>k__BackingField: 
-  <Requirements>k__BackingField: []
+  <Requirements>k__BackingField:
+  - {fileID: 11400000, guid: 2dab53dbd129d574bb437641c3959d6d, type: 2}
   <GoldCost>k__BackingField: 75
   <GemCost>k__BackingField: 1
   unlocked: 0

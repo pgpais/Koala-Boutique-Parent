@@ -51,7 +51,7 @@ public class ItemManager : MonoBehaviour
 
     public bool HasEnoughItem(string itemName, int amount)
     {
-        return itemQuantity[itemName] >= amount;
+        return itemQuantity.ContainsKey(itemName) && itemQuantity[itemName] >= amount;
     }
 
     public void AddItem(string itemName, int amount, bool syncCloud)

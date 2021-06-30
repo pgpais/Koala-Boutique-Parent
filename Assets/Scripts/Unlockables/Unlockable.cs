@@ -28,7 +28,6 @@ public class Unlockable : SerializedScriptableObject
         set
         {
             runTimeUnlocked = value;
-
         }
     }
     private bool runTimeUnlocked;
@@ -55,6 +54,17 @@ public class Unlockable : SerializedScriptableObject
     private void OnApplicationQuit()
     {
 
+    }
+
+    public bool CanUnlock()
+    {
+        foreach (var unlockable in Requirements)
+        {
+            if (!unlockable.Unlocked)
+                return false;
+        }
+
+        return true;
     }
 
     internal void Unlock()

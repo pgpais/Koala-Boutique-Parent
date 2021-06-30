@@ -35,6 +35,21 @@ public class TechUI : MonoBehaviour
         InitializeCosts(unlockable.ItemCost);
 
         unlockable.UnlockableUpdated.AddListener(UpdateUI);
+
+        if (!unlockable.CanUnlock())
+        {
+            gameObject.SetActive(false);
+            foreach (Unlockable requirement in unlockable.Requirements)
+            {
+                requirement.UnlockableUpdated.AddListener((_) =>
+                {
+                    if (unlockable.CanUnlock())
+                    {
+                        gameObject.SetActive(true);
+                    }
+                });
+            }
+        }
     }
 
     void InitializeRequirements(List<Unlockable> requirements)
