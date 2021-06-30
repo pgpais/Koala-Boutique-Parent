@@ -53,7 +53,7 @@ public class ItemProcessingUI : MonoBehaviour
         howLongForNextBoost = timeBetweenProcessBosts;
 
         this.process = process;
-        itemNameText.text = itemName;
+        itemNameText.text = "0s left";
         boostBaseColor = processBoostImage.color;
 
         process.ProcessBoosted.AddListener(OnProcessBoosted);
@@ -74,8 +74,9 @@ public class ItemProcessingUI : MonoBehaviour
     void UpdateProcessSlider()
     {
         // processSlider.value = 1f - (process.TimeLeft / (process.DurationPerItem * process.AmountToDo));
+        itemNameText.text = $"{(int)(process.ProcessDuration - process.ElapsedTime())}s left";
+
         processSlider.value = (float)process.ElapsedTimeRatio();
-        Debug.Log("Elapsed Time: " + process.ElapsedTime() + " | Ratio: " + process.ElapsedTimeRatio());
         process.HandleProcessFinish();
 
         AnimateBoostButton();
