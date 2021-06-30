@@ -56,7 +56,6 @@ public class ItemProcessingUI : MonoBehaviour
         itemNameText.text = itemName;
         boostBaseColor = processBoostImage.color;
 
-        process.ProcessTick.AddListener(UpdateProcessSlider);
         process.ProcessBoosted.AddListener(OnProcessBoosted);
         process.ProcessFinished.AddListener(OnProcessFinished);
 
@@ -68,18 +67,16 @@ public class ItemProcessingUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (processing)
-        {
-            // timeElapsed += Time.deltaTime;
-
-
-            // UpdateProcessSlider();
-        }
+        if (process != null)
+            UpdateProcessSlider();
     }
 
     void UpdateProcessSlider()
     {
-        processSlider.value = 1f - (process.TimeLeft / (process.DurationPerItem * process.AmountToDo));
+        // processSlider.value = 1f - (process.TimeLeft / (process.DurationPerItem * process.AmountToDo));
+        processSlider.value = (float)process.ElapsedTimeRatio();
+        Debug.Log("Elapsed Time: " + process.ElapsedTime() + " | Ratio: " + process.ElapsedTimeRatio());
+        process.HandleProcessFinish();
 
         AnimateBoostButton();
 
@@ -93,12 +90,11 @@ public class ItemProcessingUI : MonoBehaviour
 
     void AnimateBoostButton()
     {
-        var howLongForNextBoost = (process.NextBoostTime - process.LastTickTime).TotalSeconds;
-        float boostRatio = (float)(howLongForNextBoost / process.BoostCooldown);
-        processBoostImage.color = Color.Lerp(boostReadyColor, boostBaseColor, boostRatio);
+        processBoostImage.color = Color.Lerp(boostBaseColor, boostReadyColor, (float)process.ElapsedBoostTimeRatio());
+
 
         if (anim)
-            anim.SetBool("BoostReady", howLongForNextBoost <= 0);
+            anim.SetBool("BoostReady", process.CanBoost());
 
     }
 

@@ -10,6 +10,7 @@ public class ItemManager : MonoBehaviour
 {
     public static ItemManager instance;
 
+    public static UnityEvent GotItems = new UnityEvent();
     public static UnityEvent<Item, int> NewItemAdded = new UnityEvent<Item, int>();
     public static UnityEvent<Item, int> ItemUpdated = new UnityEvent<Item, int>();
     public static UnityEvent<Item> ItemRemoved = new UnityEvent<Item>();
@@ -181,7 +182,7 @@ public class ItemManager : MonoBehaviour
                 {
                     itemQuantity[key] = Convert.ToInt32(dictionary[key]);
                 }
-
+                GotItems.Invoke();
                 MarketPrices.instance.GetPricesForToday();
             }
         });

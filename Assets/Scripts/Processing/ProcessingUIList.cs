@@ -9,6 +9,11 @@ public class ProcessingUIList : MonoBehaviour
 
     private void Awake()
     {
+        foreach (Process process in ProcessingManager.instance.InProcess)
+        {
+            AddNewProcessUI(process.ProcessingItemName, process);
+        }
+
         ProcessingManager.ProcessCreated.AddListener(AddNewProcessUI);
     }
 

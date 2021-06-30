@@ -11,15 +11,18 @@ public class ProcessingManager : MonoBehaviour
     public static string firebaseReferenceName = "processes";
     public static UnityEvent<string, Process> ProcessCreated = new UnityEvent<string, Process>();
 
+    public List<Process> InProcess => inProcess;
+
     [SerializeField] NewProcessMenu newProcessMenu;
     [SerializeField] bool startProcessing;
 
     List<Process> inProcess;
 
+
     private void Awake()
     {
         inProcess = new List<Process>();
-        FirebaseCommunicator.LoggedIn.AddListener(Initialize);
+        ItemManager.GotItems.AddListener(Initialize);
 
         if (instance != null)
         {
@@ -34,6 +37,7 @@ public class ProcessingManager : MonoBehaviour
     // Start is called before the first frame update
     void Initialize()
     {
+        ItemManager.GotItems.RemoveListener(Initialize);
         Debug.Log(JsonConvert.SerializeObject(DateTime.UtcNow));
 
         FirebaseCommunicator.instance.GetObject(firebaseReferenceName, (task) =>
@@ -78,12 +82,6 @@ public class ProcessingManager : MonoBehaviour
             StartProcessing("SlowProcessLootable1", 1);
             startProcessing = false;
         }
-
-
-        for (var i = 0; i < inProcess.Count; i++)
-        {
-            inProcess[i].DoTick();
-        }
     }
 
     public void ShowNewProcessMenu(string itemName, int minAmount, int maxAmount)
@@ -108,9 +106,13 @@ public class ProcessingManager : MonoBehaviour
         var item = ItemManager.instance.itemsData.GetItemByName(itemName);
         string key = FirebaseCommunicator.instance.Push(firebaseReferenceName);
 
-        Process process = new Process(item.ProcessDuration, amount, item.BoostTimeAmount, item.BoostCooldown, item.ProcessResult.ItemName, item.ProcessResultAmount, itemName, key);
+        Process process = new Process(item, amount);
 
-        FirebaseCommunicator.instance.SendObject(JsonConvert.SerializeObject(process), firebaseReferenceName, key, (task) =>
+        string json = JsonConvert.SerializeObject(process);
+
+        Debug.Log(json);
+
+        FirebaseCommunicator.instance.SendObject(json, firebaseReferenceName, key, (task) =>
         {
             if (task.IsFaulted)
             {
@@ -135,12 +137,13 @@ public class ProcessingManager : MonoBehaviour
         process.ProcessFinished.AddListener(() => OnProcessFinished(process));
 
         Debug.Log(JsonConvert.SerializeObject(process));
-        ProcessCreated.Invoke(process.ProcessedItemName, process);
+        ProcessCreated.Invoke(process.ProcessingItemName, process);
     }
 
     void OnProcessFinished(Process process)
     {
-        ItemManager.instance.AddItem(process.ResultItemName, process.ResultItemAmount, true);
+        Item processItem = ItemManager.instance.itemsData.GetItemByName(process.ProcessingItemName);
+        ItemManager.instance.AddItem(processItem.ProcessResult.ItemName, processItem.ProcessResultAmount, true);
 
         inProcess.Remove(process);
 
