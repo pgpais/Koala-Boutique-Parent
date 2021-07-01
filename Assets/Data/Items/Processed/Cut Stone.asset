@@ -12,10 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18baa68dae152644da0fd92a094edbe8, type: 3}
   m_Name: Cut Stone
   m_EditorClassIdentifier: 
+  <ItemSprite>k__BackingField: {fileID: 0}
   <ItemName>k__BackingField: Cut Stone
   <Description>k__BackingField: Stone that was processed
   <Type>k__BackingField: 3
-  <sprite>k__BackingField: {fileID: 1753889973447063476, guid: b316e382bc7e25c4cba7192fd45ea78d,
-    type: 3}
-  numberOfInteractions: 3
   processResult: {fileID: 0}
+  processResultAmount: 1
+  boostTimeAmount: 5
+  boostCooldown: 5
+  processDuration: 15
+  <GoldValue>k__BackingField: 100
+  <MaxModifier>k__BackingField: 10
+  <MinModifier>k__BackingField: -10
+  Unlocked: 1
+  startsUnlocked: 1

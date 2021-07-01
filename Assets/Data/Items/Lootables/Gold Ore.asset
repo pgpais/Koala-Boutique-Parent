@@ -25,3 +25,5 @@ MonoBehaviour:
   <GoldValue>k__BackingField: 100
   <MaxModifier>k__BackingField: 10
   <MinModifier>k__BackingField: -10
+  Unlocked: 1
+  startsUnlocked: 1
