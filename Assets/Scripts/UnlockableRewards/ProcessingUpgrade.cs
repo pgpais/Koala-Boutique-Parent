@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using UnityEngine;
-
 [CreateAssetMenu(fileName = "ProcessingUpgrade", menuName = "Ye Olde Shop/ProcessingUpgrade", order = 0)]
 public class ProcessingUpgrade : ScriptableObject, UnlockableReward
 {
