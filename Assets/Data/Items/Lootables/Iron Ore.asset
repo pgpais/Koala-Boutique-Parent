@@ -16,7 +16,7 @@ MonoBehaviour:
     type: 3}
   <ItemName>k__BackingField: Iron Ore
   <Description>k__BackingField: 
-  <Type>k__BackingField: 0
+  <Type>k__BackingField: 1
   processResult: {fileID: 11400000, guid: a06410131afb03341a3fa5371e906c82, type: 2}
   processResultAmount: 1
   boostTimeAmount: 5

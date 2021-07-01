@@ -98,15 +98,15 @@ public class ItemManager : MonoBehaviour
         GoldManager.instance.SellItem(itemsData.GetItemByName(itemName), amount);
     }
 
-    public void SellItem(string itemName, int amount, float modifier)
+    public int SellItem(string itemName, int amount, float modifier)
     {
         if (!HasEnoughItem(itemName, amount))
         {
-            return;
+            return 0;
         }
 
         RemoveItem(itemName, amount);
-        GoldManager.instance.SellItem(itemsData.GetItemByName(itemName), amount, modifier);
+        return GoldManager.instance.SellItem(itemsData.GetItemByName(itemName), amount, modifier);
     }
 
     public void RemoveItem(string itemName, int amount)

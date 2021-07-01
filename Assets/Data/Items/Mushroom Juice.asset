@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 18baa68dae152644da0fd92a094edbe8, type: 3}
-  m_Name: Wood Log
+  m_Name: Mushroom Juice
   m_EditorClassIdentifier: 
-  <ItemSprite>k__BackingField: {fileID: 21300000, guid: 36606f17f4ebabc418c101cdf5e4cf7d,
-    type: 3}
-  <ItemName>k__BackingField: Wood Log
+  <ItemSprite>k__BackingField: {fileID: 0}
+  <ItemName>k__BackingField: Mushroom Juice
   <Description>k__BackingField: 
-  <Type>k__BackingField: 1
-  processResult: {fileID: 11400000, guid: e86ce1890f3f4424f88c8525ee350f10, type: 2}
+  <Type>k__BackingField: 3
+  processResult: {fileID: 0}
   processResultAmount: 1
   boostTimeAmount: 5
   boostCooldown: 5

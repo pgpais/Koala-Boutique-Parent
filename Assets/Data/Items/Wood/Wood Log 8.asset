@@ -16,7 +16,7 @@ MonoBehaviour:
     type: 3}
   <ItemName>k__BackingField: Wood Log 8
   <Description>k__BackingField: 
-  <Type>k__BackingField: 0
+  <Type>k__BackingField: 1
   processResult: {fileID: 11400000, guid: e86ce1890f3f4424f88c8525ee350f10, type: 2}
   processResultAmount: 1
   boostTimeAmount: 5

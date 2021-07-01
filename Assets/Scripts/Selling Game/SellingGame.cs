@@ -163,7 +163,7 @@ public class SellingGame : MonoBehaviour
         if (sliderValue < minCheapSellPercentage)
         {
             // TODO: way too cheap
-            incomeSoFar += GoldManager.instance.SellItem(item, currentAmount, tooCheapPriceModifier);
+            incomeSoFar += ItemManager.instance.SellItem(item.ItemName, currentAmount, tooCheapPriceModifier);
             amountSold += currentAmount;
             currentAmount = (int)(currentAmount * cheapAmountModifier);
         }
@@ -171,7 +171,7 @@ public class SellingGame : MonoBehaviour
         {
             // TODO: too cheap
             gameSpeed /= gameSpeedModifier;
-            incomeSoFar += GoldManager.instance.SellItem(item, currentAmount, veryCheapPriceModifier);
+            incomeSoFar += ItemManager.instance.SellItem(item.ItemName, currentAmount, veryCheapPriceModifier);
             amountSold += currentAmount;
             currentAmount = (int)(currentAmount * cheapAmountModifier);
         }
@@ -179,14 +179,14 @@ public class SellingGame : MonoBehaviour
         {
             // TODO: just right
             Debug.Log("Just right!");
-            incomeSoFar += GoldManager.instance.SellItem(item, currentAmount, justRightPriceModifier);
+            incomeSoFar += ItemManager.instance.SellItem(item.ItemName, currentAmount, justRightPriceModifier);
             amountSold += currentAmount;
             currentAmount = (int)(currentAmount * justRightAmountModifier);
         }
         else if (sliderValue <= maxExpensiveSellPercentage)
         {
             // TODO: too expensive
-            incomeSoFar += GoldManager.instance.SellItem(item, currentAmount, veryExpensivePriceModifier);
+            incomeSoFar += ItemManager.instance.SellItem(item.ItemName, currentAmount, veryExpensivePriceModifier);
             gameSpeed *= gameSpeedModifier;
             amountSold += currentAmount;
             currentAmount = (int)(currentAmount * expensiveAmountModifier);
@@ -194,7 +194,7 @@ public class SellingGame : MonoBehaviour
         else
         {
             // TODO: don't sell, too expensive
-            incomeSoFar += GoldManager.instance.SellItem(item, 0, tooExpensivePriceModifier);
+            incomeSoFar += ItemManager.instance.SellItem(item.ItemName, 0, tooExpensivePriceModifier);
             gameSpeed *= gameSpeedModifier;
             currentAmount = (int)(currentAmount * expensiveAmountModifier);
         }

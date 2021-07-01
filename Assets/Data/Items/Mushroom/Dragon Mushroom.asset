@@ -17,7 +17,7 @@ MonoBehaviour:
   <ItemName>k__BackingField: Dragon Mushroom
   <Description>k__BackingField: Just a gathered item
   <Type>k__BackingField: 0
-  processResult: {fileID: 0}
+  processResult: {fileID: 11400000, guid: 9863559ea03e6884a89d7a58576257a6, type: 2}
   processResultAmount: 1
   boostTimeAmount: 5
   boostCooldown: 5

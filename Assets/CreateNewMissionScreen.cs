@@ -75,7 +75,7 @@ public class CreateNewMissionScreen : MonoBehaviour
         missionDifficulty.AddOptions(new List<string>(difficultyNames));
 
         missionGatherable.ClearOptions();
-        List<string> gatherableNames = ItemManager.instance.itemsData.Items.Where(item => item.Type == Item.ItemType.Gatherable).Select(item => item.ItemName).ToList();
+        List<string> gatherableNames = ItemManager.instance.itemsData.Items.Where(item => item.Type == Item.ItemType.Gatherable && item.Unlocked).Select(item => item.ItemName).ToList();
         missionGatherable.AddOptions(gatherableNames);
     }
 

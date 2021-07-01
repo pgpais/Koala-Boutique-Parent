@@ -39,6 +39,11 @@ public class ItemListUI : MonoBehaviour
 
         foreach (var item in ItemManager.instance.itemsData.Items)
         {
+            if (!item.Unlocked)
+            {
+                continue;
+            }
+
             ItemUI itemUI = Instantiate(itemUIPrefab);
             if (itemsQuantity.ContainsKey(item.ItemName))
             {
