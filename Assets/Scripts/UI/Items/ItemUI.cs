@@ -113,7 +113,14 @@ public class ItemUI : MonoBehaviour
     {
         itemQuantityText.gameObject.SetActive(true);
         sellItemButton.gameObject.SetActive(true);
-        startProcessingItemButton.gameObject.SetActive(true);
+        if (item.ProcessResult != null)
+        {
+            startProcessingItemButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            startProcessingItemButton.gameObject.SetActive(false);
+        }
 
         itemQuantityText.text = itemQuantity.ToString();
 

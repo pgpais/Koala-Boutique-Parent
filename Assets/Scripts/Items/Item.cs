@@ -25,10 +25,10 @@ public class Item : ScriptableObject
 
 
     public Item ProcessResult => processResult;
-    public int ProcessResultAmount => processResultAmount;
+    public int ProcessResultAmount => (int)(processResultAmount * ProcessAmountMultiplier);
     public float BoostTimeAmount => boostTimeAmount;
     public float BoostCooldown => boostCooldown;
-    public float ProcessDuration => processDuration;
+    public float ProcessDuration => processDuration * ProcessDurationMultiplier;
 
 
     [Header("Processing")]
@@ -47,6 +47,14 @@ public class Item : ScriptableObject
     [field: SerializeField] public int MaxModifier { get; private set; } = 10;
     [field: SerializeField] public int MinModifier { get; private set; } = -10;
 
+    public float ProcessDurationMultiplier { get; set; } = 1f;
+    public float ProcessAmountMultiplier { get; set; } = 1f;
+
+    private void OnEnable()
+    {
+        ProcessDurationMultiplier = 1f;
+        ProcessAmountMultiplier = 1f;
+    }
 
     internal void InitializeEvent()
     {

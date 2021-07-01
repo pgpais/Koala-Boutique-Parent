@@ -124,7 +124,8 @@ MonoBehaviour:
       m_Calls: []
   <UnlockableName>k__BackingField: Cooking lvl3
   <UnlockableDescription>k__BackingField: 
-  <Requirements>k__BackingField: []
+  <Requirements>k__BackingField:
+  - {fileID: 11400000, guid: 85fbe51044d766848a6bb7608081c86f, type: 2}
   <GoldCost>k__BackingField: 0
   <GemCost>k__BackingField: 3
   unlocked: 0

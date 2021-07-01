@@ -14,6 +14,7 @@ public class Unlockable : SerializedScriptableObject
     [field: SerializeField] public string UnlockableName { get; private set; }
     [field: SerializeField] public string UnlockableDescription { get; private set; }
     [field: SerializeField] public List<Unlockable> Requirements { get; private set; }
+    [field: SerializeField] public List<UnlockableReward> Rewards { get; private set; }
     [field: SerializeField] public Dictionary<Item, int> ItemCost { get; private set; }
     [field: SerializeField] public int GoldCost { get; private set; }
     [field: SerializeField] public int GemCost { get; private set; }
@@ -70,6 +71,15 @@ public class Unlockable : SerializedScriptableObject
     internal void Unlock()
     {
         Unlocked = true;
+
+        if (Rewards != null)
+        {
+            foreach (UnlockableReward reward in Rewards)
+            {
+                reward.GetReward();
+            }
+        }
+
         UnlockableUpdated.Invoke(this);
     }
 }
