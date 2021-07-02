@@ -16,13 +16,17 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 11400000, guid: a0bb78d8ef2324949ad58a88067237bb, type: 2}
+    - {fileID: 11400000, guid: 86fc2a785b037fa4b9f98fa48470cccd, type: 2}
     - {fileID: 11400000, guid: a06410131afb03341a3fa5371e906c82, type: 2}
+    - {fileID: 11400000, guid: e86ce1890f3f4424f88c8525ee350f10, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
+    - Name: <Rewards>k__BackingField
+      Entry: 6
+      Data: 
     - Name: <ItemCost>k__BackingField
       Entry: 7
       Data: 0|System.Collections.Generic.Dictionary`2[[Item, Assembly-CSharp],[System.Int32,
@@ -36,7 +40,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 3
     - Name: 
       Entry: 7
       Data: 
@@ -58,6 +62,18 @@ MonoBehaviour:
     - Name: $v
       Entry: 3
       Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 10
+      Data: 2
+    - Name: $v
+      Entry: 3
+      Data: 10
     - Name: 
       Entry: 8
       Data: 
