@@ -43,6 +43,8 @@ public class MarketItem : MonoBehaviour
         AvailableItem = ItemManager.instance.itemQuantity.ContainsKey(itemName);
         button.interactable = AvailableItem;
         fadeImage.enabled = !AvailableItem;
+
+        MarketPrices.GotMarketPrices.AddListener(OnPricesUpdated);
     }
 
     public void UpdateUI(string itemName, int itemValue, Sprite itemImage)
@@ -61,5 +63,12 @@ public class MarketItem : MonoBehaviour
     public void UpdateValue(int itemValue)
     {
         this.itemValue.text = itemValue.ToString();
+    }
+
+    void OnPricesUpdated()
+    {
+        int modifier = MarketPrices.instance.GetCostModifierForItem(ItemName);
+        int itemValue = ItemManager.instance.itemsData.GetItemByName(ItemName).GoldValue;
+        UpdateValue(itemValue + modifier);
     }
 }

@@ -9,6 +9,8 @@ public class TechTreeUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        FirebaseCommunicator.LoggedOut.AddListener(OnLogout);
+
         foreach (var keyValuePair in UnlockablesManager.instance.Unlockables)
         {
             Instantiate(techUIPrefab, transform).InitUI(keyValuePair.Value);
@@ -16,5 +18,13 @@ public class TechTreeUI : MonoBehaviour
 
         // UnlockablesManager.instance.Unlockables["Dummy"].Unlocked = true;
         // UnlockablesManager.instance.Unlockables["Dummy"].UnlockableUpdated.Invoke(UnlockablesManager.instance.Unlockables["Dummy"]);
+    }
+
+    void OnLogout()
+    {
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
     }
 }

@@ -32,6 +32,7 @@ public class ItemListUI : MonoBehaviour
     private void OnDisable()
     {
         ItemManager.NewItemAdded.RemoveListener(NewItemAdded);
+        ItemManager.ItemRemoved.RemoveListener(ItemRemoved);
     }
 
     public void Init(Dictionary<string, int> itemsQuantity)

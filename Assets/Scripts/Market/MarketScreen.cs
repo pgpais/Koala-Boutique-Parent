@@ -16,26 +16,36 @@ public class MarketScreen : MonoBehaviour
         // FirebaseCommunicator.LoggedIn.AddListener(Init);
         FirebaseCommunicator.LoggedOut.AddListener(OnLogout);
 
-        MarketPrices.GotMarketPrices.AddListener(() =>
-        {
-            Init();
+        // MarketPrices.GotMarketPrices.AddListener(() =>
+        // {
+        //     Init();
 
-            ItemsList items = ItemManager.instance.itemsData;
+        //     ItemsList items = ItemManager.instance.itemsData;
 
-            foreach (var marketItem in marketItems.Values)
-            {
-                Item item = items.GetItemByName(marketItem.ItemName);
-                int valueModifier = MarketPrices.instance.GetCostModifierForItem(item.name);
+        //     foreach (var marketItem in marketItems.Values)
+        //     {
+        //         Item item = items.GetItemByName(marketItem.ItemName);
+        //         int valueModifier = MarketPrices.instance.GetCostModifierForItem(item.name);
 
-                marketItem.UpdateValue(item.GoldValue + valueModifier);
-            }
-        });
+        //         marketItem.UpdateValue(item.GoldValue + valueModifier);
+        //     }
+        // });
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        Init();
 
+        ItemsList items = ItemManager.instance.itemsData;
+
+        foreach (var marketItem in marketItems.Values)
+        {
+            Item item = items.GetItemByName(marketItem.ItemName);
+            int valueModifier = MarketPrices.instance.GetCostModifierForItem(item.name);
+
+            marketItem.UpdateValue(item.GoldValue + valueModifier);
+        }
     }
 
     void Init()

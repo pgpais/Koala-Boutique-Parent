@@ -36,6 +36,11 @@ public class Unlockable : SerializedScriptableObject
 
     private void OnEnable()
     {
+        Reset();
+    }
+
+    public void Reset()
+    {
         runTimeUnlocked = unlocked;
     }
 

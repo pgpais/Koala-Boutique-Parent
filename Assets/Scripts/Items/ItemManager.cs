@@ -178,6 +178,7 @@ public class ItemManager : MonoBehaviour
                 }
 
                 Dictionary<string, object> dictionary = task.Result.Value as Dictionary<string, object>;
+                itemQuantity.Clear();
                 foreach (var key in dictionary.Keys)
                 {
                     itemQuantity[key] = Convert.ToInt32(dictionary[key]);

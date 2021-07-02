@@ -23,6 +23,7 @@ public class ProcessingManager : MonoBehaviour
     {
         inProcess = new List<Process>();
         ItemManager.GotItems.AddListener(Initialize);
+        FirebaseCommunicator.LoggedOut.AddListener(OnLogout);
 
         if (instance != null)
         {
@@ -159,5 +160,10 @@ public class ProcessingManager : MonoBehaviour
                 Debug.Log("yey removed " + process.Key + " from processes");
             }
         });
+    }
+
+    void OnLogout()
+    {
+        inProcess.Clear();
     }
 }

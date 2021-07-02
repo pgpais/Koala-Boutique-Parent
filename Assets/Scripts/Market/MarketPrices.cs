@@ -57,7 +57,12 @@ public class MarketPrices : SerializedMonoBehaviour
             }
         }
 
-        indexOfActiveCosts = today.Hour / 3;
+        int newIndex = today.Hour / 3;
+        if (newIndex != indexOfActiveCosts)
+        {
+            indexOfActiveCosts = today.Hour / 3;
+            GotMarketPrices.Invoke();
+        }
 
         if (today.Day > curDay.Day)
         {

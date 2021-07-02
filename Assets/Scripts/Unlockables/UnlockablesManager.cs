@@ -43,6 +43,14 @@ public class UnlockablesManager : MonoBehaviour
         GetUnlockedUnlockables();
     }
 
+    void OnLogout()
+    {
+        foreach (Unlockable unlockable in unlockables.Values)
+        {
+            unlockable.Reset();
+        }
+    }
+
     void GetUnlockedUnlockables()
     {
         FirebaseCommunicator.instance.GetObject("techs", (task) =>
