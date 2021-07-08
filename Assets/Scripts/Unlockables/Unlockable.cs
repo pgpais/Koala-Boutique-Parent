@@ -18,6 +18,7 @@ public class Unlockable : SerializedScriptableObject
     [field: SerializeField] public Dictionary<Item, int> ItemCost { get; private set; }
     [field: SerializeField] public int GoldCost { get; private set; }
     [field: SerializeField] public int GemCost { get; private set; }
+    [field: SerializeField] public int DifficultyModifier { get; private set; } = 0;
 
     // TODO: list of items required for build
 

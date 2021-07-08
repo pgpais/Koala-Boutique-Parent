@@ -21,6 +21,9 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
+    - Name: <Rewards>k__BackingField
+      Entry: 6
+      Data: 
     - Name: <ItemCost>k__BackingField
       Entry: 7
       Data: 0|System.Collections.Generic.Dictionary`2[[Item, Assembly-CSharp],[System.Int32,
@@ -50,4 +53,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3bdb6e5de5d72dc44be8d22edc0372ed, type: 2}
   <GoldCost>k__BackingField: 30
   <GemCost>k__BackingField: 3
+  <DifficultyModifier>k__BackingField: 1
   unlocked: 0

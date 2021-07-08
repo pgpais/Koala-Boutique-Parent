@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 using UnityEngine;
 
 public class UnlockablesManager : MonoBehaviour
 {
+    public static string unlocksReferenceName = "techs";
+    public static string difficultyReferenceName = "difficulty";
     public static UnlockablesManager instance;
 
     [SerializeField] UnlockablesList unlockablesData;
@@ -53,7 +56,7 @@ public class UnlockablesManager : MonoBehaviour
 
     void GetUnlockedUnlockables()
     {
-        FirebaseCommunicator.instance.GetObject("techs", (task) =>
+        FirebaseCommunicator.instance.GetObject(unlocksReferenceName, (task) =>
         {
             if (task.IsFaulted)
             {
@@ -100,6 +103,7 @@ public class UnlockablesManager : MonoBehaviour
         GoldManager.instance.BuyUnlockable(unlockable);
 
         unlockable.Unlock();
+        ModifyDifficulty(unlockable.DifficultyModifier);
         SaveUnlockOnCloud();
         return true;
     }
@@ -118,7 +122,7 @@ public class UnlockablesManager : MonoBehaviour
 
         Debug.Log(json);
 
-        FirebaseCommunicator.instance.SendObject(json, "techs", (task) =>
+        FirebaseCommunicator.instance.SendObject(json, unlocksReferenceName, (task) =>
         {
             if (task.IsFaulted)
             {
@@ -132,10 +136,48 @@ public class UnlockablesManager : MonoBehaviour
         });
     }
 
-    // Update is called once per frame
-    void Update()
+    void ModifyDifficulty(int amount)
     {
+        FirebaseCommunicator.instance.GetObject(difficultyReferenceName, (task) =>
+            {
+                if (task.IsFaulted)
+                {
+                    Debug.LogError("smth went wrong. " + task.Exception.ToString());
+                    return;
+                }
 
+                if (task.IsCompleted)
+                {
+                    Debug.Log("yey got difficulty");
+                    int difficulty;
+
+                    string json = task.Result.GetRawJsonValue();
+                    if (json == null)
+                    {
+                        Debug.LogError("No difficulty found!");
+                        difficulty = 0;
+                        return;
+                    }
+
+                    difficulty = JsonConvert.DeserializeObject<int>(json);
+                    difficulty += amount;
+
+                    json = JsonConvert.SerializeObject(difficulty);
+                    FirebaseCommunicator.instance.SendObject(json, difficultyReferenceName, (task) =>
+                    {
+                        if (task.IsFaulted)
+                        {
+                            Debug.LogError("smth went wrong. " + task.Exception.ToString());
+                            return;
+                        }
+
+                        if (task.IsCompleted)
+                        {
+                            Debug.Log("CLOUD: Updated Difficulty");
+                        }
+                    });
+                }
+            });
     }
 
     public bool IsUnlockableUnlocked(string unlockableName)

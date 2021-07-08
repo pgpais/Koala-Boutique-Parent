@@ -91,4 +91,5 @@ MonoBehaviour:
   <Requirements>k__BackingField: []
   <GoldCost>k__BackingField: 5
   <GemCost>k__BackingField: 3
+  <DifficultyModifier>k__BackingField: 1
   unlocked: 0

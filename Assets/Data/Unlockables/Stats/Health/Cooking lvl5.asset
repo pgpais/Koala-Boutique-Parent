@@ -131,4 +131,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a969c440c373a544396935d0c6a2bb1f, type: 2}
   <GoldCost>k__BackingField: 0
   <GemCost>k__BackingField: 3
+  <DifficultyModifier>k__BackingField: 1
   unlocked: 0
