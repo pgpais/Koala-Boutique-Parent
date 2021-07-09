@@ -90,7 +90,7 @@ public class ItemUI : MonoBehaviour
 
     private void ShowSellScreen()
     {
-        ItemManager.instance.ShowSellMenu(item.ItemName, 0, ItemManager.instance.itemQuantity[item.ItemName]);
+        ItemManager.instance.ShowSellGameMenu(item.ItemName, 0, ItemManager.instance.itemQuantity[item.ItemName]);
     }
 
     void UpdateItemPrices()

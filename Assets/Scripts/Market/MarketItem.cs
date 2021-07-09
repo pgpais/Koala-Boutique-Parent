@@ -16,13 +16,25 @@ public class MarketItem : MonoBehaviour
 
     [SerializeField] Image fadeImage;
 
-    [SerializeField] Button button;
+    [SerializeField] Button bargainButton;
+    [SerializeField] Button sellButton;
 
     private void Awake()
     {
-        button.onClick.AddListener(() =>
+        bargainButton.onClick.AddListener(() =>
         {
-            if (!button.interactable)
+            if (!bargainButton.interactable)
+            {
+                return;
+            }
+
+            int itemQuantity = ItemManager.instance.itemQuantity[ItemName];
+            ItemManager.instance.ShowSellGameMenu(ItemName, 0, itemQuantity);
+        });
+
+        sellButton.onClick.AddListener(() =>
+        {
+            if (!sellButton.interactable)
             {
                 return;
             }
@@ -41,7 +53,8 @@ public class MarketItem : MonoBehaviour
             this.itemImage.sprite = itemImage;
 
         AvailableItem = ItemManager.instance.itemQuantity.ContainsKey(itemName);
-        button.interactable = AvailableItem;
+        bargainButton.interactable = AvailableItem;
+        sellButton.interactable = AvailableItem;
         fadeImage.enabled = !AvailableItem;
 
         MarketPrices.GotMarketPrices.AddListener(OnPricesUpdated);
@@ -56,7 +69,8 @@ public class MarketItem : MonoBehaviour
             this.itemImage.sprite = itemImage;
 
         AvailableItem = ItemManager.instance.itemQuantity.ContainsKey(itemName);
-        button.interactable = AvailableItem;
+        bargainButton.interactable = AvailableItem;
+        sellButton.interactable = AvailableItem;
         fadeImage.enabled = !AvailableItem;
     }
 

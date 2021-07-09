@@ -19,6 +19,7 @@ public class ItemManager : MonoBehaviour
     [field: SerializeField] public Dictionary<string, int> itemQuantity { get; private set; }
 
     [SerializeField] SellingGame sellingGame;
+    [SerializeField] SellScreen sellScreen;
 
 
     private void Awake()
@@ -80,6 +81,14 @@ public class ItemManager : MonoBehaviour
     }
 
     public void ShowSellMenu(string itemName, int minAmount, int maxAmount)
+    {
+        if (sellScreen != null)
+        {
+            sellScreen.Init(itemName, minAmount, maxAmount);
+        }
+    }
+
+    public void ShowSellGameMenu(string itemName, int minAmount, int maxAmount)
     {
         if (sellingGame != null)
         {
