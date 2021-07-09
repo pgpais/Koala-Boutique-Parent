@@ -9,12 +9,19 @@ public class ProcessingManager : MonoBehaviour
 {
     public static ProcessingManager instance;
     public static string firebaseReferenceName = "processes";
+
+    public static UnityEvent GotProcesses = new UnityEvent();
     public static UnityEvent<string, Process> ProcessCreated = new UnityEvent<string, Process>();
 
     public List<Process> InProcess => inProcess;
+    public float BoostCooldown => boostCooldown;
+    public float NextBoostTime => nextBoostTime;
 
     [SerializeField] NewProcessMenu newProcessMenu;
     [SerializeField] bool startProcessing;
+    [SerializeField] float boostCooldown = 5f;
+
+    float nextBoostTime;
 
     List<Process> inProcess;
 
@@ -33,6 +40,7 @@ public class ProcessingManager : MonoBehaviour
         {
             instance = this;
         }
+        nextBoostTime = Time.time + boostCooldown;
     }
 
     // Start is called before the first frame update
@@ -71,6 +79,8 @@ public class ProcessingManager : MonoBehaviour
                         Debug.LogException(ex, this);
                     }
                 }
+
+                GotProcesses.Invoke();
             }
         });
     }
@@ -101,6 +111,21 @@ public class ProcessingManager : MonoBehaviour
             CreateProcess(itemName, amount);
         }
     }
+
+    public void BoostProcesses()
+    {
+        if (CanBoost())
+        {
+            foreach (var process in inProcess)
+            {
+                process.Boost();
+            }
+
+            nextBoostTime = Time.time + boostCooldown;
+        }
+    }
+
+    bool CanBoost() => Time.time >= nextBoostTime;
 
     void CreateProcess(string itemName, int amount)
     {

@@ -18,8 +18,8 @@ public class ItemProcessingUI : MonoBehaviour
     [SerializeField] TMPro.TMP_Text itemNameText;
     [SerializeField] Image itemImage;
     Button itemButton;
-    [SerializeField] Image processBoostImage;
-    Button processBoostButton;
+    // [SerializeField] Image processBoostImage;
+    // Button processBoostButton;
     [SerializeField] Slider processSlider;
 
     private Animator anim;
@@ -45,7 +45,7 @@ public class ItemProcessingUI : MonoBehaviour
         anim = GetComponent<Animator>();
 
         itemButton = itemImage.GetComponent<Button>();
-        processBoostButton = processBoostImage.GetComponent<Button>();
+        // processBoostButton = processBoostImage.GetComponent<Button>();
 
         itemImage.sprite = processResult.ItemSprite;
 
@@ -54,14 +54,14 @@ public class ItemProcessingUI : MonoBehaviour
 
         this.process = process;
         itemNameText.text = "0s left";
-        boostBaseColor = processBoostImage.color;
+        // boostBaseColor = processBoostImage.color;
 
         process.ProcessBoosted.AddListener(OnProcessBoosted);
         process.ProcessFinished.AddListener(OnProcessFinished);
 
 
         // itemButton.onClick.AddListener(StartProcessing);
-        processBoostButton.onClick.AddListener(BoostProcessing);
+        // processBoostButton.onClick.AddListener(BoostProcessing);
     }
 
     // Update is called once per frame
@@ -91,7 +91,7 @@ public class ItemProcessingUI : MonoBehaviour
 
     void AnimateBoostButton()
     {
-        processBoostImage.color = Color.Lerp(boostBaseColor, boostReadyColor, (float)process.ElapsedBoostTimeRatio());
+        // processBoostImage.color = Color.Lerp(boostBaseColor, boostReadyColor, (float)process.ElapsedBoostTimeRatio());
 
 
         if (anim)
@@ -101,7 +101,7 @@ public class ItemProcessingUI : MonoBehaviour
 
     void ResetProcessBoost()
     {
-        processBoostImage.color = boostBaseColor;
+        // processBoostImage.color = boostBaseColor;
         howLongForNextBoost = timeBetweenProcessBosts;
 
         if (anim)
@@ -124,7 +124,7 @@ public class ItemProcessingUI : MonoBehaviour
 
     void OnProcessBoosted()
     {
-        processBoostImage.color = boostBaseColor;
+        // processBoostImage.color = boostBaseColor;
     }
 
     void OnProcessFinished()

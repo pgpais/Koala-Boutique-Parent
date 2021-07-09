@@ -66,16 +66,16 @@ public class Process
 
     public void Boost()
     {
-        if (CanBoost())
-        {
-            numberOfBoosts++;
-            var nextBoostDate = DateTime.Now + new TimeSpan(0, 0, (int)boostCooldown);
+        // if (CanBoost())
+        // {
+        numberOfBoosts++;
+        var nextBoostDate = DateTime.Now + new TimeSpan(0, 0, (int)boostCooldown);
 
-            nextBoostDateString = nextBoostDate.ToString(dateStringFormat);
+        nextBoostDateString = nextBoostDate.ToString(dateStringFormat);
 
-            ProcessBoosted.Invoke();
-            HandleProcessFinish();
-        }
+        ProcessBoosted.Invoke();
+        HandleProcessFinish();
+        // }
     }
 
     public double ElapsedTime()
