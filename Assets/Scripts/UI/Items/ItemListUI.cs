@@ -33,6 +33,15 @@ public class ItemListUI : MonoBehaviour
     {
         ItemManager.NewItemAdded.RemoveListener(NewItemAdded);
         ItemManager.ItemRemoved.RemoveListener(ItemRemoved);
+        foreach (Transform item in availableItems)
+        {
+            Destroy(item.gameObject);
+        }
+
+        foreach (Transform item in unavailableItems)
+        {
+            Destroy(item.gameObject);
+        }
     }
 
     public void Init(Dictionary<string, int> itemsQuantity)
@@ -52,6 +61,11 @@ public class ItemListUI : MonoBehaviour
                 itemUI.transform.SetParent(this.availableItems.transform, false);
                 availableItemUIs.Add(item.ItemName, itemUI);
                 itemUI.Init(item, itemsQuantity[item.ItemName]);
+
+                if (item.ItemName == SecretDoorManager.instance.DoorKey.ItemName || item.ItemName == SecretDoorManager.instance.DoorKey.ProcessResult.ItemName)
+                {
+                    itemUI.gameObject.SetActive(true);
+                }
             }
             else
             {
@@ -59,6 +73,11 @@ public class ItemListUI : MonoBehaviour
                 itemUI.transform.SetParent(this.unavailableItems.transform, false);
                 unavailableItemUIs.Add(item.ItemName, itemUI);
                 itemUI.Init(item);
+
+                if (item.ItemName == SecretDoorManager.instance.DoorKey.ItemName || item.ItemName == SecretDoorManager.instance.DoorKey.ProcessResult.ItemName)
+                {
+                    itemUI.gameObject.SetActive(false);
+                }
             }
         }
 
@@ -91,6 +110,10 @@ public class ItemListUI : MonoBehaviour
         itemUI.transform.SetParent(availableItems);
         itemUI.MakeAvailable(itemQuantity);
         availableItemUIs.Add(item.ItemName, itemUI);
+        if (item.ItemName == "Encrypted Key" || item.ItemName == "Decrypted Key")
+        {
+            unavailableItemUIs[item.ItemName].gameObject.SetActive(true);
+        }
     }
 
     public void ItemRemoved(Item item)
@@ -105,5 +128,9 @@ public class ItemListUI : MonoBehaviour
         itemUI.transform.SetParent(unavailableItems);
         itemUI.MakeUnavailable();
         unavailableItemUIs.Add(item.ItemName, itemUI);
+        if (item.ItemName == "Encrypted Key" || item.ItemName == "Decrypted Key")
+        {
+            unavailableItemUIs[item.ItemName].gameObject.SetActive(false);
+        }
     }
 }

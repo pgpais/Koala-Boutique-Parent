@@ -8,6 +8,7 @@ public class GoldManager : MonoBehaviour
     public static GoldManager instance;
     public static string goldReferenceName = "gold";
     public static string gemsReferenceName = "gems";
+    public static UnityEvent<Item, int> ItemSoldEvent = new UnityEvent<Item, int>();
     public static UnityEvent<int> GoldChanged = new UnityEvent<int>();
     public static UnityEvent<int> GemChanged = new UnityEvent<int>();
 
@@ -153,6 +154,7 @@ public class GoldManager : MonoBehaviour
         int value = (item.GoldValue + MarketPrices.instance.GetCostModifierForItem(item.ItemName)) * amount;
         CurrentGold += value;
         UploadGold();
+        ItemSoldEvent.Invoke(item, amount);
         return value;
     }
 
@@ -161,6 +163,7 @@ public class GoldManager : MonoBehaviour
         int value = (int)((item.GoldValue + MarketPrices.instance.GetCostModifierForItem(item.ItemName)) * modifier * amount);
         CurrentGold += value;
         UploadGold();
+        ItemSoldEvent.Invoke(item, amount);
         return value;
     }
 

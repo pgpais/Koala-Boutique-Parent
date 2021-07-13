@@ -93,7 +93,9 @@ public class MarketPrices : SerializedMonoBehaviour
 
     public int GetCostModifierForItem(string itemName)
     {
-        return costModifierToday[indexOfActiveCosts][itemName];
+        if (costModifierToday[indexOfActiveCosts].ContainsKey(itemName))
+            return costModifierToday[indexOfActiveCosts][itemName];
+        return 0;
     }
 
     public static List<Dictionary<string, int>> GenerateMarketPrices()

@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -5,12 +6,15 @@ using UnityEngine.UI;
 public class ItemUI : MonoBehaviour
 {
     [SerializeField] TMP_Text itemNameText;
-    [SerializeField] TMP_Text itemDescriptionText;
+    // [SerializeField] TMP_Text itemDescriptionText;
     [SerializeField] TMP_Text itemQuantityText;
-    [SerializeField] TMP_Text itemValueText;
+    // [SerializeField] TMP_Text itemValueText;
     [SerializeField] Image itemImage;
     [SerializeField] Button startProcessingItemButton;
-    [SerializeField] Button sellItemButton;
+    [SerializeField] Toggle processOneItemToggle;
+    [SerializeField] Toggle processTenItemToggle;
+    [SerializeField] Toggle processAllItemToggle;
+    // [SerializeField] Button sellItemButton;
 
     private bool available = false;
 
@@ -26,8 +30,8 @@ public class ItemUI : MonoBehaviour
         this.item = item;
 
         itemNameText.text = item.ItemName;
-        itemDescriptionText.text = item.Description;
-        this.itemValueText.transform.parent.gameObject.SetActive(false);
+        // itemDescriptionText.text = item.Description;
+        // this.itemValueText.transform.parent.gameObject.SetActive(false);
 
         available = true;
         MakeAvailable(itemQuantity);
@@ -48,8 +52,8 @@ public class ItemUI : MonoBehaviour
         this.item = item;
 
         itemNameText.text = item.ItemName;
-        itemDescriptionText.text = item.Description;
-        this.itemValueText.transform.parent.gameObject.SetActive(false);
+        // itemDescriptionText.text = item.Description;
+        // this.itemValueText.transform.parent.gameObject.SetActive(false);
 
         available = false;
         MakeUnavailable();
@@ -79,7 +83,7 @@ public class ItemUI : MonoBehaviour
     private void OnDisable()
     {
         MarketPrices.GotMarketPrices.RemoveListener(UpdateItemPrices);
-        Destroy(gameObject);
+        // Destroy(gameObject);
     }
 
     private void ShowStartProcessScreen()
@@ -95,24 +99,24 @@ public class ItemUI : MonoBehaviour
 
     void UpdateItemPrices()
     {
-        this.itemValueText.transform.parent.gameObject.SetActive(true);
+        // this.itemValueText.transform.parent.gameObject.SetActive(true);
 
         int itemValue = item.GoldValue;
         itemValue += MarketPrices.instance.GetCostModifierForItem(item.ItemName);
-        this.itemValueText.text = itemValue.ToString();
+        // this.itemValueText.text = itemValue.ToString();
     }
 
     public void MakeUnavailable()
     {
         itemQuantityText.gameObject.SetActive(false);
-        sellItemButton.gameObject.SetActive(false);
+        // sellItemButton.gameObject.SetActive(false);
         startProcessingItemButton.gameObject.SetActive(false);
     }
 
     public void MakeAvailable(int itemQuantity)
     {
         itemQuantityText.gameObject.SetActive(true);
-        sellItemButton.gameObject.SetActive(true);
+        // sellItemButton.gameObject.SetActive(true);
         if (item.ProcessResult != null)
         {
             startProcessingItemButton.gameObject.SetActive(true);
@@ -128,12 +132,32 @@ public class ItemUI : MonoBehaviour
 
         // TODO: #13 Move item event listeners to parent UI script
         ItemManager.ItemUpdated.AddListener(UpdateUI);
-        startProcessingItemButton.onClick.AddListener(ShowStartProcessScreen);
+        startProcessingItemButton.onClick.AddListener(StartProcessing);
         // TODO: #25 Make amount selection screen (copy from processScreen)
-        sellItemButton.onClick.AddListener(ShowSellScreen);
+        // sellItemButton.onClick.AddListener(ShowSellScreen);
 
         bool canItemBeProcessed = !(item.Type == Item.ItemType.Processed || item.Type == Item.ItemType.Valuable);
         if (!canItemBeProcessed)
-            startProcessingItemButton.gameObject.SetActive(false);
+            startProcessingItemButton.transform.parent.gameObject.SetActive(false);
+    }
+
+    private void StartProcessing()
+    {
+        int amount = 0;
+
+        if (processOneItemToggle.isOn)
+        {
+            amount = 1;
+        }
+        else if (processTenItemToggle.isOn)
+        {
+            amount = 10;
+        }
+        else if (processAllItemToggle.isOn)
+        {
+            amount = ItemManager.instance.itemQuantity[item.ItemName];
+        }
+
+        ProcessingManager.instance.StartProcessing(item.ItemName, amount);
     }
 }

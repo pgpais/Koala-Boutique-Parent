@@ -20,7 +20,7 @@ public class Item : ScriptableObject, UnlockableReward
     public UnityEvent ItemRemoved { get; private set; }
     [field: SerializeField] public Sprite ItemSprite { get; private set; }
     [field: SerializeField] public string ItemName { get; private set; }
-    [field: SerializeField] public string Description { get; private set; }
+    [field: SerializeField] public string Description { get; set; }
     [field: SerializeField] public ItemType Type { get; private set; }
 
 

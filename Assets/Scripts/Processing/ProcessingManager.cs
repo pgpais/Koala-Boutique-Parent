@@ -169,7 +169,14 @@ public class ProcessingManager : MonoBehaviour
     void OnProcessFinished(Process process)
     {
         Item processItem = ItemManager.instance.itemsData.GetItemByName(process.ProcessingItemName);
-        ItemManager.instance.AddItem(processItem.ProcessResult.ItemName, processItem.ProcessResultAmount * process.ProcessAmount, true);
+        if (SecretDoorManager.instance.DoorKey)
+        {
+            SecretDoorManager.instance.UnlockDoor(processItem.ProcessResult);
+        }
+        else
+        {
+            ItemManager.instance.AddItem(processItem.ProcessResult.ItemName, processItem.ProcessResultAmount * process.ProcessAmount, true);
+        }
 
         inProcess.Remove(process);
 

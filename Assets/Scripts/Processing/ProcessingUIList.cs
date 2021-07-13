@@ -11,24 +11,29 @@ public class ProcessingUIList : MonoBehaviour
 
     private void Awake()
     {
-
         boostButton.onClick.AddListener(BoostProcesses);
-
-        ProcessingManager.GotProcesses.AddListener(() =>
-        {
-            foreach (Process process in ProcessingManager.instance.InProcess)
-            {
-                AddNewProcessUI(process.ProcessingItemName, process);
-            }
-
-            ProcessingManager.ProcessCreated.AddListener(AddNewProcessUI);
-        });
     }
 
     private void Update()
     {
         float boostRatio = (ProcessingManager.instance.NextBoostTime - Time.time) / ProcessingManager.instance.BoostCooldown;
         boostButton.image.color = Color.Lerp(Color.red, Color.white, boostRatio);
+    }
+
+    private void OnEnable()
+    {
+        foreach (Process process in ProcessingManager.instance.InProcess)
+        {
+            AddNewProcessUI(process.ProcessingItemName, process);
+        }
+    }
+
+    private void OnDisable()
+    {
+        foreach (Transform process in processList)
+        {
+            Destroy(process.gameObject);
+        }
     }
 
     void AddNewProcessUI(string itemName, Process process)

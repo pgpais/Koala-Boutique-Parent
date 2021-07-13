@@ -16,7 +16,9 @@ public class ItemProcessingUI : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] TMPro.TMP_Text itemNameText;
+    [SerializeField] TMPro.TMP_Text timeLeftText;
     [SerializeField] Image itemImage;
+    [SerializeField] Image itemResultImage;
     Button itemButton;
     // [SerializeField] Image processBoostImage;
     // Button processBoostButton;
@@ -47,13 +49,14 @@ public class ItemProcessingUI : MonoBehaviour
         itemButton = itemImage.GetComponent<Button>();
         // processBoostButton = processBoostImage.GetComponent<Button>();
 
-        itemImage.sprite = processResult.ItemSprite;
+        itemImage.sprite = item.ItemSprite;
+        itemResultImage.sprite = processResult.ItemSprite;
 
         timeElapsed = 0f;
         howLongForNextBoost = timeBetweenProcessBosts;
 
         this.process = process;
-        itemNameText.text = "0s left";
+        itemNameText.text = $"{itemName} → {item.ProcessResult.ItemName}";
         // boostBaseColor = processBoostImage.color;
 
         process.ProcessBoosted.AddListener(OnProcessBoosted);
@@ -74,7 +77,7 @@ public class ItemProcessingUI : MonoBehaviour
     void UpdateProcessSlider()
     {
         // processSlider.value = 1f - (process.TimeLeft / (process.DurationPerItem * process.AmountToDo));
-        itemNameText.text = $"{(int)(process.ProcessDuration - process.ElapsedTime())}s left";
+        timeLeftText.text = $"{(int)(process.ProcessDuration - process.ElapsedTime())}s left";
 
         processSlider.value = (float)process.ElapsedTimeRatio();
         process.HandleProcessFinish();

@@ -21,6 +21,7 @@ public class MenuSwitcher : SerializedMonoBehaviour
 
     [SerializeField] string defaultScreenName = "Processing";
     [SerializeField] Dictionary<string, GameObject> menus;
+    [SerializeField] Dictionary<string, Sprite> tabIconImages = new Dictionary<string, Sprite>();
 
     Dictionary<string, Toggle> tabs;
 
@@ -65,11 +66,21 @@ public class MenuSwitcher : SerializedMonoBehaviour
         foreach (var menu in menus)
         {
             Toggle tab = Instantiate(tabPrefab, tabLayoutGroup.transform);
-            TMP_Text text = tab.GetComponentInChildren<TMP_Text>();
+            // TMP_Text text = tab.GetComponentInChildren<TMP_Text>();
+            List<Image> images = new List<Image>(tab.GetComponentsInChildren<Image>());
+            Image image = images.Find((image) => image.gameObject.name == "Icon");
             // TODO: tab listener
             tab.onValueChanged.AddListener((toggled) => { HandleToggleEvent(toggled, menu.Key); });
             tab.group = tabLayoutGroup;
-            text.text = menu.Key;
+            // text.text = menu.Key;
+            if (tabIconImages.ContainsKey(menu.Key))
+            {
+                image.sprite = tabIconImages[menu.Key];
+            }
+            else
+            {
+                Debug.LogError("aiusdhauishda  " + menu.Key);
+            }
 
             tabs.Add(menu.Key, tab);
 
