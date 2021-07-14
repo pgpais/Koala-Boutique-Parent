@@ -87,10 +87,13 @@ MonoBehaviour:
   UnlockableUpdated:
     m_PersistentCalls:
       m_Calls: []
+  <UnlockableSprite>k__BackingField: {fileID: 21300000, guid: 83774375fbb3b344393050d6ab652fee,
+    type: 3}
   <UnlockableName>k__BackingField: Wood Workshop lvl10
   <UnlockableDescription>k__BackingField: 
   <Requirements>k__BackingField:
   - {fileID: 11400000, guid: 74bd94c544dd4e84cb503a1beef3971e, type: 2}
   <GoldCost>k__BackingField: 5
   <GemCost>k__BackingField: 0
+  <DifficultyModifier>k__BackingField: 0
   unlocked: 0

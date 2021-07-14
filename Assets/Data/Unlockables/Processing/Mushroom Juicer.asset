@@ -22,6 +22,9 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
+    - Name: <Rewards>k__BackingField
+      Entry: 6
+      Data: 
     - Name: <ItemCost>k__BackingField
       Entry: 7
       Data: 0|System.Collections.Generic.Dictionary`2[[Item, Assembly-CSharp],[System.Int32,
@@ -57,9 +60,12 @@ MonoBehaviour:
   UnlockableUpdated:
     m_PersistentCalls:
       m_Calls: []
+  <UnlockableSprite>k__BackingField: {fileID: 21300000, guid: 0eb9a29df10f4fd4e826a5814386c3b2,
+    type: 3}
   <UnlockableName>k__BackingField: Mushroom Juicer
   <UnlockableDescription>k__BackingField: 
   <Requirements>k__BackingField: []
   <GoldCost>k__BackingField: 100
   <GemCost>k__BackingField: 5
+  <DifficultyModifier>k__BackingField: 0
   unlocked: 0

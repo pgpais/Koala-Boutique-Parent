@@ -86,6 +86,8 @@ MonoBehaviour:
   UnlockableUpdated:
     m_PersistentCalls:
       m_Calls: []
+  <UnlockableSprite>k__BackingField: {fileID: 21300000, guid: 36127535b014c614db456141b341df62,
+    type: 3}
   <UnlockableName>k__BackingField: Training Dummy lvl1
   <UnlockableDescription>k__BackingField: 
   <Requirements>k__BackingField: []

@@ -73,10 +73,13 @@ MonoBehaviour:
   UnlockableUpdated:
     m_PersistentCalls:
       m_Calls: []
+  <UnlockableSprite>k__BackingField: {fileID: 21300000, guid: dc11ab4218356e844afa2fd7d1922f57,
+    type: 3}
   <UnlockableName>k__BackingField: Torch
   <UnlockableDescription>k__BackingField: 
   <Requirements>k__BackingField:
   - {fileID: 11400000, guid: 2dab53dbd129d574bb437641c3959d6d, type: 2}
   <GoldCost>k__BackingField: 75
   <GemCost>k__BackingField: 1
+  <DifficultyModifier>k__BackingField: 0
   unlocked: 0

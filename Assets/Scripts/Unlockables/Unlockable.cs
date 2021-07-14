@@ -11,6 +11,8 @@ public class Unlockable : SerializedScriptableObject
     [HideInInspector]
     public UnityEvent<Unlockable> UnlockableUpdated;
 
+    [field: SerializeField] public Sprite UnlockableSprite { get; private set; }
+
     [field: SerializeField] public string UnlockableName { get; private set; }
     [field: SerializeField] public string UnlockableDescription { get; private set; }
     [field: SerializeField] public List<Unlockable> Requirements { get; private set; }

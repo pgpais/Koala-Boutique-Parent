@@ -23,6 +23,9 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
+    - Name: <Rewards>k__BackingField
+      Entry: 6
+      Data: 
     - Name: <ItemCost>k__BackingField
       Entry: 7
       Data: 0|System.Collections.Generic.Dictionary`2[[Item, Assembly-CSharp],[System.Int32,
@@ -70,10 +73,13 @@ MonoBehaviour:
   UnlockableUpdated:
     m_PersistentCalls:
       m_Calls: []
+  <UnlockableSprite>k__BackingField: {fileID: 21300000, guid: 88c52f6a48f723b47bd4bef5760a4b7f,
+    type: 3}
   <UnlockableName>k__BackingField: Afraid
   <UnlockableDescription>k__BackingField: 
   <Requirements>k__BackingField:
   - {fileID: 11400000, guid: 2dab53dbd129d574bb437641c3959d6d, type: 2}
   <GoldCost>k__BackingField: 0
   <GemCost>k__BackingField: 0
+  <DifficultyModifier>k__BackingField: 0
   unlocked: 0

@@ -61,10 +61,13 @@ MonoBehaviour:
   UnlockableUpdated:
     m_PersistentCalls:
       m_Calls: []
+  <UnlockableSprite>k__BackingField: {fileID: 21300000, guid: c47786cdb95dd8d48aa7ad9945b566a7,
+    type: 3}
   <UnlockableName>k__BackingField: Dragon Mushroom
   <UnlockableDescription>k__BackingField: 
   <Requirements>k__BackingField:
   - {fileID: 11400000, guid: ffca1544a3f60fb44a3134d929f12ed6, type: 2}
   <GoldCost>k__BackingField: 80
   <GemCost>k__BackingField: 640
+  <DifficultyModifier>k__BackingField: 0
   unlocked: 0

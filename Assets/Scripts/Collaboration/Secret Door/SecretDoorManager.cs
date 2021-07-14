@@ -9,11 +9,16 @@ public class SecretDoorManager : MonoBehaviour
 
     public static string referenceName = "secretDoor";
     public static SecretDoorManager instance;
+
     public Item DoorKey => doorKey;
     [SerializeField] Item doorKey;
     const string dateFormat = "yyyyMMdd";
-
     DoorTime doorTime;
+
+    internal string GetCode()
+    {
+        return doorTime.code;
+    }
 
     private void Awake()
     {

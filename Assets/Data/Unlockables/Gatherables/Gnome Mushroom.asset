@@ -61,10 +61,13 @@ MonoBehaviour:
   UnlockableUpdated:
     m_PersistentCalls:
       m_Calls: []
+  <UnlockableSprite>k__BackingField: {fileID: 21300000, guid: e9803baae69b57740af63d7dbb90a059,
+    type: 3}
   <UnlockableName>k__BackingField: Gnome Mushroom
   <UnlockableDescription>k__BackingField: 
   <Requirements>k__BackingField:
   - {fileID: 11400000}
   <GoldCost>k__BackingField: 80
   <GemCost>k__BackingField: 2160
+  <DifficultyModifier>k__BackingField: 0
   unlocked: 0
