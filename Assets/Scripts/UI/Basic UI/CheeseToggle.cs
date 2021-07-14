@@ -9,13 +9,16 @@ public class CheeseToggle : Toggle
     [SerializeField] Sprite onSprite;
     [SerializeField] Sprite offSprite;
 
-    Image image;
+    [SerializeField] Image image;
 
     protected override void Awake()
     {
         base.Awake();
         onValueChanged.AddListener(ToggleSprites);
-        image = GetComponent<Image>();
+        if (image == null)
+        {
+            image = GetComponent<Image>();
+        }
     }
 
     void ToggleSprites(bool state)

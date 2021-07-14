@@ -26,4 +26,9 @@ public class ItemsList : ScriptableObject
             item.InitializeEvent();
         }
     }
+
+    internal List<Item> GetUnlockedItems()
+    {
+        return items.Where(item => item.Unlocked).ToList();
+    }
 }

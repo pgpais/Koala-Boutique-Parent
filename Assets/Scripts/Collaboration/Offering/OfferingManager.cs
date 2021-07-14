@@ -6,6 +6,7 @@ using UnityEngine.Events;
 
 public class OfferingManager : MonoBehaviour
 {
+    public static UnityEvent OnOfferingChanged = new UnityEvent();
     public static UnityEvent<bool> OnOffering = new UnityEvent<bool>();
 
     public static string referenceName = "offering";
@@ -49,6 +50,40 @@ public class OfferingManager : MonoBehaviour
 
         Debug.Log("Good offer, king is pleased");
         OnOffering.Invoke(true);
+    }
+
+    internal bool MakeOffer(List<string> itemsToOffer)
+    {
+        bool allItemsToOfferFound = true;
+        if (itemsToOffer.Count < offering.itemsToOffer.Count)
+        {
+            allItemsToOfferFound = false;
+        }
+        else
+        {
+            // Check if all items to offer are in the offering's items to Offer
+            for (int i = 0; i < itemsToOffer.Count; i++)
+            {
+                if (!offering.itemsToOffer.Contains(itemsToOffer[i]))
+                {
+                    allItemsToOfferFound = false;
+                    break;
+                }
+            }
+        }
+
+        offering.offeringMade = true;
+        offering.offeringSuccessful = allItemsToOfferFound;
+
+        SendOffering(offering);
+        OnOfferingChanged.Invoke();
+
+        return allItemsToOfferFound;
+    }
+
+    public bool ShouldShowButton()
+    {
+        return offering.wasNotified && !offering.offeringMade;
     }
 
     private void Awake()
@@ -97,6 +132,7 @@ public class OfferingManager : MonoBehaviour
                         return;
                     }
                 }
+                OnOfferingChanged.Invoke();
             }
         });
     }
@@ -113,7 +149,6 @@ public class OfferingManager : MonoBehaviour
             else if (task.IsCompleted)
             {
                 Debug.Log("Success sending offering");
-                this.offering = offering;
             }
         });
     }
@@ -140,12 +175,16 @@ public class OfferingManager : MonoBehaviour
         public List<string> itemsToOffer;
         public string offerStartDate;
         public bool wasNotified;
+        public bool offeringMade;
+        public bool offeringSuccessful;
 
-        public Offering(List<string> itemsToOffer, string offerStartDate, bool wasNotified = false)
+        public Offering(List<string> itemsToOffer, string offerStartDate, bool wasNotified = false, bool offeringSuccessful = false, bool offeringMade = false)
         {
             this.itemsToOffer = itemsToOffer;
             this.offerStartDate = offerStartDate;
             this.wasNotified = wasNotified;
+            this.offeringSuccessful = offeringSuccessful;
+            this.offeringMade = offeringMade;
         }
 
         internal bool HasExpired()

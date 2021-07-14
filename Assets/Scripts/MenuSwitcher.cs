@@ -9,10 +9,14 @@ public class MenuSwitcher : SerializedMonoBehaviour
 {
     public static MenuSwitcher instance;
 
+    [SerializeField] Button kingOfferingButton;
+    [SerializeField] Button secretCodeButton;
     [SerializeField] Button logoutButton;
 
     [SerializeField] GameObject askForIdObject;
     [SerializeField] GameObject mainMenuObject;
+    [SerializeField] GameObject FadeObject;
+    [SerializeField] GameObject KingOfferingScreen;
 
     [SerializeField] ToggleGroup tabLayoutGroup;
     [SerializeField] Toggle tabPrefab;
@@ -54,6 +58,8 @@ public class MenuSwitcher : SerializedMonoBehaviour
         FirebaseCommunicator.LoggedOut.AddListener(OnLoggedOut);
         // menuDropdown.onValueChanged.AddListener(SwitchToMenu);
         logoutButton.onClick.AddListener(Logout);
+        kingOfferingButton.onClick.AddListener(ShowKingOfferingScreen);
+        OfferingManager.OnOfferingChanged.AddListener(HandleKingButton);
     }
 
     private void Start()
@@ -109,6 +115,12 @@ public class MenuSwitcher : SerializedMonoBehaviour
 
     //     menuDropdown.value = keys.FindIndex((key) => key == defaultScreenName);
     // }
+
+    void ShowKingOfferingScreen()
+    {
+        FadeObject.SetActive(true);
+        KingOfferingScreen.SetActive(true);
+    }
 
     void SwitchToMenu(int menuIndex)
     {
@@ -169,5 +181,11 @@ public class MenuSwitcher : SerializedMonoBehaviour
     {
         askForIdObject.SetActive(true);
         mainMenuObject.SetActive(false);
+    }
+
+    void HandleKingButton()
+    {
+        Debug.Log("Enable button = " + OfferingManager.Instance.ShouldShowButton());
+        kingOfferingButton.gameObject.SetActive(OfferingManager.Instance.ShouldShowButton());
     }
 }
