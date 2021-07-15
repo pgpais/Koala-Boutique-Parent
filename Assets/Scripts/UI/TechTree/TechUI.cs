@@ -21,6 +21,8 @@ public class TechUI : SerializedMonoBehaviour
     [SerializeField] TMPro.TMP_Text unlockableDescription;
     [SerializeField] Image unlockableImage;
     [SerializeField] Button unlockButton;
+    [SerializeField] GameObject unlockedObject;
+    [SerializeField] GameObject divisionObject;
 
     private Unlockable unlockable;
 
@@ -47,6 +49,11 @@ public class TechUI : SerializedMonoBehaviour
         InitializeCosts(unlockable.ItemCost);
 
         unlockable.UnlockableUpdated.AddListener(UpdateUI);
+
+        if (this.unlockable.Unlocked)
+        {
+            ShowUnlocked();
+        }
 
         canUnlock = unlockable.CanUnlock();
 
@@ -170,7 +177,7 @@ public class TechUI : SerializedMonoBehaviour
         unlockableName.text = this.unlockable.UnlockableName;
         if (unlockable.Unlocked)
         {
-            unlockableName.color = Color.green;
+            ShowUnlocked();
         }
         Debug.Log($"{unlockable.UnlockableName} was updated!");
     }
@@ -178,6 +185,16 @@ public class TechUI : SerializedMonoBehaviour
     void UnlockTech()
     {
         UnlockablesManager.instance.Unlock(unlockable);
+    }
+
+    void ShowUnlocked()
+    {
+        unlockButton.gameObject.SetActive(false);
+        unlockedObject.SetActive(true);
+
+        //Hide costs
+        costUI.gameObject.SetActive(false);
+        divisionObject.SetActive(false);
     }
 
     private void OnValidate()

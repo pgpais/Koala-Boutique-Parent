@@ -166,14 +166,148 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 0
-    SerializedBytes: 01010c00000063006f006c006f00720050006500720054007900700065002f000000000180000000530079007300740065006d002e0043006f006c006c0065006300740069006f006e0073002e00470065006e0065007200690063002e00440069006300740069006f006e00610072007900600032005b005b0055006e006c006f0063006b00610062006c00650054007900700065002c00200041007300730065006d0062006c0079002d004300530068006100720070005d002c005b0055006e0069007400790045006e00670069006e0065002e0043006f006c006f0072002c00200055006e0069007400790045006e00670069006e0065002e0043006f00720065004d006f00640075006c0065005d005d002c0020006d00730063006f0072006c00690062000000000001010800000063006f006d00700061007200650072002f01000000015e000000530079007300740065006d002e0043006f006c006c0065006300740069006f006e0073002e00470065006e0065007200690063002e0045006e0075006d0045007100750061006c0069007400790043006f006d0070006100720065007200600031005b005b0055006e006c006f0063006b00610062006c00650054007900700065002c00200041007300730065006d0062006c0079002d004300530068006100720070005d005d002c0020006d00730063006f0072006c0069006200010000000600000000000000000705060400000000000000042e1d010200000024006b000000000000000000030102000000240076002f02000000012900000055006e0069007400790045006e00670069006e0065002e0043006f006c006f0072002c00200055006e0069007400790045006e00670069006e0065002e0043006f00720065004d006f00640075006c00650020efed6d3f20eae8683f20eeec6c3e200000803f0505042e1d010200000024006b00010000000000000003010200000024007600300200000020f1ef6f3f209695153f20c5c3433f200000803f0505042e1d010200000024006b00020000000000000003010200000024007600300200000020d4d2d23e20efed6d3f20d4d2d23e200000803f0505042e1d010200000024006b00030000000000000003010200000024007600300200000020d0cece3e20c8c6463f20eae8683f200000803f05050705
+    SerializedFormat: 2
+    SerializedBytes: 
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: colorPerType
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[UnlockableType, Assembly-CSharp],[UnityEngine.Color,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[UnlockableType,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 4
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.9294118
+    - Name: 
+      Entry: 4
+      Data: 0.909804
+    - Name: 
+      Entry: 4
+      Data: 0.231372565
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.937254965
+    - Name: 
+      Entry: 4
+      Data: 0.58431375
+    - Name: 
+      Entry: 4
+      Data: 0.764705956
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.411764741
+    - Name: 
+      Entry: 4
+      Data: 0.9294118
+    - Name: 
+      Entry: 4
+      Data: 0.411764741
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 3
+    - Name: $v
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.4039216
+    - Name: 
+      Entry: 4
+      Data: 0.776470661
+    - Name: 
+      Entry: 4
+      Data: 0.909804
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   SmallUnlockableUIPrefab: {fileID: 7700930903507461814, guid: bcf8142db8e328449b0c90926ccf2e0b,
     type: 3}
   itemCostPrefab: {fileID: 9003563898638167176, guid: 0de4998bce534af43a838844bb096b49,
@@ -186,6 +320,8 @@ MonoBehaviour:
   unlockableDescription: {fileID: 8565918334089706581}
   unlockableImage: {fileID: 1850651116224619654}
   unlockButton: {fileID: 3568497106910946851}
+  unlockedObject: {fileID: 6205521791226068577}
+  divisionObject: {fileID: 6272613289519619659}
 --- !u!114 &948812960821298647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -861,8 +997,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 500, y: 0}
-  m_SizeDelta: {x: 960, y: 0}
+  m_AnchoredPosition: {x: 496.5, y: 0}
+  m_SizeDelta: {x: 953, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &4678731467708093487
 MonoBehaviour:
@@ -915,6 +1051,7 @@ GameObject:
   - component: {fileID: 583873722467768000}
   - component: {fileID: 3222757937996500703}
   - component: {fileID: 5884660572622096703}
+  - component: {fileID: 6702345286029165768}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -979,6 +1116,26 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6702345286029165768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6272613289519619659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!1 &6500294327382711000
 GameObject:
   m_ObjectHideFlags: 0
