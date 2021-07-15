@@ -89,4 +89,9 @@ public class UnlockablesScreen : SerializedMonoBehaviour
             unlockableUI.Enable();
         }
     }
+
+    private void OnEnable()
+    {
+        //TODO: #63 Sort by costs fulfilled, then, if possible, by how close they are to be fulfilled, then by unlocked state
+    }
 }
