@@ -419,7 +419,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 209.7392, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7269958916188485768
@@ -816,6 +816,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemNameText: {fileID: 857444036916915301}
   itemQuantityText: {fileID: 18517301738131450}
+  itemQuantityLabel: {fileID: 3285286170399180644}
   itemImage: {fileID: 1009593193313749047}
   startProcessingItemButton: {fileID: 2021377212076556112}
   processOneItemToggle: {fileID: 8956852949651858864}

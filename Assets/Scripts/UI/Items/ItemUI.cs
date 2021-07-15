@@ -8,6 +8,7 @@ public class ItemUI : MonoBehaviour
     [SerializeField] TMP_Text itemNameText;
     // [SerializeField] TMP_Text itemDescriptionText;
     [SerializeField] TMP_Text itemQuantityText;
+    [SerializeField] GameObject itemQuantityLabel;
     // [SerializeField] TMP_Text itemValueText;
     [SerializeField] Image itemImage;
     [SerializeField] Button startProcessingItemButton;
@@ -109,31 +110,41 @@ public class ItemUI : MonoBehaviour
     public void MakeUnavailable()
     {
         itemQuantityText.gameObject.SetActive(false);
+        itemQuantityLabel.gameObject.SetActive(false);
         // sellItemButton.gameObject.SetActive(false);
         startProcessingItemButton.gameObject.SetActive(false);
+        processOneItemToggle.gameObject.SetActive(false);
+        processTenItemToggle.gameObject.SetActive(false);
+        processAllItemToggle.gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     public void MakeAvailable(int itemQuantity)
     {
+        gameObject.SetActive(true);
         itemQuantityText.gameObject.SetActive(true);
+        itemQuantityLabel.gameObject.SetActive(true);
         // sellItemButton.gameObject.SetActive(true);
         if (item.ProcessResult != null)
         {
             startProcessingItemButton.gameObject.SetActive(true);
+            processOneItemToggle.gameObject.SetActive(true);
+            processTenItemToggle.gameObject.SetActive(true);
+            processAllItemToggle.gameObject.SetActive(true);
         }
         else
         {
             startProcessingItemButton.gameObject.SetActive(false);
+            processOneItemToggle.gameObject.SetActive(false);
+            processTenItemToggle.gameObject.SetActive(false);
+            processAllItemToggle.gameObject.SetActive(false);
         }
 
         itemQuantityText.text = itemQuantity.ToString();
 
-        // TODO: #29 Add Item images
-
         // TODO: #13 Move item event listeners to parent UI script
         ItemManager.ItemUpdated.AddListener(UpdateUI);
         startProcessingItemButton.onClick.AddListener(StartProcessing);
-        // TODO: #25 Make amount selection screen (copy from processScreen)
         // sellItemButton.onClick.AddListener(ShowSellScreen);
 
         bool canItemBeProcessed = !(item.Type == Item.ItemType.Processed || item.Type == Item.ItemType.Valuable);
