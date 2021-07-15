@@ -22,6 +22,7 @@ public class ItemListUI : MonoBehaviour
 
     private void OnEnable()
     {
+        //TODO: #64 Sort items by processable, then by name
         availableItemUIs = new Dictionary<string, ItemUI>();
         unavailableItemUIs = new Dictionary<string, ItemUI>();
         ItemManager.NewItemAdded.AddListener(NewItemAdded);
