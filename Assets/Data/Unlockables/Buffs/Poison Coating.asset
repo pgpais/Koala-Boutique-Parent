@@ -77,6 +77,7 @@ MonoBehaviour:
     type: 3}
   <UnlockableName>k__BackingField: Poison Coating
   <UnlockableDescription>k__BackingField: 
+  <Type>k__BackingField: 3
   <Requirements>k__BackingField:
   - {fileID: 11400000, guid: 2dab53dbd129d574bb437641c3959d6d, type: 2}
   <GoldCost>k__BackingField: 75

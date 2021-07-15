@@ -90,6 +90,7 @@ MonoBehaviour:
     type: 3}
   <UnlockableName>k__BackingField: Training Dummy lvl3
   <UnlockableDescription>k__BackingField: 
+  <Type>k__BackingField: 1
   <Requirements>k__BackingField:
   - {fileID: 11400000, guid: 1ff0c5f3a99a69b448c148badf22563b, type: 2}
   <GoldCost>k__BackingField: 15

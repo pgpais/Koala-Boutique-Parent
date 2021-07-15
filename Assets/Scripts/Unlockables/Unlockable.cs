@@ -15,6 +15,7 @@ public class Unlockable : SerializedScriptableObject
 
     [field: SerializeField] public string UnlockableName { get; private set; }
     [field: SerializeField] public string UnlockableDescription { get; private set; }
+    [field: SerializeField] public UnlockableType Type { get; private set; }
     [field: SerializeField] public List<Unlockable> Requirements { get; private set; }
     [field: SerializeField] public List<UnlockableReward> Rewards { get; private set; }
     [field: SerializeField] public Dictionary<Item, int> ItemCost { get; private set; }
@@ -90,4 +91,12 @@ public class Unlockable : SerializedScriptableObject
 
         UnlockableUpdated.Invoke(this);
     }
+}
+
+public enum UnlockableType
+{
+    Items,
+    Adventurer,
+    Shop,
+    Altar
 }

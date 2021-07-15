@@ -91,6 +91,7 @@ MonoBehaviour:
     type: 3}
   <UnlockableName>k__BackingField: Iron Workshop lvl10
   <UnlockableDescription>k__BackingField: 
+  <Type>k__BackingField: 2
   <Requirements>k__BackingField:
   - {fileID: 11400000, guid: 88e3bb35a22f2674da8ded075eb1a0fe, type: 2}
   <GoldCost>k__BackingField: 5

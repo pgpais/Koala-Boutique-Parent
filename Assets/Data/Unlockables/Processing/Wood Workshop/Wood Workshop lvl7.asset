@@ -77,6 +77,7 @@ MonoBehaviour:
     type: 3}
   <UnlockableName>k__BackingField: Wood Workshop lvl7
   <UnlockableDescription>k__BackingField: 
+  <Type>k__BackingField: 2
   <Requirements>k__BackingField:
   - {fileID: 11400000, guid: 9ef1b8b91e612d14fa849b94f79777c0, type: 2}
   <GoldCost>k__BackingField: 5

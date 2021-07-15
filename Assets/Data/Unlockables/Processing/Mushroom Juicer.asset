@@ -64,6 +64,7 @@ MonoBehaviour:
     type: 3}
   <UnlockableName>k__BackingField: Mushroom Juicer
   <UnlockableDescription>k__BackingField: 
+  <Type>k__BackingField: 2
   <Requirements>k__BackingField: []
   <GoldCost>k__BackingField: 100
   <GemCost>k__BackingField: 5

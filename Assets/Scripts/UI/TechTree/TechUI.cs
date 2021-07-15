@@ -1,20 +1,30 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TechUI : MonoBehaviour
+public class TechUI : SerializedMonoBehaviour
 {
+    public Unlockable Unlockable => unlockable;
+
     [SerializeField] SmallTechUI SmallUnlockableUIPrefab;
-    [SerializeField] SmallItemUI SmallItemUIPrefab;
+    [SerializeField] UnlockableItemCost itemCostPrefab;
+    [SerializeField] Sprite coinSprite;
+    [SerializeField] Sprite gemSprite;
+    [SerializeField] Dictionary<UnlockableType, Color> colorPerType;
     [Space]
     [SerializeField] Transform requirementsUI;
     [SerializeField] Transform costUI;
     [SerializeField] TMPro.TMP_Text unlockableName;
     [SerializeField] TMPro.TMP_Text unlockableDescription;
+    [SerializeField] Image unlockableImage;
     [SerializeField] Button unlockButton;
 
     private Unlockable unlockable;
+
+    private bool canUnlock;
 
     private void Start()
     {
@@ -26,30 +36,66 @@ public class TechUI : MonoBehaviour
         this.unlockable = unlockable;
 
         unlockableName.text = unlockable.UnlockableName;
+        unlockableName.color = colorPerType[unlockable.Type];
         unlockableDescription.text = unlockable.UnlockableDescription;
-        if (unlockable.Unlocked)
-            unlockableName.color = Color.green;
+        unlockableImage.sprite = unlockable.UnlockableSprite;
+        // if (unlockable.Unlocked)
+        //     unlockableName.color = Color.green;
 
-        InitializeRequirements(unlockable.Requirements);
+        // InitializeRequirements(unlockable.Requirements);
 
         InitializeCosts(unlockable.ItemCost);
 
         unlockable.UnlockableUpdated.AddListener(UpdateUI);
 
-        if (!unlockable.CanUnlock())
+        canUnlock = unlockable.CanUnlock();
+
+        //todo: move this to onEnable
+        if (!canUnlock)
         {
-            gameObject.SetActive(false);
             foreach (Unlockable requirement in unlockable.Requirements)
             {
-                requirement.UnlockableUpdated.AddListener((_) =>
-                {
-                    if (unlockable.CanUnlock())
-                    {
-                        gameObject.SetActive(true);
-                    }
-                });
+                requirement.UnlockableUpdated.AddListener(HandleUnlock);
             }
+            Disable();
         }
+        else
+        {
+            Enable();
+        }
+
+    }
+
+    private void OnEnable()
+    {
+        if (!canUnlock)
+        {
+            Disable();
+        }
+    }
+
+    private void OnDisable()
+    {
+
+    }
+
+    void HandleUnlock(Unlockable unlockable)
+    {
+        if (this.unlockable.CanUnlock())
+        {
+            canUnlock = true;
+            Enable();
+        }
+    }
+
+    internal void Enable()
+    {
+        gameObject.SetActive(true);
+    }
+
+    internal void Disable()
+    {
+        gameObject.SetActive(false);
     }
 
     void InitializeRequirements(List<Unlockable> requirements)
@@ -62,10 +108,61 @@ public class TechUI : MonoBehaviour
 
     void InitializeCosts(Dictionary<Item, int> costs)
     {
+        int costNumber = 0;
+        GameObject rowObject = null;
+
+        if (unlockable.GoldCost > 0)
+        {
+            if (costNumber % 2 == 0)
+            {
+                //instantiate new horizontal layout
+                rowObject = CreateNewRow();
+            }
+
+            UnlockableItemCost itemCost = Instantiate(itemCostPrefab);
+            itemCost.InitUI(rowObject.transform, coinSprite, "Coins", unlockable.GoldCost);
+
+            costNumber++;
+        }
+
+        if (unlockable.GemCost > 0)
+        {
+            if (costNumber % 2 == 0)
+            {
+                //instantiate new horizontal layout
+                rowObject = CreateNewRow();
+            }
+
+            UnlockableItemCost itemCost = Instantiate(itemCostPrefab);
+            itemCost.InitUI(rowObject.transform, gemSprite, "Gems", unlockable.GemCost);
+
+            costNumber++;
+        }
+
         foreach (var cost in costs)
         {
-            Instantiate(SmallItemUIPrefab, costUI).InitUI(cost.Key, cost.Value);
+            if (costNumber % 2 == 0)
+            {
+                //instantiate new horizontal layout
+                rowObject = CreateNewRow();
+            }
+            UnlockableItemCost itemCost = Instantiate(itemCostPrefab);
+            itemCost.InitUI(rowObject.transform, cost.Key, cost.Value);
+
+            costNumber++;
         }
+    }
+
+    GameObject CreateNewRow()
+    {
+        GameObject rowObject = new GameObject("Cost Row");
+        rowObject.transform.SetParent(costUI, false);
+        HorizontalLayoutGroup layout = rowObject.AddComponent<HorizontalLayoutGroup>();
+        layout.childControlWidth = false;
+        layout.childControlHeight = false;
+        layout.childForceExpandHeight = true;
+        layout.childForceExpandWidth = true;
+        return rowObject;
     }
 
     void UpdateUI(Unlockable unlockable)
@@ -81,5 +178,17 @@ public class TechUI : MonoBehaviour
     void UnlockTech()
     {
         UnlockablesManager.instance.Unlock(unlockable);
+    }
+
+    private void OnValidate()
+    {
+        if (colorPerType == null)
+        {
+            colorPerType = new Dictionary<UnlockableType, Color>();
+            foreach (var value in Enum.GetValues(typeof(UnlockableType)))
+            {
+                colorPerType.Add((UnlockableType)value, Color.white);
+            }
+        }
     }
 }

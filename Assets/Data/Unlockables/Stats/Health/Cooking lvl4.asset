@@ -129,6 +129,7 @@ MonoBehaviour:
     type: 3}
   <UnlockableName>k__BackingField: Cooking lvl4
   <UnlockableDescription>k__BackingField: 
+  <Type>k__BackingField: 1
   <Requirements>k__BackingField:
   - {fileID: 11400000, guid: d23a0dc995e830140b9a7c41f866ff55, type: 2}
   <GoldCost>k__BackingField: 0

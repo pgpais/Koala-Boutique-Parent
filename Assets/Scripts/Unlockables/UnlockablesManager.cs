@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class UnlockablesManager : MonoBehaviour
 {
     public static string unlocksReferenceName = "techs";
     public static string difficultyReferenceName = "difficulty";
+    public static UnityEvent OnGotUnlockables = new UnityEvent();
     public static UnlockablesManager instance;
+
+    public bool GotUnlockables { get; private set; }
 
     [SerializeField] UnlockablesList unlockablesData;
 
@@ -71,6 +75,9 @@ public class UnlockablesManager : MonoBehaviour
                 {
                     unlockables[unlockableName].Unlock();
                 }
+
+                OnGotUnlockables.Invoke();
+                GotUnlockables = true;
             }
         });
     }

@@ -129,6 +129,7 @@ MonoBehaviour:
     type: 3}
   <UnlockableName>k__BackingField: Cooking lvl1
   <UnlockableDescription>k__BackingField: 
+  <Type>k__BackingField: 1
   <Requirements>k__BackingField: []
   <GoldCost>k__BackingField: 0
   <GemCost>k__BackingField: 3
