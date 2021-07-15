@@ -6,7 +6,7 @@ public class ItemListUI : MonoBehaviour
 {
     [SerializeField] ItemUI itemUIPrefab;
     [SerializeField] Transform availableItems;
-    [SerializeField] Transform unavailableItems;
+    [SerializeField] Transform processedItems;
 
     Dictionary<string, ItemUI> availableItemUIs;
     Dictionary<string, ItemUI> unavailableItemUIs;
@@ -39,7 +39,7 @@ public class ItemListUI : MonoBehaviour
             Destroy(item.gameObject);
         }
 
-        foreach (Transform item in unavailableItems)
+        foreach (Transform item in processedItems)
         {
             Destroy(item.gameObject);
         }
@@ -50,10 +50,6 @@ public class ItemListUI : MonoBehaviour
 
         foreach (var item in ItemManager.instance.itemsData.Items)
         {
-            if (!item.Unlocked)
-            {
-                continue;
-            }
 
             ItemUI itemUI = Instantiate(itemUIPrefab);
             if (itemsQuantity.ContainsKey(item.ItemName))
@@ -63,6 +59,15 @@ public class ItemListUI : MonoBehaviour
                 availableItemUIs.Add(item.ItemName, itemUI);
                 itemUI.Init(item, itemsQuantity[item.ItemName]);
 
+                if (item.Type == Item.ItemType.Processed)
+                {
+                    itemUI.transform.SetParent(this.processedItems.transform, false);
+                }
+                else
+                {
+                    itemUI.transform.SetParent(this.availableItems.transform, false);
+                }
+
                 if (item.ItemName == SecretDoorManager.instance.DoorKey.ItemName || item.ItemName == SecretDoorManager.instance.DoorKey.ProcessResult.ItemName)
                 {
                     itemUI.gameObject.SetActive(true);
@@ -71,7 +76,7 @@ public class ItemListUI : MonoBehaviour
             else
             {
                 // add item to unavailable items UI
-                itemUI.transform.SetParent(this.unavailableItems.transform, false);
+                itemUI.transform.SetParent(this.processedItems.transform, false);
                 unavailableItemUIs.Add(item.ItemName, itemUI);
                 itemUI.Init(item);
 
@@ -108,7 +113,6 @@ public class ItemListUI : MonoBehaviour
         unavailableItemUIs.Remove(item.ItemName);
 
         // add to available
-        itemUI.transform.SetParent(availableItems);
         itemUI.MakeAvailable(itemQuantity);
         availableItemUIs.Add(item.ItemName, itemUI);
         if (item.ItemName == "Encrypted Key" || item.ItemName == "Decrypted Key")
@@ -126,7 +130,6 @@ public class ItemListUI : MonoBehaviour
         var itemUI = availableItemUIs[item.ItemName];
         availableItemUIs.Remove(item.ItemName);
 
-        itemUI.transform.SetParent(unavailableItems);
         itemUI.MakeUnavailable();
         unavailableItemUIs.Add(item.ItemName, itemUI);
         if (item.ItemName == "Encrypted Key" || item.ItemName == "Decrypted Key")
