@@ -3,21 +3,39 @@ using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using UnityEngine;
+using UnityEngine.Events;
 using Random = System.Random;
 
 public class DiseasedItemsManager : MonoBehaviour
 {
+    public UnityEvent<Item> OnGotDiseasedItem = new UnityEvent<Item>();
+    public static DiseasedItemsManager instance;
     public static string referenceName = "diseasedItems";
+
+    public bool GotDiseasedItem { get; private set; } = false;
 
     [SerializeField] bool testUpload;
     [SerializeField] int howManyDays = 1;
 
-    // Start is called before the first frame update
-    void Start()
+    private Item diseasedItem;
+
+    private void Awake()
     {
-        FirebaseCommunicator.LoggedIn.AddListener(() =>
+        if (instance != null)
         {
-            FirebaseCommunicator.instance.GetObject(new string[] { referenceName, DateTime.Now.ToString("yyyyMMdd") }, (task) =>
+            Destroy(this);
+        }
+        else
+        {
+            instance = this;
+        }
+
+        FirebaseCommunicator.LoggedIn.AddListener(GetDiseasedItem);
+    }
+
+    void GetDiseasedItem()
+    {
+        FirebaseCommunicator.instance.GetObject(new string[] { referenceName, FirebaseCommunicator.instance.FamilyId.ToString(), DateTime.Now.ToString("yyyyMMdd") }, (task) =>
             {
                 if (task.IsFaulted)
                 {
@@ -28,10 +46,19 @@ public class DiseasedItemsManager : MonoBehaviour
                 if (task.IsCompleted)
                 {
                     Debug.Log("yey got diseasedItems");
-                    Debug.Log("snapshot: " + task.Result.GetRawJsonValue());
+                    string json = task.Result.GetRawJsonValue();
+                    if (string.IsNullOrEmpty(json))
+                    {
+                        Debug.Log("json is empty");
+                        PickDiseasedItemForDay(DateTime.Today);
+                    }
+                    else
+                    {
+                        Debug.Log("Diseased item: " + diseasedItem.ItemName);
+                        diseasedItem = JsonConvert.DeserializeObject<Item>(json);
+                    }
                 }
             });
-        });
     }
 
     // Update is called once per frame
