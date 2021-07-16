@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class MarketScreen : MonoBehaviour
@@ -62,6 +63,17 @@ public class MarketScreen : MonoBehaviour
             }
 
             marketItems.Add(item.ItemName, marketItem);
+            if (!item.Unlocked)
+            {
+                marketItem.gameObject.SetActive(false);
+                item.ItemUnlocked.AddListener(() => marketItem.gameObject.SetActive(true));
+            }
+            //if name is encrypted key or decrypted key don't show
+            if (item.ItemName.Contains("Key"))
+            {
+                marketItem.gameObject.SetActive(false);
+            }
+            SortMarketItems();
         }
 
         ItemManager.NewItemAdded.AddListener((item, quantity) =>
@@ -71,6 +83,7 @@ public class MarketScreen : MonoBehaviour
                valueModifier = MarketPrices.instance.GetCostModifierForItem(item.name);
 
            marketItems[item.ItemName].UpdateUI(item.ItemName, item.GoldValue + valueModifier, item.ItemSprite);
+           SortMarketItems();
        });
 
         ItemManager.ItemRemoved.AddListener((item) =>
@@ -85,7 +98,7 @@ public class MarketScreen : MonoBehaviour
 
     private void OnEnable()
     {
-        //todo: #65 sort children by available then by name
+        SortMarketItems();
     }
 
     // Update is called once per frame
@@ -96,7 +109,13 @@ public class MarketScreen : MonoBehaviour
 
     void SortMarketItems()
     {
+        List<MarketItem> marketItems = this.marketItems.Values.ToList();
+        marketItems.Sort((a, b) => a.CompareTo(b));
 
+        foreach (var item in marketItems)
+        {
+            item.transform.SetSiblingIndex(marketItems.IndexOf(item));
+        }
     }
 
     void OnLogout()

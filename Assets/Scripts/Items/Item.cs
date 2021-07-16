@@ -15,7 +15,7 @@ public class Item : ScriptableObject, UnlockableReward, IComparable<Item>
         Processed
     }
 
-
+    public UnityEvent ItemUnlocked { get; private set; }
     public UnityEvent<int> ItemUpdated { get; private set; }
     public UnityEvent ItemRemoved { get; private set; }
     [field: SerializeField] public Sprite ItemSprite { get; private set; }
@@ -64,21 +64,27 @@ public class Item : ScriptableObject, UnlockableReward, IComparable<Item>
     internal void InitializeEvent()
     {
         ItemUpdated = new UnityEvent<int>();
+        ItemUnlocked = new UnityEvent();
     }
 
     public void GetReward()
     {
-        Unlocked = true;
+        if (!Unlocked)
+        {
+            ItemUnlocked.Invoke();
+            Unlocked = true;
+        }
     }
 
     public int CompareTo(Item other)
     {
-        if (this.processResult != null && other.processResult == null)
+        if (this.processResult != null && (other.processResult == null || !other.processResult.Unlocked))
         {
             return -1;
         }
-        else if (this.processResult == null && other.processResult != null)
+        else if ((this.processResult == null || !this.processResult.Unlocked) && other.processResult != null)
         {
+
             return 1;
         }
         else

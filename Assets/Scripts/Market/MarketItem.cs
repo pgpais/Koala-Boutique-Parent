@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
-public class MarketItem : MonoBehaviour
+public class MarketItem : MonoBehaviour, IComparable<MarketItem>
 {
     public bool AvailableItem { get; private set; }
 
@@ -46,6 +47,9 @@ public class MarketItem : MonoBehaviour
 
     public void Init(string itemName, int itemValue, Sprite itemImage)
     {
+        Item item = ItemManager.instance.itemsData.GetItemByName(itemName);
+
+
         this.itemName.text = itemName;
         this.itemValue.text = itemValue.ToString();
 
@@ -90,5 +94,23 @@ public class MarketItem : MonoBehaviour
         int modifier = MarketPrices.instance.GetCostModifierForItem(ItemName);
         int itemValue = ItemManager.instance.itemsData.GetItemByName(ItemName).GoldValue;
         UpdateValue(itemValue + modifier);
+    }
+
+    public int CompareTo(MarketItem other)
+    {
+        if (this.AvailableItem && !other.AvailableItem)
+        {
+            return -1;
+        }
+        else if (!this.AvailableItem && other.AvailableItem)
+        {
+            return 1;
+        }
+        else
+        {
+            Item item1 = ItemManager.instance.itemsData.GetItemByName(ItemName);
+            Item item2 = ItemManager.instance.itemsData.GetItemByName(other.ItemName);
+            return item1.CompareTo(item2);
+        }
     }
 }

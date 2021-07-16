@@ -25,7 +25,7 @@ public class ItemUI : MonoBehaviour, IComparable<ItemUI>
 
     private void Awake()
     {
-        MarketPrices.GotMarketPrices.AddListener(UpdateItemPrices);
+
     }
 
     public void Init(Item item, int itemQuantity)
@@ -38,11 +38,6 @@ public class ItemUI : MonoBehaviour, IComparable<ItemUI>
 
         available = true;
         MakeAvailable(itemQuantity);
-
-        if (MarketPrices.instance.hasPrices)
-        {
-            UpdateItemPrices();
-        }
 
         if (item.ItemSprite != null)
         {
@@ -61,11 +56,6 @@ public class ItemUI : MonoBehaviour, IComparable<ItemUI>
         available = false;
         MakeUnavailable();
 
-        if (MarketPrices.instance.hasPrices)
-        {
-            UpdateItemPrices();
-        }
-
         if (item.ItemSprite != null)
         {
             itemImage.sprite = item.ItemSprite;
@@ -80,13 +70,12 @@ public class ItemUI : MonoBehaviour, IComparable<ItemUI>
 
     private void OnEnable()
     {
-        MarketPrices.GotMarketPrices.AddListener(UpdateItemPrices);
+
     }
 
     private void OnDisable()
     {
-        MarketPrices.GotMarketPrices.RemoveListener(UpdateItemPrices);
-        // Destroy(gameObject);
+
     }
 
     private void ShowStartProcessScreen()
@@ -100,25 +89,19 @@ public class ItemUI : MonoBehaviour, IComparable<ItemUI>
         ItemManager.instance.ShowSellGameMenu(item.ItemName, 0, ItemManager.instance.itemQuantity[item.ItemName]);
     }
 
-    void UpdateItemPrices()
-    {
-        // this.itemValueText.transform.parent.gameObject.SetActive(true);
-
-        int itemValue = item.GoldValue;
-        itemValue += MarketPrices.instance.GetCostModifierForItem(item.ItemName);
-        // this.itemValueText.text = itemValue.ToString();
-    }
-
     public void MakeUnavailable()
     {
+        if (item.ProcessResult != null && !item.ProcessResult.Unlocked)
+        {
+            item.ProcessResult.ItemUnlocked.RemoveListener(ShowProcessingButtons);
+        }
+
         itemQuantityText.gameObject.SetActive(false);
         itemQuantityLabel.gameObject.SetActive(false);
         // sellItemButton.gameObject.SetActive(false);
-        startProcessingItemButton.gameObject.SetActive(false);
-        processOneItemToggle.gameObject.SetActive(false);
-        processTenItemToggle.gameObject.SetActive(false);
-        processAllItemToggle.gameObject.SetActive(false);
+        HideProcessingButtons();
         gameObject.SetActive(false);
+
     }
 
     public void MakeAvailable(int itemQuantity)
@@ -129,17 +112,19 @@ public class ItemUI : MonoBehaviour, IComparable<ItemUI>
         // sellItemButton.gameObject.SetActive(true);
         if (item.ProcessResult != null)
         {
-            startProcessingItemButton.gameObject.SetActive(true);
-            processOneItemToggle.gameObject.SetActive(true);
-            processTenItemToggle.gameObject.SetActive(true);
-            processAllItemToggle.gameObject.SetActive(true);
+            if (!item.ProcessResult.Unlocked)
+            {
+                HideProcessingButtons();
+                item.ProcessResult.ItemUnlocked.AddListener(ShowProcessingButtons);
+            }
+            else
+            {
+                ShowProcessingButtons();
+            }
         }
         else
         {
-            startProcessingItemButton.gameObject.SetActive(false);
-            processOneItemToggle.gameObject.SetActive(false);
-            processTenItemToggle.gameObject.SetActive(false);
-            processAllItemToggle.gameObject.SetActive(false);
+            HideProcessingButtons();
         }
 
         itemQuantityText.text = itemQuantity.ToString();
@@ -152,6 +137,22 @@ public class ItemUI : MonoBehaviour, IComparable<ItemUI>
         bool canItemBeProcessed = !(item.Type == Item.ItemType.Processed || item.Type == Item.ItemType.Valuable);
         if (!canItemBeProcessed)
             startProcessingItemButton.transform.parent.gameObject.SetActive(false);
+    }
+
+    void ShowProcessingButtons()
+    {
+        startProcessingItemButton.gameObject.SetActive(true);
+        processOneItemToggle.gameObject.SetActive(true);
+        processTenItemToggle.gameObject.SetActive(true);
+        processAllItemToggle.gameObject.SetActive(true);
+    }
+
+    void HideProcessingButtons()
+    {
+        startProcessingItemButton.gameObject.SetActive(false);
+        processOneItemToggle.gameObject.SetActive(false);
+        processTenItemToggle.gameObject.SetActive(false);
+        processAllItemToggle.gameObject.SetActive(false);
     }
 
     private void StartProcessing()
