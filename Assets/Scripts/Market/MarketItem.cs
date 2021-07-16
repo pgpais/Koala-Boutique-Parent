@@ -57,6 +57,9 @@ public class MarketItem : MonoBehaviour
         sellButton.interactable = AvailableItem;
         fadeImage.enabled = !AvailableItem;
 
+        bargainButton.targetGraphic.enabled = AvailableItem;
+        sellButton.targetGraphic.enabled = AvailableItem;
+
         MarketPrices.GotMarketPrices.AddListener(OnPricesUpdated);
     }
 
@@ -72,6 +75,9 @@ public class MarketItem : MonoBehaviour
         bargainButton.interactable = AvailableItem;
         sellButton.interactable = AvailableItem;
         fadeImage.enabled = !AvailableItem;
+
+        bargainButton.targetGraphic.enabled = AvailableItem;
+        sellButton.targetGraphic.enabled = AvailableItem;
     }
 
     public void UpdateValue(int itemValue)

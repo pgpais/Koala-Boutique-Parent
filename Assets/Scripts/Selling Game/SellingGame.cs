@@ -62,6 +62,9 @@ public class SellingGame : MonoBehaviour
     [SerializeField] TMP_Text justRightPriceText;
     [SerializeField] TMP_Text veryExpensivePriceText;
     [SerializeField] TMP_Text tooExpensivePriceText;
+    [SerializeField] TMP_Text amountSoldText;
+    [SerializeField] TMP_Text profitText;
+    [SerializeField] TMP_Text valueText;
 
     [Header("DEBUG")]
     private float gameSpeed;
@@ -250,6 +253,9 @@ public class SellingGame : MonoBehaviour
         justRightPriceText.text = ((int)(itemPrice * justRightPriceModifier)).ToString();
         veryExpensivePriceText.text = ((int)(itemPrice * veryExpensivePriceModifier)).ToString();
         tooExpensivePriceText.text = ((int)(itemPrice * tooExpensivePriceModifier)).ToString();
+        valueText.text = item.GoldValue.ToString();
+        amountSoldText.text = amountSold.ToString();
+        profitText.text = incomeSoFar.ToString();
     }
 
     void ChangeCenterSize()

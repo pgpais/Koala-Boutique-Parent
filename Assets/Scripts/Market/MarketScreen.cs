@@ -85,7 +85,7 @@ public class MarketScreen : MonoBehaviour
 
     private void OnEnable()
     {
-
+        //todo: #65 sort children by available then by name
     }
 
     // Update is called once per frame

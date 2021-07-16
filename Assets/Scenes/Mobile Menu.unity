@@ -6567,6 +6567,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 887802576}
   m_CullTransparentMesh: 1
+--- !u!114 &892680430 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4450315248292894190, guid: 2b7cf99e13694e646bce7641b074eb51,
+    type: 3}
+  m_PrefabInstance: {fileID: 1099113853579556874}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &897426217 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1099113853033416689, guid: 2b7cf99e13694e646bce7641b074eb51,
@@ -12755,6 +12767,18 @@ MonoBehaviour:
   second: {fileID: 361495696}
   third: {fileID: 615930130}
   fourth: {fileID: 1551739346}
+--- !u!114 &1870947938 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1241755034769066225, guid: 2b7cf99e13694e646bce7641b074eb51,
+    type: 3}
+  m_PrefabInstance: {fileID: 1099113853579556874}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1888960061
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14408,6 +14432,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1099113851550725113, guid: 2b7cf99e13694e646bce7641b074eb51,
         type: 3}
+      propertyPath: valueText
+      value: 
+      objectReference: {fileID: 319060450}
+    - target: {fileID: 1099113851550725113, guid: 2b7cf99e13694e646bce7641b074eb51,
+        type: 3}
+      propertyPath: profitText
+      value: 
+      objectReference: {fileID: 1340999822}
+    - target: {fileID: 1099113851550725113, guid: 2b7cf99e13694e646bce7641b074eb51,
+        type: 3}
+      propertyPath: sellButton
+      value: 
+      objectReference: {fileID: 1703674560}
+    - target: {fileID: 1099113851550725113, guid: 2b7cf99e13694e646bce7641b074eb51,
+        type: 3}
+      propertyPath: amountSoldText
+      value: 
+      objectReference: {fileID: 719955282}
+    - target: {fileID: 1099113851550725113, guid: 2b7cf99e13694e646bce7641b074eb51,
+        type: 3}
+      propertyPath: gameSpeedModifier
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1099113851550725113, guid: 2b7cf99e13694e646bce7641b074eb51,
+        type: 3}
       propertyPath: maxSuccessPercentage
       value: 0.65
       objectReference: {fileID: 0}
@@ -14723,7 +14772,7 @@ PrefabInstance:
     - target: {fileID: 1099113852500150160, guid: 2b7cf99e13694e646bce7641b074eb51,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1099113852552037678, guid: 2b7cf99e13694e646bce7641b074eb51,
         type: 3}
@@ -14928,6 +14977,21 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1099113852810455719, guid: 2b7cf99e13694e646bce7641b074eb51,
+        type: 3}
+      propertyPath: sellButton
+      value: 
+      objectReference: {fileID: 892680430}
+    - target: {fileID: 1099113852810455719, guid: 2b7cf99e13694e646bce7641b074eb51,
+        type: 3}
+      propertyPath: itemValueText
+      value: 
+      objectReference: {fileID: 686907833}
+    - target: {fileID: 1099113852810455719, guid: 2b7cf99e13694e646bce7641b074eb51,
+        type: 3}
+      propertyPath: sellButtonText
+      value: 
+      objectReference: {fileID: 1870947938}
     - target: {fileID: 1099113852923527334, guid: 2b7cf99e13694e646bce7641b074eb51,
         type: 3}
       propertyPath: m_AnchorMax.x
