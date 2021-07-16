@@ -68,6 +68,11 @@ public class Unlockable : SerializedScriptableObject, IComparable<Unlockable>
 
     public bool CanUnlock()
     {
+        if (Requirements == null || Requirements.Count == 0)
+        {
+            return true;
+        }
+
         foreach (var unlockable in Requirements)
         {
             if (!unlockable.Unlocked)

@@ -70,12 +70,19 @@ public class UnlockablesManager : MonoBehaviour
             if (task.IsCompleted)
             {
                 Debug.Log("yey got unlocks");
-                string[] unlockedNames = JsonHelper.DeserializeArray<string>(task.Result.GetRawJsonValue());
-                foreach (var unlockableName in unlockedNames)
+                string json = task.Result.GetRawJsonValue();
+                if (string.IsNullOrEmpty(json))
                 {
-                    unlockables[unlockableName].Unlock();
+                    Debug.Log("no unlocks");
                 }
-
+                else
+                {
+                    string[] unlockedNames = JsonHelper.DeserializeArray<string>(json);
+                    foreach (var unlockableName in unlockedNames)
+                    {
+                        unlockables[unlockableName].Unlock();
+                    }
+                }
                 OnGotUnlockables.Invoke();
                 GotUnlockables = true;
             }
