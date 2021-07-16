@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [CreateAssetMenu(fileName = "Unlockable", menuName = "Ye Olde Shop/Unlockable", order = 0)]
-public class Unlockable : SerializedScriptableObject
+public class Unlockable : SerializedScriptableObject, IComparable<Unlockable>
 {
     [HideInInspector]
     public UnityEvent<Unlockable> UnlockableUpdated;
@@ -90,6 +90,19 @@ public class Unlockable : SerializedScriptableObject
         }
 
         UnlockableUpdated.Invoke(this);
+    }
+
+    public int CompareTo(Unlockable other)
+    {
+        if (this.Unlocked && !other.Unlocked)
+        {
+            return 1;
+        }
+        if (!this.Unlocked && other.Unlocked)
+        {
+            return -1;
+        }
+        return this.UnlockableName.CompareTo(other.UnlockableName);
     }
 }
 

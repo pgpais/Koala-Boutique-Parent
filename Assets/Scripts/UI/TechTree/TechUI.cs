@@ -5,7 +5,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TechUI : SerializedMonoBehaviour
+public class TechUI : SerializedMonoBehaviour, IComparable<TechUI>
 {
     public Unlockable Unlockable => unlockable;
 
@@ -37,6 +37,7 @@ public class TechUI : SerializedMonoBehaviour
     {
         this.unlockable = unlockable;
 
+        gameObject.name = unlockable.UnlockableName;
         unlockableName.text = unlockable.UnlockableName;
         unlockableName.color = colorPerType[unlockable.Type];
         unlockableDescription.text = unlockable.UnlockableDescription;
@@ -206,6 +207,22 @@ public class TechUI : SerializedMonoBehaviour
             {
                 colorPerType.Add((UnlockableType)value, Color.white);
             }
+        }
+    }
+
+    public int CompareTo(TechUI other)
+    {
+        if (canUnlock && !other.canUnlock)
+        {
+            return 1;
+        }
+        else if (!canUnlock && other.canUnlock)
+        {
+            return -1;
+        }
+        else
+        {
+            return this.unlockable.CompareTo(other.unlockable);
         }
     }
 }

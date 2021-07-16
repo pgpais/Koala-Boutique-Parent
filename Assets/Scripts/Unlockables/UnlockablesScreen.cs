@@ -43,6 +43,8 @@ public class UnlockablesScreen : SerializedMonoBehaviour
                 }
             }
         }
+
+        SortUI();
     }
 
     private void Awake()
@@ -65,13 +67,29 @@ public class UnlockablesScreen : SerializedMonoBehaviour
     private void GotUnlockables()
     {
         Debug.Log("Got UNlockables");
+        // foreach (Unlockable unlockable in UnlockablesManager.instance.Unlockables.Values)
+        // {
+        //     TechUI unlockableUI = Instantiate(unlockableUIPrefab, unlockablesContainer);
+        //     unlockableUI.InitUI(unlockable);
+
+        //     unlockablesUI.Add(unlockableUI);
+        // }
+        StartCoroutine(SpawnUnlockablesUI());
+    }
+
+    private IEnumerator SpawnUnlockablesUI()
+    {
         foreach (Unlockable unlockable in UnlockablesManager.instance.Unlockables.Values)
         {
             TechUI unlockableUI = Instantiate(unlockableUIPrefab, unlockablesContainer);
             unlockableUI.InitUI(unlockable);
 
+
             unlockablesUI.Add(unlockableUI);
+            yield return null;
         }
+
+        SortUI();
     }
 
     private void DisableAllUI()
@@ -92,6 +110,16 @@ public class UnlockablesScreen : SerializedMonoBehaviour
 
     private void OnEnable()
     {
-        //TODO: #63 Sort by costs fulfilled, then, if possible, by how close they are to be fulfilled, then by unlocked state
+        SortUI();
+    }
+
+    private void SortUI()
+    {
+        unlockablesUI.Sort((a, b) => a.CompareTo(b));
+
+        for (int i = 0; i < unlockablesUI.Count; i++)
+        {
+            unlockablesUI[i].transform.SetSiblingIndex(i);
+        }
     }
 }
