@@ -54,7 +54,6 @@ public class MenuManager : MonoBehaviour
         submitFamilyIDButton.onClick.AddListener(() => OnSubmitFamilyID(submitFamilyIDInputField.text));
         submitFamilyIDInputField.onSubmit.AddListener(OnSubmitFamilyID);
 
-        MissionManager.MissionUpdated.AddListener(OnMissionGenerated);
         FirebaseCommunicator.LoggedIn.AddListener(OnLoggedIn);
 
         logoutButton.onClick.AddListener(OnLogoutButton);
