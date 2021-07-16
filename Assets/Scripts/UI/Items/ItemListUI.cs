@@ -14,7 +14,17 @@ public class ItemListUI : MonoBehaviour
 
     private void Awake()
     {
+        availableItemUIs = new Dictionary<string, ItemUI>();
+        unavailableItemUIs = new Dictionary<string, ItemUI>();
 
+        if (ItemManager.instance.GotItems)
+        {
+            Init(ItemManager.instance.itemQuantity);
+        }
+        else
+        {
+            ItemManager.OnGotItems.AddListener(() => Init(ItemManager.instance.itemQuantity));
+        }
     }
 
     private void Start()
@@ -23,32 +33,28 @@ public class ItemListUI : MonoBehaviour
 
     private void OnEnable()
     {
-        //TODO: #64 Sort items by processable, then by name
-        availableItemUIs = new Dictionary<string, ItemUI>();
-        unavailableItemUIs = new Dictionary<string, ItemUI>();
-        ItemManager.NewItemAdded.AddListener(NewItemAdded);
-        ItemManager.ItemRemoved.AddListener(ItemRemoved);
-        Init(ItemManager.instance.itemQuantity);
+
     }
 
     private void OnDisable()
     {
-        ItemManager.NewItemAdded.RemoveListener(NewItemAdded);
-        ItemManager.ItemRemoved.RemoveListener(ItemRemoved);
-        foreach (Transform item in availableItems)
-        {
-            Destroy(item.gameObject);
-        }
+        // ItemManager.NewItemAdded.RemoveListener(NewItemAdded);
+        // ItemManager.ItemRemoved.RemoveListener(ItemRemoved);
+        // foreach (Transform item in availableItems)
+        // {
+        //     Destroy(item.gameObject);
+        // }
 
-        foreach (Transform item in processedItems)
-        {
-            Destroy(item.gameObject);
-        }
+        // foreach (Transform item in processedItems)
+        // {
+        //     Destroy(item.gameObject);
+        // }
     }
 
     public void Init(Dictionary<string, int> itemsQuantity)
     {
-
+        ItemManager.NewItemAdded.AddListener(NewItemAdded);
+        ItemManager.ItemRemoved.AddListener(ItemRemoved);
         StartCoroutine(SpawnItemUIs(itemsQuantity));
 
         // foreach (var itemName in availableItems)

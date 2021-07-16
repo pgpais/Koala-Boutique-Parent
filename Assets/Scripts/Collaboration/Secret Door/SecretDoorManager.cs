@@ -32,7 +32,7 @@ public class SecretDoorManager : MonoBehaviour
         }
 
         FirebaseCommunicator.LoggedIn.AddListener(OnLoggedIn);
-        ItemManager.GotItems.AddListener(CheckDoorItem);
+        ItemManager.OnGotItems.AddListener(CheckDoorItem);
     }
 
     private void OnLoggedIn()

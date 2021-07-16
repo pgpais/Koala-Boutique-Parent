@@ -29,7 +29,7 @@ public class ProcessingManager : MonoBehaviour
     private void Awake()
     {
         inProcess = new List<Process>();
-        ItemManager.GotItems.AddListener(Initialize);
+        ItemManager.OnGotItems.AddListener(Initialize);
         FirebaseCommunicator.LoggedOut.AddListener(OnLogout);
 
         if (instance != null)
@@ -46,7 +46,7 @@ public class ProcessingManager : MonoBehaviour
     // Start is called before the first frame update
     void Initialize()
     {
-        ItemManager.GotItems.RemoveListener(Initialize);
+        ItemManager.OnGotItems.RemoveListener(Initialize);
         Debug.Log(JsonConvert.SerializeObject(DateTime.UtcNow));
 
         FirebaseCommunicator.instance.GetObject(firebaseReferenceName, (task) =>

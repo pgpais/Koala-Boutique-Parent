@@ -10,10 +10,12 @@ public class ItemManager : MonoBehaviour
 {
     public static ItemManager instance;
 
-    public static UnityEvent GotItems = new UnityEvent();
+    public static UnityEvent OnGotItems = new UnityEvent();
     public static UnityEvent<Item, int> NewItemAdded = new UnityEvent<Item, int>();
     public static UnityEvent<Item, int> ItemUpdated = new UnityEvent<Item, int>();
     public static UnityEvent<Item> ItemRemoved = new UnityEvent<Item>();
+
+    public bool GotItems { get; private set; } = false;
 
     [field: SerializeField] public ItemsList itemsData { get; private set; }
     [field: SerializeField] public Dictionary<string, int> itemQuantity { get; private set; }
@@ -192,7 +194,8 @@ public class ItemManager : MonoBehaviour
                 {
                     itemQuantity[key] = Convert.ToInt32(dictionary[key]);
                 }
-                GotItems.Invoke();
+                OnGotItems.Invoke();
+                GotItems = true;
                 MarketPrices.instance.GetPricesForToday();
             }
         });
