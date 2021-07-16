@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 
 [CreateAssetMenu(fileName = "Item", menuName = "Ye Olde Shop/Item", order = 0)]
-public class Item : ScriptableObject, UnlockableReward
+public class Item : ScriptableObject, UnlockableReward, IComparable<Item>
 {
     public enum ItemType
     {
@@ -69,5 +69,21 @@ public class Item : ScriptableObject, UnlockableReward
     public void GetReward()
     {
         Unlocked = true;
+    }
+
+    public int CompareTo(Item other)
+    {
+        if (this.processResult != null && other.processResult == null)
+        {
+            return -1;
+        }
+        else if (this.processResult == null && other.processResult != null)
+        {
+            return 1;
+        }
+        else
+        {
+            return this.ItemName.CompareTo(other.ItemName);
+        }
     }
 }

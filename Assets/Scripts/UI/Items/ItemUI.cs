@@ -3,8 +3,10 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ItemUI : MonoBehaviour
+public class ItemUI : MonoBehaviour, IComparable<ItemUI>
 {
+    public Item Item => item;
+
     [SerializeField] TMP_Text itemNameText;
     // [SerializeField] TMP_Text itemDescriptionText;
     [SerializeField] TMP_Text itemQuantityText;
@@ -170,5 +172,10 @@ public class ItemUI : MonoBehaviour
         }
 
         ProcessingManager.instance.StartProcessing(item.ItemName, amount);
+    }
+
+    public int CompareTo(ItemUI other)
+    {
+        return item.CompareTo(other.item);
     }
 }
