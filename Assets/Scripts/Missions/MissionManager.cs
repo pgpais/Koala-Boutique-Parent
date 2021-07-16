@@ -9,12 +9,14 @@ public class MissionManager : MonoBehaviour
 {
     public static string difficultyReferenceName = "difficulty";
     public static string abundantGatherableReferenceName = "abundantGatherable";
-    public static UnityEvent OnGotDifficulty = new UnityEvent();
-    public static UnityEvent OnGotAbundantGatherable = new UnityEvent();
+    public static UnityEvent<int> OnGotDifficulty = new UnityEvent<int>();
+    public static UnityEvent<Item> OnGotAbundantGatherable = new UnityEvent<Item>();
     public static MissionManager instance;
 
     public bool GotDifficulty { get; private set; } = false;
     public bool GotAbundantGatherable { get; private set; } = false;
+    public Item AbundantGatherable => abundantGatherable;
+    public int Difficulty => difficulty;
 
     private int difficulty;
     private Item abundantGatherable;
@@ -63,7 +65,7 @@ public class MissionManager : MonoBehaviour
                 else
                 {
                     difficulty = JsonConvert.DeserializeObject<int>(json);
-                    OnGotDifficulty.Invoke();
+                    OnGotDifficulty.Invoke(difficulty);
                     GotDifficulty = true;
                     Debug.Log("Difficulty: " + difficulty);
                 }
@@ -91,7 +93,7 @@ public class MissionManager : MonoBehaviour
                 {
                     string itemName = JsonConvert.DeserializeObject<string>(json);
                     abundantGatherable = ItemManager.instance.itemsData.GetItemByName(itemName);
-                    OnGotAbundantGatherable.Invoke();
+                    OnGotAbundantGatherable.Invoke(abundantGatherable);
                     GotAbundantGatherable = true;
                     Debug.Log("Abundant Gatherable: " + abundantGatherable);
                 }
