@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class ProcessingUIList : MonoBehaviour
 {
+    [SerializeField] Color boostReadyColor = Color.green;
     [SerializeField] ItemProcessingUI processUIPrefab;
     [SerializeField] Transform processList;
     [SerializeField] Button boostButton;
@@ -17,7 +18,7 @@ public class ProcessingUIList : MonoBehaviour
     private void Update()
     {
         float boostRatio = (ProcessingManager.instance.NextBoostTime - Time.time) / ProcessingManager.instance.BoostCooldown;
-        boostButton.image.color = Color.Lerp(Color.red, Color.white, boostRatio);
+        boostButton.image.color = Color.Lerp(boostReadyColor, Color.white, boostRatio);
     }
 
     private void OnEnable()
