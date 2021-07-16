@@ -16,6 +16,7 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
+    - {fileID: 11400000, guid: bb1c954260d308f41b4015643350da5b, type: 2}
     - {fileID: 11400000, guid: 86fc2a785b037fa4b9f98fa48470cccd, type: 2}
     - {fileID: 11400000, guid: e86ce1890f3f4424f88c8525ee350f10, type: 2}
     - {fileID: 11400000, guid: a06410131afb03341a3fa5371e906c82, type: 2}
@@ -25,15 +26,28 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes:
     - Name: <Rewards>k__BackingField
-      Entry: 6
+      Entry: 7
+      Data: 0|System.Collections.Generic.List`1[[UnlockableReward, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
       Data: 
     - Name: <ItemCost>k__BackingField
       Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Item, Assembly-CSharp],[System.Int32,
+      Data: 1|System.Collections.Generic.Dictionary`2[[Item, Assembly-CSharp],[System.Int32,
         mscorlib]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 1|System.Collections.Generic.ObjectEqualityComparer`1[[Item, Assembly-CSharp]],
+      Data: 2|System.Collections.Generic.ObjectEqualityComparer`1[[Item, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 8
@@ -46,7 +60,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 10
-      Data: 0
+      Data: 1
     - Name: $v
       Entry: 3
       Data: 9
@@ -58,7 +72,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 10
-      Data: 1
+      Data: 2
     - Name: $v
       Entry: 3
       Data: 5
@@ -70,7 +84,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 10
-      Data: 2
+      Data: 3
     - Name: $v
       Entry: 3
       Data: 10
@@ -90,6 +104,7 @@ MonoBehaviour:
     type: 3}
   <UnlockableName>k__BackingField: Fish Market
   <UnlockableDescription>k__BackingField: 
+  <Type>k__BackingField: 0
   <Requirements>k__BackingField: []
   <GoldCost>k__BackingField: 50
   <GemCost>k__BackingField: 3

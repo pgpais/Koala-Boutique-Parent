@@ -9,7 +9,7 @@ public class ProcessingUIList : MonoBehaviour
     [SerializeField] Transform processList;
     [SerializeField] Button boostButton;
 
-    private void Awake()
+    private void Start()
     {
         boostButton.onClick.AddListener(BoostProcesses);
     }
