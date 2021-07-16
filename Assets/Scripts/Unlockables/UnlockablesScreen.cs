@@ -86,10 +86,10 @@ public class UnlockablesScreen : SerializedMonoBehaviour
 
 
             unlockablesUI.Add(unlockableUI);
+            SortUI();
             yield return null;
         }
 
-        SortUI();
     }
 
     private void DisableAllUI()
