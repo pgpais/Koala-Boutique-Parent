@@ -22,7 +22,7 @@ MonoBehaviour:
   boostTimeAmount: 5
   boostCooldown: 5
   processDuration: 15
-  <GoldValue>k__BackingField: 100
+  <GoldValue>k__BackingField: 10
   <MaxModifier>k__BackingField: 10
   <MinModifier>k__BackingField: -10
   Unlocked: 1
