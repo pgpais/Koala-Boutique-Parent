@@ -1,23 +1,29 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Newtonsoft.Json;
 using UnityEngine;
-using UnityEngine.Events;
-using Random = System.Random;
 
-public class DiseasedItemsManager : MonoBehaviour
+public class DiseasedManager : MonoBehaviour
 {
-    public UnityEvent<Item> OnGotDiseasedItem = new UnityEvent<Item>();
-    public static DiseasedItemsManager instance;
+    private const string dateFormat = "yyyyMMdd HH";
     public static string referenceName = "diseasedItems";
+    public static DiseasedManager instance;
 
-    public bool GotDiseasedItem { get; private set; } = false;
+    public string DiseasedItemName
+    {
+        get
+        {
+            if (requirement.Unlocked)
+                return diseased.diseasedItemName;
+            else
+                return null;
+        }
+    }
 
-    [SerializeField] bool testUpload;
-    [SerializeField] int howManyDays = 1;
+    [SerializeField] Unlockable requirement;
 
-    private Item diseasedItem;
+    DiseasedTime diseased;
+
+    DateTime currentDate;
 
     private void Awake()
     {
@@ -30,80 +36,106 @@ public class DiseasedItemsManager : MonoBehaviour
             instance = this;
         }
 
-        FirebaseCommunicator.LoggedIn.AddListener(GetDiseasedItem);
+        FirebaseCommunicator.LoggedIn.AddListener(OnLoggedIn);
+    }
+
+    void OnLoggedIn()
+    {
+        GetDiseasedItem();
     }
 
     void GetDiseasedItem()
     {
-        FirebaseCommunicator.instance.GetObject(new string[] { referenceName, FirebaseCommunicator.instance.FamilyId.ToString(), DateTime.Now.ToString("yyyyMMdd") }, (task) =>
+        DateTime now = DateTime.Now;
+        for (int i = 24; i >= 0; i -= 8)
+        {
+            if (i <= now.Hour)
             {
-                if (task.IsFaulted)
-                {
-                    Debug.LogError("smth went wrong. " + task.Exception.ToString());
-                    return;
-                }
+                currentDate = new DateTime(now.Year, now.Month, now.Day, i, 00, 00);
+                break;
+            }
+        }
 
-                if (task.IsCompleted)
-                {
-                    Debug.Log("yey got diseasedItems");
-                    string json = task.Result.GetRawJsonValue();
-                    if (string.IsNullOrEmpty(json))
-                    {
-                        Debug.Log("json is empty");
-                        PickDiseasedItemForDay(DateTime.Today);
-                    }
-                    else
-                    {
-                        Debug.Log("Diseased item: " + diseasedItem.ItemName);
-                        diseasedItem = JsonConvert.DeserializeObject<Item>(json);
-                    }
-                }
-            });
+        FirebaseCommunicator.instance.GetObject(new string[] { referenceName, FirebaseCommunicator.instance.FamilyId.ToString(), currentDate.ToString(dateFormat) }, (task) =>
+              {
+                  if (task.IsFaulted)
+                  {
+                      Debug.LogError("smth went wrong. " + task.Exception.ToString());
+                      return;
+                  }
+
+                  if (task.IsCompleted)
+                  {
+                      string json = task.Result.GetRawJsonValue();
+                      if (json == null)
+                      {
+                          Debug.Log("yey got diseased");
+                          Debug.LogError("No Diseased Item today! creating a new one");
+                          diseased = new DiseasedTime(null, currentDate.ToString(dateFormat));
+                          return;
+                      }
+
+                      diseased = JsonConvert.DeserializeObject<DiseasedTime>(json);
+                      Debug.Log("yey got diseased - " + diseased.diseasedItemName);
+
+                  }
+              });
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        var today = DateTime.Now;
-
-        if (testUpload)
+        if (!requirement.Unlocked)
         {
-            testUpload = false;
-            for (int i = 0; i < howManyDays; i++)
-            {
-                var daySpan = new TimeSpan(i, 0, 0, 0, 0);
-                PickDiseasedItemForDay(today + daySpan);
-            }
+            return;
+        }
+
+        DateTime now = DateTime.Now;
+        if (now.Hour >= currentDate.Hour + 8 || now.DayOfYear > currentDate.DayOfYear)
+        {
+            currentDate = currentDate.AddHours(8);
+            GetDiseasedItem();
+        }
+
+        if (string.IsNullOrEmpty(diseased.diseasedItemName))
+        {
+            CreateDiseasedItem(currentDate);
+            diseased = new DiseasedTime("null", currentDate.ToString(dateFormat));
         }
     }
 
-    void PickDiseasedItemForDay(DateTime date)
+    public void CreateDiseasedItem(DateTime diseaseDate)
     {
-        Random rand = new Random(date.DayOfYear);
-        var items = ItemManager.instance.itemsData.Items;
-        string diseasedItemName = items[rand.Next(items.Count)].ItemName;
+        var item = ItemManager.instance.itemsData.GetRandomItem((item) => item.Type == Item.ItemType.Gatherable && item.Unlocked);
+        DiseasedTime newDiseased = new DiseasedTime(item.ItemName, diseaseDate.ToString(dateFormat));
 
-        UploadNewDiseasedItem(diseasedItemName, date);
+        string json = JsonConvert.SerializeObject(newDiseased);
+
+        FirebaseCommunicator.instance.SendObject(json, new string[] { referenceName, FirebaseCommunicator.instance.FamilyId.ToString(), diseaseDate.ToString(dateFormat) }, (task) =>
+        {
+            if (task.IsFaulted)
+            {
+                Debug.LogError("Failed to create new diseased item! Message:" + task.Exception.Message);
+                diseased = new DiseasedTime(null, currentDate.ToString(dateFormat));
+                return;
+            }
+            else if (task.IsCompleted)
+            {
+                Debug.Log("Created new Diseased item!");
+                diseased = newDiseased;
+            }
+        });
     }
 
-    void UploadNewDiseasedItem(string diseasedItemName, DateTime date)
+    [System.Serializable]
+    struct DiseasedTime
     {
-        string dateString = date.ToString("yyyyMMdd");
-        string json = JsonConvert.SerializeObject(diseasedItemName);
-        Debug.Log(dateString + ":" + json);
+        public string diseasedItemName;
+        public string diseaseDate;
 
-        FirebaseCommunicator.instance.SendObject(json, new string[] { referenceName, dateString }, (task) =>
-           {
-               if (task.IsFaulted)
-               {
-                   Debug.LogError("smth went wrong at reference." + task.Exception.ToString());
-                   return;
-               }
-
-               if (task.IsCompleted)
-               {
-                   Debug.Log("yey updated diseasedItem");
-               }
-           });
+        public DiseasedTime(string diseasedItemName, string diseaseDate)
+        {
+            this.diseasedItemName = diseasedItemName;
+            this.diseaseDate = diseaseDate;
+        }
     }
 }

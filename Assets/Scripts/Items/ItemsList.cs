@@ -31,4 +31,10 @@ public class ItemsList : ScriptableObject
     {
         return items.Where(item => item.Unlocked).ToList();
     }
+
+    public Item GetRandomItem(Predicate<Item> predicate)
+    {
+        var filter = items.FindAll(predicate);
+        return filter[UnityEngine.Random.Range(0, filter.Count)];
+    }
 }
