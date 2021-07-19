@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class ItemUI : MonoBehaviour, IComparable<ItemUI>
@@ -93,13 +94,13 @@ public class ItemUI : MonoBehaviour, IComparable<ItemUI>
     {
         if (item.ProcessResult != null && !item.ProcessResult.Unlocked)
         {
-            item.ProcessResult.ItemUnlocked.RemoveListener(ShowProcessingButtons);
+            Item.ItemUnlocked.RemoveListener(ShowProcessingButtons);
         }
 
         itemQuantityText.gameObject.SetActive(false);
         itemQuantityLabel.gameObject.SetActive(false);
         // sellItemButton.gameObject.SetActive(false);
-        HideProcessingButtons();
+        HideProcessingButtons(item.ProcessResult);
         gameObject.SetActive(false);
 
     }
@@ -114,17 +115,18 @@ public class ItemUI : MonoBehaviour, IComparable<ItemUI>
         {
             if (!item.ProcessResult.Unlocked)
             {
-                HideProcessingButtons();
-                item.ProcessResult.ItemUnlocked.AddListener(ShowProcessingButtons);
+                HideProcessingButtons(item.ProcessResult);
+
+                Item.ItemUnlocked.AddListener(ShowProcessingButtons);
             }
             else
             {
-                ShowProcessingButtons();
+                ShowProcessingButtons(item);
             }
         }
         else
         {
-            HideProcessingButtons();
+            HideProcessingButtons(item.ProcessResult);
         }
 
         itemQuantityText.text = itemQuantity.ToString();
@@ -139,17 +141,21 @@ public class ItemUI : MonoBehaviour, IComparable<ItemUI>
             startProcessingItemButton.transform.parent.gameObject.SetActive(false);
     }
 
-    void ShowProcessingButtons()
+    void ShowProcessingButtons(Item item)
     {
-        startProcessingItemButton.gameObject.SetActive(true);
-        processOneItemToggle.gameObject.SetActive(true);
-        processTenItemToggle.gameObject.SetActive(true);
-        processAllItemToggle.gameObject.SetActive(true);
+        if (item == this.item.ProcessResult)
+        {
+            startProcessingItemButton.gameObject.SetActive(true);
+            processOneItemToggle.gameObject.SetActive(true);
+            processTenItemToggle.gameObject.SetActive(true);
+            processAllItemToggle.gameObject.SetActive(true);
+        }
     }
 
-    void HideProcessingButtons()
+    void HideProcessingButtons(Item item)
     {
-        startProcessingItemButton.gameObject.SetActive(false);
+        if (item == this.item.ProcessResult)
+            startProcessingItemButton.gameObject.SetActive(false);
         processOneItemToggle.gameObject.SetActive(false);
         processTenItemToggle.gameObject.SetActive(false);
         processAllItemToggle.gameObject.SetActive(false);

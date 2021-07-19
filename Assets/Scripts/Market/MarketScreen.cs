@@ -66,7 +66,11 @@ public class MarketScreen : MonoBehaviour
             if (!item.Unlocked)
             {
                 marketItem.gameObject.SetActive(false);
-                item.ItemUnlocked.AddListener(() => marketItem.gameObject.SetActive(true));
+                Item.ItemUnlocked.AddListener((unlockedItem) =>
+                {
+                    if (item == unlockedItem)
+                        marketItem.gameObject.SetActive(true);
+                });
             }
             //if name is encrypted key or decrypted key don't show
             if (item.ItemName.Contains("Key"))

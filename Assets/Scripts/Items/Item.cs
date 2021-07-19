@@ -15,7 +15,7 @@ public class Item : ScriptableObject, UnlockableReward, IComparable<Item>
         Processed
     }
 
-    public UnityEvent ItemUnlocked { get; private set; }
+    public static UnityEvent<Item> ItemUnlocked { get; private set; }
     public UnityEvent<int> ItemUpdated { get; private set; }
     public UnityEvent ItemRemoved { get; private set; }
     [field: SerializeField] public Sprite ItemSprite { get; private set; }
@@ -64,14 +64,14 @@ public class Item : ScriptableObject, UnlockableReward, IComparable<Item>
     internal void InitializeEvent()
     {
         ItemUpdated = new UnityEvent<int>();
-        ItemUnlocked = new UnityEvent();
+        ItemUnlocked = new UnityEvent<Item>();
     }
 
     public void GetReward()
     {
         if (!Unlocked)
         {
-            ItemUnlocked.Invoke();
+            ItemUnlocked.Invoke(this);
             Unlocked = true;
         }
     }
