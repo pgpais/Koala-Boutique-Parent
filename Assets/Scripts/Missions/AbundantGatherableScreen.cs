@@ -13,41 +13,67 @@ public class AbundantGatherableScreen : MonoBehaviour
     [SerializeField] Transform layoutGroup;
     [SerializeField] ToggleGroup toggleGroup;
 
+    private List<OfferItemUI> items = new List<OfferItemUI>();
+
+    private void Awake()
+    {
+        PopulateList();
+    }
+
     public void Show()
     {
         transform.parent.gameObject.SetActive(true);
         gameObject.SetActive(true);
-        PopulateList();
+
+        foreach (var item in items)
+        {
+            item.Show();
+        }
     }
 
     public void Hide()
     {
-        StartCoroutine(ClearList());
         transform.parent.gameObject.SetActive(false);
         gameObject.SetActive(false);
     }
 
-    void PopulateList()
+    public void PopulateList()
     {
-        List<Item> unlockedGatherables = ItemManager.instance.itemsData.GetUnlockedItems().FindAll(item => item.Type == Item.ItemType.Gatherable);
+        List<Item> gatherables = ItemManager.instance.itemsData.Items.FindAll(item => item.Type == Item.ItemType.Gatherable);
+        items = new List<OfferItemUI>();
 
-        foreach (var item in unlockedGatherables)
+
+        foreach (Transform child in layoutGroup)
         {
-            OfferItemUI itemUI = Instantiate(itemPrefab);
-            itemUI.transform.SetParent(layoutGroup, false);
-            itemUI.Init(item, toggleGroup);
-            itemUI.OnSelected.AddListener(OnItemSelected);
+            items.Add(child.GetComponent<OfferItemUI>());
+        }
+
+        if (items.Count != gatherables.Count)
+        {
+            Debug.LogError("Wrong child count!");
+        }
+
+        for (int i = 0; i < gatherables.Count; i++)
+        {
+            Item gatherable = gatherables[i];
+
+            items[i].Init(gatherable);
+            items[i].OnSelected.AddListener(OnItemSelected);
         }
     }
 
-    private IEnumerator ClearList()
+    public IEnumerator ClearList()
     {
         foreach (Transform child in layoutGroup)
         {
-            child.GetComponent<OfferItemUI>().OnSelected.RemoveListener(OnItemSelected);
-            Destroy(child.gameObject);
+            OfferItemUI itemUI = child.GetComponent<OfferItemUI>();
+            itemUI.OnSelected.RemoveListener(OnItemSelected);
+            itemUI.Remove();
+
             yield return null;
         }
+
+        toggleGroup.enabled = false;
     }
 
     public void OnItemSelected(Item item)

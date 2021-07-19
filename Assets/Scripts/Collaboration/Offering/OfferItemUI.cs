@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -23,13 +24,16 @@ public class OfferItemUI : MonoBehaviour
         offerToggle = GetComponent<Toggle>();
     }
 
-    public void Init(Item item, ToggleGroup toggleGroup = null)
+    public void Init(Item item)
     {
         this.item = item;
         itemImage.sprite = item.ItemSprite;
         itemNameText.text = item.ItemName;
+        if (offerToggle == null)
+        {
+            offerToggle = GetComponent<Toggle>();
+        }
         offerToggle.isOn = false;
-        offerToggle.group = toggleGroup;
 
         offerToggle.onValueChanged.AddListener((isOn) =>
         {
@@ -37,4 +41,13 @@ public class OfferItemUI : MonoBehaviour
         });
     }
 
+    internal void Remove()
+    {
+        Destroy(this.gameObject);
+    }
+
+    internal void Show()
+    {
+        gameObject.SetActive(item.Unlocked);
+    }
 }
