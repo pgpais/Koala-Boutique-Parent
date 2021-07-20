@@ -57,6 +57,8 @@ public class SellingGame : MonoBehaviour
     [Header("UI Stuff")]
     [SerializeField] TMP_Text titleText;
     [SerializeField] Image itemImage;
+    [SerializeField] TMP_Text itemQuantityText;
+    [SerializeField] TMP_Text sellingAmountText;
     [SerializeField] TMP_Text resultText;
     [SerializeField] TMP_Text tooCheapPriceText;
     [SerializeField] TMP_Text veryCheapPriceText;
@@ -248,6 +250,8 @@ public class SellingGame : MonoBehaviour
     {
         titleText.text = $"{item.ItemName}";
         itemImage.sprite = item.ItemSprite;
+        itemQuantityText.text = (maxAmount - amountSold).ToString();
+        sellingAmountText.text = $"x{currentAmount}";
         resultText.text = $"You've sold {amountSold} of {item.ItemName} for {incomeSoFar}, so far.";
 
         int itemPrice = item.GoldValue + MarketPrices.instance.GetCostModifierForItem(item.ItemName);
