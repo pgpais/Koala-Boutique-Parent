@@ -169,12 +169,14 @@ public class ProcessingManager : MonoBehaviour
     void OnProcessFinished(Process process)
     {
         Item processItem = ItemManager.instance.itemsData.GetItemByName(process.ProcessingItemName);
-        if (SecretDoorManager.instance.DoorKey)
+        if (processItem.ItemName == SecretDoorManager.instance.DoorKey.ItemName)
         {
+            Debug.Log("Unlocking secret code!");
             SecretDoorManager.instance.UnlockDoor(processItem.ProcessResult);
         }
         else
         {
+            Debug.Log("Adding process result to items!");
             ItemManager.instance.AddItem(processItem.ProcessResult.ItemName, processItem.ProcessResultAmount * process.ProcessAmount, true);
         }
 

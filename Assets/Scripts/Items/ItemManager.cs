@@ -125,13 +125,13 @@ public class ItemManager : MonoBehaviour
         if (itemQuantity[itemName] > amount)
         {
             itemQuantity[itemName] -= amount;
-            ItemUpdated.Invoke(itemsData.GetItemByName(itemName), amount);
+            // ItemUpdated.Invoke(itemsData.GetItemByName(itemName), amount);
             UpdateCloudItem(itemName, itemQuantity[itemName]);
         }
         else if (itemQuantity[itemName] == amount)
         {
             itemQuantity.Remove(itemName);
-            itemsData.GetItemByName(itemName).ItemRemoved.Invoke();
+            // itemsData.GetItemByName(itemName).ItemRemoved.Invoke();
             RemoveCloudItem(itemName);
         }
     }

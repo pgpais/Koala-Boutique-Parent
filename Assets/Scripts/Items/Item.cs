@@ -16,8 +16,8 @@ public class Item : ScriptableObject, UnlockableReward, IComparable<Item>
     }
 
     public static UnityEvent<Item> ItemUnlocked { get; private set; }
-    public UnityEvent<int> ItemUpdated { get; private set; }
-    public UnityEvent ItemRemoved { get; private set; }
+    // public UnityEvent<int> ItemUpdated { get; private set; }
+    // public UnityEvent ItemRemoved { get; private set; }
     [field: SerializeField] public Sprite ItemSprite { get; private set; }
     [field: SerializeField] public string ItemName { get; private set; }
     [field: SerializeField] public string Description { get; set; }
@@ -63,7 +63,7 @@ public class Item : ScriptableObject, UnlockableReward, IComparable<Item>
 
     internal void InitializeEvent()
     {
-        ItemUpdated = new UnityEvent<int>();
+        // ItemUpdated = new UnityEvent<int>();
         ItemUnlocked = new UnityEvent<Item>();
     }
 
