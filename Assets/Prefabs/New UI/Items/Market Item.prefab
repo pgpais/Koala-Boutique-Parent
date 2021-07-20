@@ -520,8 +520,8 @@ MonoBehaviour:
   itemValue: {fileID: 1469754681673251995}
   itemImage: {fileID: 928165793094379927}
   fadeImage: {fileID: 757289794920971645}
-  bargainButton: {fileID: 8290673618538693976}
-  sellButton: {fileID: 8630171592930626124}
+  bargainButton: {fileID: 8630171592930626124}
+  sellButton: {fileID: 8290673618538693976}
 --- !u!114 &6546426459027493133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -826,7 +826,7 @@ GameObject:
   - component: {fileID: 1015652896353866254}
   - component: {fileID: 8630171592930626124}
   m_Layer: 5
-  m_Name: Sell Button
+  m_Name: Bargain Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1097,7 +1097,7 @@ GameObject:
   - component: {fileID: 2625706063493396117}
   - component: {fileID: 8290673618538693976}
   m_Layer: 5
-  m_Name: Bargain Button
+  m_Name: Sell Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

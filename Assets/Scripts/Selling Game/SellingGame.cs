@@ -56,6 +56,7 @@ public class SellingGame : MonoBehaviour
 
     [Header("UI Stuff")]
     [SerializeField] TMP_Text titleText;
+    [SerializeField] Image itemImage;
     [SerializeField] TMP_Text resultText;
     [SerializeField] TMP_Text tooCheapPriceText;
     [SerializeField] TMP_Text veryCheapPriceText;
@@ -113,6 +114,7 @@ public class SellingGame : MonoBehaviour
     {
         sliderValue = 0.5f;
         slider.value = sliderValue;
+        sellButton.interactable = true;
         yield return null;
 
         // TODO: do countdown timer or start button;
@@ -165,14 +167,14 @@ public class SellingGame : MonoBehaviour
     {
         if (sliderValue < minCheapSellPercentage)
         {
-            // TODO: way too cheap
+            // ? way too cheap (Got convinced to sell for 0 value)
             incomeSoFar += ItemManager.instance.SellItem(item.ItemName, currentAmount, tooCheapPriceModifier);
             amountSold += currentAmount;
             currentAmount = (int)(currentAmount * cheapAmountModifier);
         }
         else if (sliderValue < minSuccessPercentage)
         {
-            // TODO: too cheap
+            // ? too cheap
             gameSpeed /= gameSpeedModifier;
             incomeSoFar += ItemManager.instance.SellItem(item.ItemName, currentAmount, veryCheapPriceModifier);
             amountSold += currentAmount;
@@ -180,7 +182,7 @@ public class SellingGame : MonoBehaviour
         }
         else if (sliderValue <= maxSuccessPercentage)
         {
-            // TODO: just right
+            // ? just right
             Debug.Log("Just right!");
             incomeSoFar += ItemManager.instance.SellItem(item.ItemName, currentAmount, justRightPriceModifier);
             amountSold += currentAmount;
@@ -188,7 +190,7 @@ public class SellingGame : MonoBehaviour
         }
         else if (sliderValue <= maxExpensiveSellPercentage)
         {
-            // TODO: too expensive
+            // ? too expensive
             incomeSoFar += ItemManager.instance.SellItem(item.ItemName, currentAmount, veryExpensivePriceModifier);
             gameSpeed *= gameSpeedModifier;
             amountSold += currentAmount;
@@ -196,10 +198,10 @@ public class SellingGame : MonoBehaviour
         }
         else
         {
-            // TODO: don't sell, too expensive
-            incomeSoFar += ItemManager.instance.SellItem(item.ItemName, 0, tooExpensivePriceModifier);
-            gameSpeed *= gameSpeedModifier;
-            currentAmount = (int)(currentAmount * expensiveAmountModifier);
+            // ? Sell at 0 value (stolen Item)
+            incomeSoFar += ItemManager.instance.SellItem(item.ItemName, currentAmount, tooExpensivePriceModifier);
+            amountSold += currentAmount;
+            currentAmount = (int)(currentAmount * veryExpensivePriceModifier);
         }
 
 
@@ -220,6 +222,7 @@ public class SellingGame : MonoBehaviour
         StopCoroutine(coroutine);
         titleText.text = $"You don't have any {item.ItemName} left to sell!";
         sellButton.onClick.RemoveListener(OnSellButton);
+        sellButton.interactable = false;
     }
 
     void ShowMenu()
@@ -243,7 +246,8 @@ public class SellingGame : MonoBehaviour
 
     void UpdateUI()
     {
-        titleText.text = $"Selling {item.ItemName}";
+        titleText.text = $"{item.ItemName}";
+        itemImage.sprite = item.ItemSprite;
         resultText.text = $"You've sold {amountSold} of {item.ItemName} for {incomeSoFar}, so far.";
 
         int itemPrice = item.GoldValue + MarketPrices.instance.GetCostModifierForItem(item.ItemName);

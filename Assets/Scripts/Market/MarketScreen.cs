@@ -97,7 +97,10 @@ public class MarketScreen : MonoBehaviour
                 valueModifier = MarketPrices.instance.GetCostModifierForItem(item.name);
 
             marketItems[item.ItemName].UpdateUI(item.ItemName, item.GoldValue + valueModifier, item.ItemSprite);
+            SortMarketItems();
         });
+
+        ItemManager.ItemUpdated.AddListener(UpdateUI);
     }
 
     private void OnEnable()
@@ -105,10 +108,9 @@ public class MarketScreen : MonoBehaviour
         SortMarketItems();
     }
 
-    // Update is called once per frame
-    void Update()
+    void UpdateUI(Item item, int amount)
     {
-
+        marketItems[item.ItemName].UpdateAmount(amount);
     }
 
     void SortMarketItems()

@@ -127,4 +127,9 @@ public class MarketItem : MonoBehaviour, IComparable<MarketItem>
             return item1.CompareTo(item2);
         }
     }
+
+    internal void UpdateAmount(int amount)
+    {
+        itemQuantity.text = amount.ToString();
+    }
 }
