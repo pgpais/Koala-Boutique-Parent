@@ -23,10 +23,13 @@ public class OfferingScreen : MonoBehaviour
         var items = ItemManager.instance.itemsData.GetUnlockedItems();
         foreach (var item in items)
         {
-            var offerItem = Instantiate(offeringItemPrefab, itemList);
-            offerItem.Init(item);
-            offerItem.gameObject.SetActive(true);
-            offerItemList.Add(offerItem);
+            if (ItemManager.instance.HasEnoughItem(item.ItemName, 1))
+            {
+                var offerItem = Instantiate(offeringItemPrefab, itemList);
+                offerItem.Init(item);
+                offerItem.gameObject.SetActive(true);
+                offerItemList.Add(offerItem);
+            }
         }
     }
 
@@ -62,6 +65,8 @@ public class OfferingScreen : MonoBehaviour
             // TODO: Bad offer
             Debug.Log("Offering failed");
         }
+
+        CloseScreen();
     }
 
     void CloseScreen()

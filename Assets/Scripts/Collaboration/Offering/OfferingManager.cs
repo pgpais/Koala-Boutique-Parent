@@ -9,6 +9,7 @@ public class OfferingManager : MonoBehaviour
     public static UnityEvent OnOfferingChanged = new UnityEvent();
     public static UnityEvent<bool> OnOffering = new UnityEvent<bool>();
 
+    public static int failedOfferingPenalty = -50;
     public static string referenceName = "offering";
     public static OfferingManager Instance;
 
@@ -74,6 +75,16 @@ public class OfferingManager : MonoBehaviour
 
         offering.offeringMade = true;
         offering.offeringSuccessful = allItemsToOfferFound;
+
+        if (!offering.offeringSuccessful)
+        {
+            GoldManager.instance.ModifyGold(failedOfferingPenalty);
+        }
+
+        foreach (var itemName in itemsToOffer)
+        {
+            ItemManager.instance.RemoveItem(itemName, 1);
+        }
 
         SendOffering(offering);
         OnOfferingChanged.Invoke();

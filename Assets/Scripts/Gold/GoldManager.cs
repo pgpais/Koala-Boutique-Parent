@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -99,6 +100,12 @@ public class GoldManager : MonoBehaviour
                 GemChanged.Invoke(CurrentGems);
             }
         });
+    }
+
+    internal void ModifyGold(int failedOfferingPenalty)
+    {
+        CurrentGold -= failedOfferingPenalty;
+        UploadGold();
     }
 
     public bool HasEnoughGold(int amount)
