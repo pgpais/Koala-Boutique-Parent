@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Firebase.Database;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -353,12 +354,13 @@ internal class ManagerQuest
         if (Items.ContainsKey(itemName))
         {
             Items[itemName] -= amount;
+            Items[itemName] = Mathf.Clamp(Items[itemName], 0, maxItemQuantity);
             if (Items[itemName] <= 0)
             {
-                Items.Remove(itemName);
-                if (Items.Count == 0)
+                if (Items.All((keyValuePair) => keyValuePair.Value == 0))
                 {
-                    IsCompleted = true;
+                    if (!IsCompleted)
+                        CompleteQuest();
                 }
             }
         }
@@ -382,5 +384,6 @@ internal class ManagerQuest
     public void CompleteQuest()
     {
         IsCompleted = true;
+        IsChecked = false;
     }
 }
