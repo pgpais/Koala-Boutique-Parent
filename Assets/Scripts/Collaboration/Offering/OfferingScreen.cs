@@ -54,15 +54,14 @@ public class OfferingScreen : MonoBehaviour
             }
         }
 
-        // TODO: Make offer
         if (OfferingManager.Instance.MakeOffer(itemsToOffer))
         {
-            // TODO: Good offer
+            // TODO: #66 Good offer
             Debug.Log("Offering made");
         }
         else
         {
-            // TODO: Bad offer
+            // TODO: #67 Bad offer
             Debug.Log("Offering failed");
         }
 
