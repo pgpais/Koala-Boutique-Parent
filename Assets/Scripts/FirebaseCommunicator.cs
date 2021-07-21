@@ -240,6 +240,10 @@ public class FirebaseCommunicator : MonoBehaviour
 
         dbReference.ValueChanged += onValueChangedAction;
     }
+    public void SetupListenForValueChangedEvents(string firebaseReference, EventHandler<ValueChangedEventArgs> onValueChangedAction)
+    {
+        database.Child(firebaseReference).Child(familyId.ToString()).ValueChanged += onValueChangedAction;
+    }
     public void RemoveValueChangedListener(string[] firebaseReferences, EventHandler<ValueChangedEventArgs> onValueChangedAction)
     {
         DatabaseReference dbReference = database;
@@ -262,6 +266,12 @@ public class FirebaseCommunicator : MonoBehaviour
         dbReference.ChildChanged += onChildChangedAction;
     }
 
+    public void SetupListenForChildChangedEvents(string firebaseReference, EventHandler<ChildChangedEventArgs> onChildChangedAction)
+    {
+
+
+        database.Child(firebaseReference).Child(familyId.ToString()).ChildChanged += onChildChangedAction;
+    }
 
     public void RemoveChildChangedListener(string[] firebaseReferences, EventHandler<ChildChangedEventArgs> onChildChangedAction)
     {

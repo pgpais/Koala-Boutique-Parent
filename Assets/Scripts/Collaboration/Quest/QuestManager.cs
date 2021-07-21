@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Firebase.Database;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -9,6 +10,12 @@ public class QuestManager : MonoBehaviour
     public static string managerReferenceName = "managerQuest";
     public static string dateFormat = "yyyyMMdd";
     public static QuestManager instance;
+
+    public Dictionary<string, int> AdventurerQuestItemQuantity => adventurerQuest.itemQuantity;
+
+    public Unlockable AdventurerQuestReward => UnlockablesManager.instance.Unlockables[adventurerQuest.UnlockableRewardName];
+
+    [SerializeField] Unlockable lastMushroomUnlockable;
 
     AdventurerQuest adventurerQuest;
     private ManagerQuest managerQuest;
@@ -59,9 +66,65 @@ public class QuestManager : MonoBehaviour
                 else
                 {
                     adventurerQuest = JsonConvert.DeserializeObject<AdventurerQuest>(json);
+                    if (adventurerQuest.IsCompleted && !adventurerQuest.IsChecked)
+                    {
+                        HandleFinishedAdventurerQuest();
+                    }
+                    else
+                    {
+                        FirebaseCommunicator.instance.SetupListenForValueChangedEvents(adventurerReferenceName, OnAdventurerQuestChanged);
+                    }
                 }
             }
         });
+    }
+
+    private void OnAdventurerQuestChanged(object sender, ValueChangedEventArgs e)
+    {
+        string json = e.Snapshot.GetRawJsonValue();
+        if (string.IsNullOrEmpty(json))
+        {
+            Debug.LogError("No adventurer quest exists");
+        }
+        else
+        {
+            adventurerQuest = JsonConvert.DeserializeObject<AdventurerQuest>(json);
+
+            if (adventurerQuest.UnlockableRewardName == null)
+            {
+                GenerateAdventurerQuestReward();
+            }
+
+            if (adventurerQuest.IsCompleted && !adventurerQuest.IsChecked)
+            {
+                HandleFinishedAdventurerQuest();
+            }
+        }
+    }
+
+    void HandleFinishedAdventurerQuest()
+    {
+        CheckAdventurerQuest();
+        GetAdventurerQuestReward();
+    }
+
+    private void GetAdventurerQuestReward()
+    {
+        Unlockable reward = UnlockablesManager.instance.Unlockables[adventurerQuest.UnlockableRewardName];
+        if (reward != null)
+        {
+            UnlockablesManager.instance.Unlock(reward);
+        }
+        else
+        {
+            Debug.LogError("No reward found for adventurer quest");
+        }
+    }
+
+    public void CheckAdventurerQuest()
+    {
+        adventurerQuest.CheckQuest();
+        SaveAdventurerQuest();
     }
 
     void GetManagerQuest()
@@ -103,6 +166,7 @@ public class QuestManager : MonoBehaviour
             {
                 FinishManagerQuest();
             }
+            SaveManagerQuest();
         }
     }
 
@@ -111,13 +175,25 @@ public class QuestManager : MonoBehaviour
         Debug.Log("Manager Quest Finished");
     }
 
-    bool ExistsAdventurerQuest()
+    void SaveManagerQuest()
     {
-        DateTime startDay = DateTime.ParseExact(managerQuest.StartDay, dateFormat, null);
-        DateTime today = DateTime.Today;
-        bool isToday = startDay.Date == today.Date;
+        string json = JsonConvert.SerializeObject(managerQuest);
+        FirebaseCommunicator.instance.SendObject(json, managerReferenceName, (task) =>
+        {
+            if (task.IsFaulted)
+            {
+                Debug.LogError("Failed to save manager quest");
+            }
+            else if (task.IsCompleted)
+            {
+                Debug.Log("Manager quest saved");
+            }
+        });
+    }
 
-        return adventurerQuest != null && isToday;
+    public bool ExistsAdventurerQuest()
+    {
+        return adventurerQuest != null && !adventurerQuest.IsOld();
     }
 
     void CreateAdventurerQuest()
@@ -140,7 +216,13 @@ public class QuestManager : MonoBehaviour
             questItems.Add(item.ItemName, UnityEngine.Random.Range(1, AdventurerQuest.maxItemQuantity));
         }
 
-        adventurerQuest = new AdventurerQuest(questItems, 100, DateTime.Today.ToString(dateFormat));
+        adventurerQuest = new AdventurerQuest(questItems, null, DateTime.Today.ToString(dateFormat));
+        adventurerQuest.GenerateAdventurerQuestReward(lastMushroomUnlockable);
+    }
+
+    internal bool AdventurerQuestComplete()
+    {
+        return adventurerQuest.IsCompleted;
     }
 
     void SaveAdventurerQuest()
@@ -158,6 +240,14 @@ public class QuestManager : MonoBehaviour
             }
         });
     }
+
+    public void GenerateAdventurerQuestReward()
+    {
+        adventurerQuest.GenerateAdventurerQuestReward(lastMushroomUnlockable);
+
+        SaveAdventurerQuest();
+    }
+
 }
 
 [System.Serializable]
@@ -165,17 +255,17 @@ public class AdventurerQuest
 {
     public static int amountOfItems = 3;
     public static int maxItemQuantity = 10;
-
+    public static string dateFormat = "yyyyMMdd";
     public Dictionary<string, int> itemQuantity;
-    public int GoldReward { get; private set; }
+    public string UnlockableRewardName { get; private set; }
     public string StartDay { get; private set; }
     public bool IsCompleted { get; private set; }
     public bool IsChecked { get; private set; }
 
-    public AdventurerQuest(Dictionary<string, int> itemQuantity, int goldReward, string startDay, bool isCompleted = false, bool isChecked = false)
+    public AdventurerQuest(Dictionary<string, int> itemQuantity, string unlockableRewardName, string startDay, bool isCompleted = false, bool isChecked = false)
     {
         this.itemQuantity = itemQuantity;
-        GoldReward = goldReward;
+        UnlockableRewardName = unlockableRewardName;
         StartDay = startDay;
         IsCompleted = isCompleted;
         IsChecked = isChecked;
@@ -183,6 +273,11 @@ public class AdventurerQuest
 
     public bool CanCompleteQuest(Dictionary<string, int> itemQuantity)
     {
+        if (!IsChecked)
+        {
+            return false;
+        }
+
         bool correctItemQuantity = true;
 
         foreach (KeyValuePair<string, int> item in this.itemQuantity)
@@ -202,24 +297,50 @@ public class AdventurerQuest
             }
         }
 
-        return IsChecked && correctItemQuantity;
+        return correctItemQuantity;
     }
 
     public void CompleteQuest()
     {
         IsCompleted = true;
     }
+
+    internal bool IsOld()
+    {
+        DateTime start = DateTime.ParseExact(StartDay, dateFormat, null);
+        // return true if day is before today
+        return (DateTime.Today - start).Days > 0;
+    }
+
+    internal void CheckQuest()
+    {
+        IsChecked = true;
+    }
+
+    internal void GenerateAdventurerQuestReward(Unlockable lastMushroomUnlockable)
+    {
+        Unlockable nextMushroomUnlockable = lastMushroomUnlockable;
+        while (!nextMushroomUnlockable.Requirements[0].Unlocked)
+        {
+            nextMushroomUnlockable = nextMushroomUnlockable.Requirements[0];
+        }
+
+        UnlockableRewardName = nextMushroomUnlockable.UnlockableName;
+    }
 }
 
 [System.Serializable]
 internal class ManagerQuest
 {
+    public static int amountOfItems = 3;
+    public static int maxItemQuantity = 10;
+    public static string dateFormat = "yyyyMMdd";
     public Dictionary<string, int> Items { get; private set; }
     public string StartDay { get; private set; }
     public bool IsCompleted { get; private set; }
     public bool IsChecked { get; private set; }
 
-    public ManagerQuest(Dictionary<string, int> items, string startDay, bool isCompleted, bool isChecked)
+    public ManagerQuest(Dictionary<string, int> items, string startDay, bool isCompleted = false, bool isChecked = false)
     {
         Items = items;
         StartDay = startDay;
@@ -243,5 +364,23 @@ internal class ManagerQuest
         }
 
         return IsCompleted;
+    }
+
+    internal void Check()
+    {
+        IsChecked = true;
+    }
+
+    public bool IsOld()
+    {
+        DateTime today = DateTime.Today;
+        DateTime startDay = DateTime.ParseExact(StartDay, dateFormat, null);
+
+        return (today - startDay).Days != 0;
+    }
+
+    public void CompleteQuest()
+    {
+        IsCompleted = true;
     }
 }

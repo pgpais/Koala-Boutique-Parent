@@ -11,7 +11,7 @@ public class SmallItemUI : MonoBehaviour
 
     public void InitUI(Item item, int amount)
     {
-        text.text = $"{amount}x {item.ItemName}";
+        text.text = $"{amount}";
         image.sprite = item.ItemSprite;
     }
 }

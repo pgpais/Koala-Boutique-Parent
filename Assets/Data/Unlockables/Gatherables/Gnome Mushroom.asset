@@ -65,8 +65,9 @@ MonoBehaviour:
     type: 3}
   <UnlockableName>k__BackingField: Gnome Mushroom
   <UnlockableDescription>k__BackingField: 
+  <Type>k__BackingField: 0
   <Requirements>k__BackingField:
-  - {fileID: 11400000}
+  - {fileID: 11400000, guid: 347d94953a3cf0646ad2faef2f65ad46, type: 2}
   <GoldCost>k__BackingField: 80
   <GemCost>k__BackingField: 2160
   <DifficultyModifier>k__BackingField: 0
