@@ -2251,6 +2251,8 @@ MonoBehaviour:
   abundantGatherablesScreenButton: {fileID: 145306666}
   abundantGatherableImage: {fileID: 903901821}
   itemNameText: {fileID: 260796291}
+  diseasedImage: {fileID: 1016349006}
+  diseasedNameText: {fileID: 899412348}
   easyToggle: {fileID: 1979046560}
   mediumToggle: {fileID: 1545538782}
   hardToggle: {fileID: 1317120841}
@@ -6747,6 +6749,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &899412348 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8636853019977857980, guid: 96ba70a239d32f04ba533f6d0278d6a6,
+    type: 3}
+  m_PrefabInstance: {fileID: 723926327}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &903901821 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 728524052956120455, guid: 96ba70a239d32f04ba533f6d0278d6a6,
@@ -7400,6 +7414,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1002078261}
   m_CullTransparentMesh: 1
+--- !u!114 &1016349006 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3887955208970230554, guid: 96ba70a239d32f04ba533f6d0278d6a6,
+    type: 3}
+  m_PrefabInstance: {fileID: 723926327}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1027989954 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 849080606458026934, guid: 1ca761688911fea488af7ad3fc7225d2,
@@ -10350,6 +10376,7 @@ GameObject:
   - component: {fileID: 1506964910}
   - component: {fileID: 1506964911}
   - component: {fileID: 1506964912}
+  - component: {fileID: 1506964908}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -10481,6 +10508,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buffs: {fileID: 11400000, guid: f59433d52d7777845a130f3ae18fee5e, type: 2}
+--- !u!114 &1506964908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1506964899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e8f8f626b563434abc2092a7e74ee9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1506964909
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -71,8 +71,8 @@ public class Item : ScriptableObject, UnlockableReward, IComparable<Item>
     {
         if (!Unlocked)
         {
-            ItemUnlocked.Invoke(this);
             Unlocked = true;
+            ItemUnlocked.Invoke(this);
         }
     }
 

@@ -1,17 +1,23 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class MissionScreen : MonoBehaviour
 {
 
-    [Header("Gatherables Screen")]
+    [Header("Abundant Gatherables Screen")]
     [SerializeField] AbundantGatherableScreen abundantGatherablesScreen;
     [SerializeField] Button abundantGatherablesScreenButton;
     [SerializeField] Image abundantGatherableImage;
     [SerializeField] TMPro.TMP_Text itemNameText;
+
+    [Header("Diseased Gatherable Screen")]
+    [SerializeField] Image diseasedImage;
+    [SerializeField] TMP_Text diseasedNameText;
+
 
     [Header("Difficulty Screen")]
     [SerializeField] Toggle easyToggle;
@@ -45,6 +51,15 @@ public class MissionScreen : MonoBehaviour
         else
         {
             MissionManager.OnGotDifficulty.AddListener(SetDifficulty);
+        }
+
+        if (DiseasedManager.instance.GotDiseased)
+        {
+            ShowDiseasedItem();
+        }
+        else
+        {
+            DiseasedManager.OnGotDiseased.AddListener(ShowDiseasedItem);
         }
     }
 
@@ -188,5 +203,13 @@ public class MissionScreen : MonoBehaviour
         questCompleteObject.SetActive(true);
         questRequirementsObject.SetActive(false);
         completeRewardImage.sprite = (reward.Rewards[0] as Item).ItemSprite;
+    }
+
+    private void ShowDiseasedItem()
+    {
+        Item diseasedItem = DiseasedManager.instance.DiseasedItem;
+
+        diseasedImage.sprite = diseasedItem.ItemSprite;
+        diseasedNameText.text = diseasedItem.ItemName;
     }
 }
