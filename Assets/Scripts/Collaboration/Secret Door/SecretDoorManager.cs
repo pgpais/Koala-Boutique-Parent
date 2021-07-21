@@ -10,7 +10,10 @@ public class SecretDoorManager : MonoBehaviour
     public static string referenceName = "secretDoor";
     public static SecretDoorManager instance;
 
+    public bool IsCodeDecrypted => doorTime.code != null;
+    public bool IsDoorUnlocked => doorTime.unlocked;
     public Item DoorKey => doorKey;
+
     [SerializeField] Item doorKey;
     const string dateFormat = "yyyyMMdd";
     DoorTime doorTime;
@@ -66,6 +69,11 @@ public class SecretDoorManager : MonoBehaviour
                 {
                     DeleteRequest();
                 }
+
+                if (doorTime.code != null)
+                {
+                    OnCodeDecrypted.Invoke(doorTime.code);
+                }
             }
         });
     }
@@ -97,7 +105,7 @@ public class SecretDoorManager : MonoBehaviour
 
     void CheckDoorItem()
     {
-        if (doorTime.unlocked)
+        if (doorTime.unlocked || doorTime.code != null)
         {
             return;
         }

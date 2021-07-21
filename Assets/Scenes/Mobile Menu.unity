@@ -6691,6 +6691,62 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1099113853579556874}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &897426218 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1099113853033416695, guid: 2b7cf99e13694e646bce7641b074eb51,
+    type: 3}
+  m_PrefabInstance: {fileID: 1099113853579556874}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 897426217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &897426219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 897426217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 897426218}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &903901821 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 728524052956120455, guid: 96ba70a239d32f04ba533f6d0278d6a6,
@@ -11745,6 +11801,7 @@ MonoBehaviour:
   mainMenuObject: {fileID: 1610398986}
   FadeObject: {fileID: 897426217}
   KingOfferingScreen: {fileID: 624268835}
+  SecretDoorCodeScreen: {fileID: 1870522983}
   tabLayoutGroup: {fileID: 685306524}
   tabPrefab: {fileID: 3504697699186498460, guid: 0674765c52c2c8f4295598a4440b863a,
     type: 3}

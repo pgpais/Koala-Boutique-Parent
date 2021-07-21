@@ -124,6 +124,11 @@ public class QuestManager : MonoBehaviour
 
     public void CheckAdventurerQuest()
     {
+        if (!adventurerQuest.IsChecked)
+        {
+            return;
+        }
+
         adventurerQuest.CheckQuest();
         SaveAdventurerQuest();
     }

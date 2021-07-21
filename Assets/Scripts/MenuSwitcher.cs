@@ -17,6 +17,7 @@ public class MenuSwitcher : SerializedMonoBehaviour
     [SerializeField] GameObject mainMenuObject;
     [SerializeField] GameObject FadeObject;
     [SerializeField] GameObject KingOfferingScreen;
+    [SerializeField] GameObject SecretDoorCodeScreen;
 
     [SerializeField] ToggleGroup tabLayoutGroup;
     [SerializeField] Toggle tabPrefab;
@@ -29,6 +30,7 @@ public class MenuSwitcher : SerializedMonoBehaviour
     [SerializeField] Dictionary<string, Sprite> tabIconImages = new Dictionary<string, Sprite>();
 
     Dictionary<string, Toggle> tabs;
+    private Button fadeButton;
 
     private void Awake()
     {
@@ -61,10 +63,35 @@ public class MenuSwitcher : SerializedMonoBehaviour
         logoutButton.onClick.AddListener(Logout);
         kingOfferingButton.onClick.AddListener(ShowKingOfferingScreen);
         OfferingManager.OnOfferingChanged.AddListener(HandleKingButton);
+        if (SecretDoorManager.instance != null && SecretDoorManager.instance.IsCodeDecrypted && !SecretDoorManager.instance.IsDoorUnlocked)
+        {
+            HandleSecretCodeButton(SecretDoorManager.instance.GetCode());
+        }
+        else
+        {
+            secretCodeButton.gameObject.SetActive(false);
+            SecretDoorManager.OnCodeDecrypted.AddListener(HandleSecretCodeButton);
+        }
+    }
+
+    private void HandleSecretCodeButton(string code)
+    {
+        Debug.Log("Code decrypted! Enabling secret code button...");
+        secretCodeButton.gameObject.SetActive(true);
+        secretCodeButton.onClick.AddListener(ShowSecretCodeButton);
+    }
+
+    void ShowSecretCodeButton()
+    {
+        FadeObject.SetActive(true);
+        SecretDoorCodeScreen.SetActive(true);
     }
 
     private void Start()
     {
+        fadeButton = FadeObject.GetComponent<Button>();
+        fadeButton.onClick.AddListener(HideAllPopups);
+
         // PopulateDropdownAndSetDefault();
         foreach (Transform child in tabLayoutGroup.transform)
         {
@@ -96,6 +123,15 @@ public class MenuSwitcher : SerializedMonoBehaviour
 
         tabs[defaultScreenName].isOn = true;
 
+    }
+
+    private void HideAllPopups()
+    {
+        foreach (Transform child in FadeObject.transform)
+        {
+            child.gameObject.SetActive(false);
+        }
+        FadeObject.SetActive(false);
     }
 
     private void Update()
