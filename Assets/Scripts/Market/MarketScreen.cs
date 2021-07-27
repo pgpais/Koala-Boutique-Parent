@@ -51,7 +51,9 @@ public class MarketScreen : MonoBehaviour
 
     void Init()
     {
-        foreach (var item in ItemManager.instance.itemsData.Items)
+        List<Item> sellableItems = ItemManager.instance.itemsData.Items.Where(item => item.Type == Item.ItemType.Processed || item.Type == Item.ItemType.Gatherable || item.ProcessResult == null).ToList();
+
+        foreach (var item in sellableItems)
         {
             MarketItem marketItem = Instantiate(marketItemPrefab, marketItemGroup);
             marketItem.Init(item.ItemName, item.GoldValue, item.ItemSprite);
@@ -82,6 +84,11 @@ public class MarketScreen : MonoBehaviour
 
         ItemManager.NewItemAdded.AddListener((item, quantity) =>
        {
+           if (!marketItems.ContainsKey(item.ItemName))
+           {
+               return;
+           }
+
            int valueModifier = 0;
            if (MarketPrices.instance.hasPrices)
                valueModifier = MarketPrices.instance.GetCostModifierForItem(item.name);
@@ -92,6 +99,11 @@ public class MarketScreen : MonoBehaviour
 
         ItemManager.ItemRemoved.AddListener((item) =>
         {
+            if (!marketItems.ContainsKey(item.ItemName))
+            {
+                return;
+            }
+
             int valueModifier = 0;
             if (MarketPrices.instance.hasPrices)
                 valueModifier = MarketPrices.instance.GetCostModifierForItem(item.name);
