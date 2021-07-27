@@ -18,9 +18,6 @@ MonoBehaviour:
     ReferencedUnityObjects:
     - {fileID: 11400000, guid: 1bd48397619ee8b4593b9334fbef576e, type: 2}
     - {fileID: 11400000, guid: 476dfa4bc0d558e448b1173dd9796b7c, type: 2}
-    - {fileID: 11400000, guid: 86fc2a785b037fa4b9f98fa48470cccd, type: 2}
-    - {fileID: 11400000, guid: e86ce1890f3f4424f88c8525ee350f10, type: 2}
-    - {fileID: 11400000, guid: a06410131afb03341a3fa5371e906c82, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -58,43 +55,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 3
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 10
-      Data: 2
-    - Name: $v
-      Entry: 3
-      Data: 9
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 10
-      Data: 3
-    - Name: $v
-      Entry: 3
-      Data: 5
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 10
-      Data: 4
-    - Name: $v
-      Entry: 3
-      Data: 10
-    - Name: 
-      Entry: 8
-      Data: 
+      Data: 0
     - Name: 
       Entry: 13
       Data: 
@@ -111,6 +72,6 @@ MonoBehaviour:
   <Type>k__BackingField: 0
   <Requirements>k__BackingField: []
   <GoldCost>k__BackingField: 200
-  <GemCost>k__BackingField: 3
+  <GemCost>k__BackingField: 2
   <DifficultyModifier>k__BackingField: 0
   unlocked: 0

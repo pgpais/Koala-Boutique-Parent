@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a73e638a35fc79f4abc3867eed4034f1, type: 3}
-  m_Name: Fish Market
+  m_Name: Food Market
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
     - {fileID: 11400000, guid: bb1c954260d308f41b4015643350da5b, type: 2}
-    - {fileID: 11400000, guid: 86fc2a785b037fa4b9f98fa48470cccd, type: 2}
+    - {fileID: 11400000, guid: 97a14ba9d8fc67140a89e1d151a6345d, type: 2}
     - {fileID: 11400000, guid: e86ce1890f3f4424f88c8525ee350f10, type: 2}
     - {fileID: 11400000, guid: a06410131afb03341a3fa5371e906c82, type: 2}
     SerializedBytesString: 
@@ -31,10 +31,13 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 10
       Data: 0
+    - Name: 
+      Entry: 10
+      Data: 1
     - Name: 
       Entry: 13
       Data: 
@@ -54,19 +57,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 3
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 10
-      Data: 1
-    - Name: $v
-      Entry: 3
-      Data: 9
-    - Name: 
-      Entry: 8
-      Data: 
+      Data: 2
     - Name: 
       Entry: 7
       Data: 
@@ -75,7 +66,7 @@ MonoBehaviour:
       Data: 2
     - Name: $v
       Entry: 3
-      Data: 5
+      Data: 10
     - Name: 
       Entry: 8
       Data: 
@@ -87,7 +78,7 @@ MonoBehaviour:
       Data: 3
     - Name: $v
       Entry: 3
-      Data: 10
+      Data: 20
     - Name: 
       Entry: 8
       Data: 
@@ -102,11 +93,11 @@ MonoBehaviour:
       m_Calls: []
   <UnlockableSprite>k__BackingField: {fileID: 21300000, guid: 736f59a19a48ecb44aa71f0a1562fe73,
     type: 3}
-  <UnlockableName>k__BackingField: Fish Market
+  <UnlockableName>k__BackingField: Food Market
   <UnlockableDescription>k__BackingField: 
   <Type>k__BackingField: 0
   <Requirements>k__BackingField: []
-  <GoldCost>k__BackingField: 50
-  <GemCost>k__BackingField: 3
+  <GoldCost>k__BackingField: 0
+  <GemCost>k__BackingField: 2
   <DifficultyModifier>k__BackingField: 0
   unlocked: 0

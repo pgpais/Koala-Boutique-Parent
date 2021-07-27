@@ -16,12 +16,8 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 11400000, guid: b434c3c656fae2246b1bebb0fac9c1c7, type: 2}
-    - {fileID: 11400000, guid: 86fc2a785b037fa4b9f98fa48470cccd, type: 2}
-    - {fileID: 11400000, guid: f2e07d1fd3a2d95478c19e50f2112376, type: 2}
+    - {fileID: 11400000, guid: 73f71ac4764f0184d8a1d408d335b5da, type: 2}
     - {fileID: 11400000, guid: 97a14ba9d8fc67140a89e1d151a6345d, type: 2}
-    - {fileID: 11400000, guid: 55610310526f7d04c97e08ea7cac2616, type: 2}
-    - {fileID: 11400000, guid: bb1c954260d308f41b4015643350da5b, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -43,7 +39,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 6
+      Data: 2
     - Name: 
       Entry: 7
       Data: 
@@ -52,7 +48,7 @@ MonoBehaviour:
       Data: 0
     - Name: $v
       Entry: 3
-      Data: 2
+      Data: 5
     - Name: 
       Entry: 8
       Data: 
@@ -62,54 +58,6 @@ MonoBehaviour:
     - Name: $k
       Entry: 10
       Data: 1
-    - Name: $v
-      Entry: 3
-      Data: 14
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 10
-      Data: 2
-    - Name: $v
-      Entry: 3
-      Data: 5
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 10
-      Data: 3
-    - Name: $v
-      Entry: 3
-      Data: 5
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 10
-      Data: 4
-    - Name: $v
-      Entry: 3
-      Data: 5
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 10
-      Data: 5
     - Name: $v
       Entry: 3
       Data: 5
@@ -132,7 +80,7 @@ MonoBehaviour:
   <Type>k__BackingField: 1
   <Requirements>k__BackingField:
   - {fileID: 11400000, guid: d23a0dc995e830140b9a7c41f866ff55, type: 2}
-  <GoldCost>k__BackingField: 0
-  <GemCost>k__BackingField: 3
+  <GoldCost>k__BackingField: 120
+  <GemCost>k__BackingField: 0
   <DifficultyModifier>k__BackingField: 1
   unlocked: 0

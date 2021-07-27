@@ -65,9 +65,10 @@ MonoBehaviour:
     type: 3}
   <UnlockableName>k__BackingField: Dragon Mushroom
   <UnlockableDescription>k__BackingField: 
+  <Type>k__BackingField: 0
   <Requirements>k__BackingField:
   - {fileID: 11400000, guid: ffca1544a3f60fb44a3134d929f12ed6, type: 2}
-  <GoldCost>k__BackingField: 80
-  <GemCost>k__BackingField: 640
+  <GoldCost>k__BackingField: 640
+  <GemCost>k__BackingField: 0
   <DifficultyModifier>k__BackingField: 0
   unlocked: 0

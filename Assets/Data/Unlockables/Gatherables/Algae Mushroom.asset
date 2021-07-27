@@ -65,9 +65,10 @@ MonoBehaviour:
     type: 3}
   <UnlockableName>k__BackingField: Algae Mushroom
   <UnlockableDescription>k__BackingField: 
+  <Type>k__BackingField: 0
   <Requirements>k__BackingField:
   - {fileID: 11400000, guid: 783fdc102c162a946a7c82e275aa7e00, type: 2}
-  <GoldCost>k__BackingField: 80
-  <GemCost>k__BackingField: 1080
+  <GoldCost>k__BackingField: 1080
+  <GemCost>k__BackingField: 0
   <DifficultyModifier>k__BackingField: 0
   unlocked: 0

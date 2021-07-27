@@ -16,7 +16,6 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 11400000, guid: 97a14ba9d8fc67140a89e1d151a6345d, type: 2}
     - {fileID: 11400000, guid: 1bd48397619ee8b4593b9334fbef576e, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -39,25 +38,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 1
     - Name: 
       Entry: 7
       Data: 
     - Name: $k
       Entry: 10
       Data: 0
-    - Name: $v
-      Entry: 3
-      Data: 10
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 10
-      Data: 1
     - Name: $v
       Entry: 3
       Data: 10
@@ -79,7 +66,7 @@ MonoBehaviour:
   <UnlockableDescription>k__BackingField: 
   <Type>k__BackingField: 1
   <Requirements>k__BackingField: []
-  <GoldCost>k__BackingField: 100
-  <GemCost>k__BackingField: 10
+  <GoldCost>k__BackingField: 500
+  <GemCost>k__BackingField: 5
   <DifficultyModifier>k__BackingField: 0
   unlocked: 0
