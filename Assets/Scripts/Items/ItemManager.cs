@@ -94,7 +94,7 @@ public class ItemManager : MonoBehaviour
     {
         if (sellingGame != null)
         {
-            sellingGame.Initialize(itemsData.GetItemByName(itemName), itemQuantity[itemName]);
+            sellingGame.Init(itemsData.GetItemByName(itemName), itemQuantity[itemName]);
         }
     }
 

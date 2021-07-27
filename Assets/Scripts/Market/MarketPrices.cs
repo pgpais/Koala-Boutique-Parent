@@ -91,6 +91,11 @@ public class MarketPrices : SerializedMonoBehaviour
         });
     }
 
+    internal int GetCostModifierForItem(Item item)
+    {
+        return GetCostModifierForItem(item.ItemName);
+    }
+
     public int GetCostModifierForItem(string itemName)
     {
         if (costModifierToday[indexOfActiveCosts].ContainsKey(itemName))
