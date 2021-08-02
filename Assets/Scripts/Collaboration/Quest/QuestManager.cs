@@ -124,7 +124,7 @@ public class QuestManager : MonoBehaviour
 
     public void CheckAdventurerQuest()
     {
-        if (!adventurerQuest.IsChecked)
+        if (adventurerQuest.IsChecked)
         {
             return;
         }
