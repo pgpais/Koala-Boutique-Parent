@@ -209,6 +209,13 @@ public class MissionScreen : MonoBehaviour
     {
         Item diseasedItem = DiseasedManager.instance.DiseasedItem;
 
+        if (diseasedItem == null)
+        {
+            diseasedImage.enabled = false;
+            diseasedNameText.text = "";
+            return;
+        }
+
         diseasedImage.sprite = diseasedItem.ItemSprite;
         diseasedNameText.text = diseasedItem.ItemName;
     }

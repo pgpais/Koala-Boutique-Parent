@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Events;
@@ -33,6 +34,8 @@ public class DiseasedManager : MonoBehaviour
         {
             instance = this;
         }
+
+
     }
 
     private void OnGotUnlocks()
@@ -56,8 +59,11 @@ public class DiseasedManager : MonoBehaviour
                    if (string.IsNullOrEmpty(json))
                    {
                        Debug.Log("No diseased item found");
-                       CreateDiseasedItem();
-                       SendDiseasedItem();
+                       if (ShouldCreateDiseasedItem())
+                       {
+                           CreateDiseasedItem();
+                           SendDiseasedItem();
+                       }
                    }
                    else
                    {
@@ -69,6 +75,20 @@ public class DiseasedManager : MonoBehaviour
                    OnGotDiseased.Invoke();
                }
            });
+    }
+
+    private bool ShouldCreateDiseasedItem()
+    {
+        List<Item> unlockedGatherables = ItemManager.instance.itemsData.Items.Where(item => item.Type == Item.ItemType.Gatherable && item.Unlocked).ToList();
+
+        if (unlockedGatherables.Count < 2)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 
     private void CreateDiseasedItem()
