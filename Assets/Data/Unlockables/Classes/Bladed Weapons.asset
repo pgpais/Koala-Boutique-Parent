@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a73e638a35fc79f4abc3867eed4034f1, type: 3}
-  m_Name: Ranged Weapons
+  m_Name: Bladed Weapons
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -62,7 +62,7 @@ MonoBehaviour:
       m_Calls: []
   <UnlockableSprite>k__BackingField: {fileID: 21300000, guid: 5a796cf8853686e4cad1cb25e118efee,
     type: 3}
-  <UnlockableName>k__BackingField: Ranged Weapons
+  <UnlockableName>k__BackingField: Bladed Weapons
   <UnlockableDescription>k__BackingField: 
   <Type>k__BackingField: 1
   <Requirements>k__BackingField: []
