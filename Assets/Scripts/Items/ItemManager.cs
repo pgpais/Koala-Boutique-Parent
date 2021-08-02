@@ -98,6 +98,11 @@ public class ItemManager : MonoBehaviour
         }
     }
 
+    public void SellItem(Item item, int amount)
+    {
+        SellItem(item.ItemName, amount);
+    }
+
     public void SellItem(string itemName, int amount)
     {
         if (!HasEnoughItem(itemName, amount))
@@ -107,6 +112,11 @@ public class ItemManager : MonoBehaviour
 
         RemoveItem(itemName, amount);
         GoldManager.instance.SellItem(itemsData.GetItemByName(itemName), amount);
+    }
+
+    public int SellItem(Item item, int amount, float modifier)
+    {
+        return SellItem(item.ItemName, amount, modifier);
     }
 
     public int SellItem(string itemName, int amount, float modifier)

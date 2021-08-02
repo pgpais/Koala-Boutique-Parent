@@ -107,7 +107,8 @@ public class SellingGame : MonoBehaviour
             gameSpeed -= gameSpeedModifier;
         }
 
-        int sellValue = GoldManager.instance.SellItem(this.item, 1, sellingModifier);
+
+        int sellValue = ItemManager.instance.SellItem(item, 1, sellingModifier);
 
         Debug.Log($"Sold {item.ItemName} at {sellValue}");
         goldObtained += sellValue;

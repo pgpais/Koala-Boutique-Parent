@@ -76,7 +76,7 @@ public class UnlockableItemCost : MonoBehaviour
             amount = ItemManager.instance.itemQuantity[item.ItemName];
         }
 
-        float value = amount / targetAmount;
+        float value = (float)amount / (float)targetAmount;
         value = Mathf.Clamp01(value);
         slider.value = value;
     }
@@ -85,7 +85,7 @@ public class UnlockableItemCost : MonoBehaviour
     {
         int amount = GoldManager.instance.CurrentGold;
 
-        float value = amount / targetAmount;
+        float value = (float)amount / (float)targetAmount;
         value = Mathf.Clamp01(value);
         slider.value = value;
     }
@@ -94,7 +94,7 @@ public class UnlockableItemCost : MonoBehaviour
     {
         int amount = GoldManager.instance.CurrentGems;
 
-        float value = amount / targetAmount;
+        float value = (float)amount / (float)targetAmount;
         value = Mathf.Clamp01(value);
         slider.value = value;
     }

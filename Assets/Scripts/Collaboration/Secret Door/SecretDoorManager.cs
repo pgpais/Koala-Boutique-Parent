@@ -105,9 +105,9 @@ public class SecretDoorManager : MonoBehaviour
 
     void CheckDoorItem()
     {
-        if (doorTime.unlocked || doorTime.code != null)
+        if (doorTime.unlocked)
         {
-            return;
+            ItemManager.instance.RemoveItem(doorKey.ItemName, 1);
         }
 
         if (!ItemManager.instance.HasEnoughItem(doorKey.ItemName, 1))
