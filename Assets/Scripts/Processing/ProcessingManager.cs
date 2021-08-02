@@ -110,6 +110,14 @@ public class ProcessingManager : MonoBehaviour
             // create Process
             CreateProcess(itemName, amount);
         }
+        else
+        {
+            Debug.LogError("Not enough items");
+            int remainingAmount = ItemManager.instance.itemQuantity[itemName];
+            ItemManager.instance.RemoveItem(itemName, remainingAmount);
+
+            CreateProcess(itemName, remainingAmount);
+        }
     }
 
     public void BoostProcesses()

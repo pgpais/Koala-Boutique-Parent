@@ -105,9 +105,10 @@ public class SecretDoorManager : MonoBehaviour
 
     void CheckDoorItem()
     {
-        if (doorTime.unlocked)
+        if (doorTime.unlocked || doorTime.HasExpired())
         {
             ItemManager.instance.RemoveItem(doorKey.ItemName, 1);
+            return;
         }
 
         if (!ItemManager.instance.HasEnoughItem(doorKey.ItemName, 1))
@@ -133,6 +134,20 @@ public class SecretDoorManager : MonoBehaviour
             this.code = code;
             this.interactDate = interactDate;
             this.unlocked = unlocked;
+        }
+
+
+        public bool HasExpired()
+        {
+            if (this.interactDate == null)
+            {
+                return true;
+            }
+
+            DateTime interactDate = DateTime.ParseExact(this.interactDate, dateFormat, null);
+            DateTime today = DateTime.Today;
+
+            return (today - interactDate).Days >= 2;
         }
     }
 

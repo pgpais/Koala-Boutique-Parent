@@ -12,6 +12,7 @@ public class MarketItem : MonoBehaviour, IComparable<MarketItem>
 
     public string ItemName => itemName.text;
     [SerializeField] TMP_Text itemName;
+    [SerializeField] GameObject quantityLabel;
     public TMP_Text itemQuantity;
     public TMP_Text itemValue;
     public Image itemImage;
@@ -64,6 +65,8 @@ public class MarketItem : MonoBehaviour, IComparable<MarketItem>
             this.itemQuantity.text = ItemManager.instance.itemQuantity[itemName].ToString();
         }
 
+        quantityLabel.SetActive(AvailableItem);
+
         bargainButton.interactable = AvailableItem;
         sellButton.interactable = AvailableItem;
         fadeImage.enabled = !AvailableItem;
@@ -89,6 +92,8 @@ public class MarketItem : MonoBehaviour, IComparable<MarketItem>
         {
             this.itemQuantity.text = ItemManager.instance.itemQuantity[itemName].ToString();
         }
+
+        quantityLabel.SetActive(AvailableItem);
 
         bargainButton.interactable = AvailableItem;
         sellButton.interactable = AvailableItem;

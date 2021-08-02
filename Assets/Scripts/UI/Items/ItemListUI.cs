@@ -109,6 +109,15 @@ public class ItemListUI : MonoBehaviour
                 {
                     itemUI.gameObject.SetActive(false);
                 }
+
+                if (item.Type == Item.ItemType.Processed)
+                {
+                    itemUI.transform.SetParent(this.processedItems.transform, false);
+                }
+                else
+                {
+                    itemUI.transform.SetParent(this.availableItems.transform, false);
+                }
             }
             yield return null;
         }
@@ -119,6 +128,7 @@ public class ItemListUI : MonoBehaviour
     public void NewItemAdded(Item item, int itemQuantity)
     {
         MakeAvailable(item, itemQuantity);
+        SortUI();
     }
 
     private void MakeAvailable(Item item, int itemQuantity)
@@ -139,6 +149,7 @@ public class ItemListUI : MonoBehaviour
     public void ItemRemoved(Item item)
     {
         MakeUnavailable(item);
+        SortUI();
     }
     private void MakeUnavailable(Item item)
     {

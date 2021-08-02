@@ -136,14 +136,24 @@ public class ItemUI : MonoBehaviour, IComparable<ItemUI>
         startProcessingItemButton.onClick.AddListener(StartProcessing);
         // sellItemButton.onClick.AddListener(ShowSellScreen);
 
-        bool canItemBeProcessed = !(item.Type == Item.ItemType.Processed || item.Type == Item.ItemType.Valuable);
+        bool canItemBeProcessed = item.Type != Item.ItemType.Processed && item.Type != Item.ItemType.Valuable && item.ProcessResult != null;
+
         if (!canItemBeProcessed)
-            startProcessingItemButton.transform.parent.gameObject.SetActive(false);
+        {
+            HideProcessingButtons(item);
+        }
+        else
+        {
+            ShowProcessingButtons(item);
+        }
+
+        bool isRawItem = item.Type != Item.ItemType.Processed && item.Type != Item.ItemType.Valuable;
+
     }
 
     void ShowProcessingButtons(Item item)
     {
-        if (item == this.item.ProcessResult)
+        if (item == this.item)
         {
             startProcessingItemButton.gameObject.SetActive(true);
             processOneItemToggle.gameObject.SetActive(true);
@@ -154,11 +164,13 @@ public class ItemUI : MonoBehaviour, IComparable<ItemUI>
 
     void HideProcessingButtons(Item item)
     {
-        if (item == this.item.ProcessResult)
+        if (item == this.item)
+        {
             startProcessingItemButton.gameObject.SetActive(false);
-        processOneItemToggle.gameObject.SetActive(false);
-        processTenItemToggle.gameObject.SetActive(false);
-        processAllItemToggle.gameObject.SetActive(false);
+            processOneItemToggle.gameObject.SetActive(false);
+            processTenItemToggle.gameObject.SetActive(false);
+            processAllItemToggle.gameObject.SetActive(false);
+        }
     }
 
     private void StartProcessing()

@@ -132,17 +132,20 @@ public class ItemManager : MonoBehaviour
 
     public void RemoveItem(string itemName, int amount)
     {
-        if (itemQuantity[itemName] > amount)
+        if (itemQuantity.ContainsKey(itemName))
         {
-            itemQuantity[itemName] -= amount;
-            // ItemUpdated.Invoke(itemsData.GetItemByName(itemName), amount);
-            UpdateCloudItem(itemName, itemQuantity[itemName]);
-        }
-        else if (itemQuantity[itemName] == amount)
-        {
-            itemQuantity.Remove(itemName);
-            // itemsData.GetItemByName(itemName).ItemRemoved.Invoke();
-            RemoveCloudItem(itemName);
+            if (itemQuantity[itemName] > amount)
+            {
+                itemQuantity[itemName] -= amount;
+                // ItemUpdated.Invoke(itemsData.GetItemByName(itemName), amount);
+                UpdateCloudItem(itemName, itemQuantity[itemName]);
+            }
+            else if (itemQuantity[itemName] == amount)
+            {
+                itemQuantity.Remove(itemName);
+                // itemsData.GetItemByName(itemName).ItemRemoved.Invoke();
+                RemoveCloudItem(itemName);
+            }
         }
     }
 
@@ -202,9 +205,21 @@ public class ItemManager : MonoBehaviour
                 itemQuantity.Clear();
                 foreach (var key in dictionary.Keys)
                 {
-                    itemQuantity[key] = Convert.ToInt32(dictionary[key]);
+                    int amount = Convert.ToInt32(dictionary[key]);
+                    itemQuantity.Add(key, amount);
                 }
-                OnGotItems.Invoke();
+                try
+                {
+                    OnGotItems.Invoke();
+
+                }
+                catch (System.Exception e)
+                {
+                    Debug.LogException(e);
+                    throw;
+                }
+
+
                 GotItems = true;
                 MarketPrices.instance.GetPricesForToday();
             }

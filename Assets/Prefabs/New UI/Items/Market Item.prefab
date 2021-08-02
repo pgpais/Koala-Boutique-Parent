@@ -516,6 +516,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: {fileID: 1469754681712537282}
+  quantityLabel: {fileID: 1244746293357878091}
   itemQuantity: {fileID: 714959407056530710}
   itemValue: {fileID: 1469754681673251995}
   itemImage: {fileID: 928165793094379927}

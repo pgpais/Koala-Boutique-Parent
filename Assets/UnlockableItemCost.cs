@@ -79,6 +79,11 @@ public class UnlockableItemCost : MonoBehaviour
         float value = (float)amount / (float)targetAmount;
         value = Mathf.Clamp01(value);
         slider.value = value;
+
+        if (amount == targetAmount)
+        {
+            itemText.color = enoughItemColor;
+        }
     }
 
     void HandleSliderForGold()
@@ -88,6 +93,11 @@ public class UnlockableItemCost : MonoBehaviour
         float value = (float)amount / (float)targetAmount;
         value = Mathf.Clamp01(value);
         slider.value = value;
+
+        if (value == targetAmount)
+        {
+            itemText.color = enoughItemColor;
+        }
     }
 
     void HandleSliderForGems()
@@ -97,5 +107,10 @@ public class UnlockableItemCost : MonoBehaviour
         float value = (float)amount / (float)targetAmount;
         value = Mathf.Clamp01(value);
         slider.value = value;
+
+        if (value == targetAmount)
+        {
+            itemText.color = enoughItemColor;
+        }
     }
 }

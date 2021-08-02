@@ -326,7 +326,7 @@ public class AdventurerQuest
     internal void GenerateAdventurerQuestReward(Unlockable lastMushroomUnlockable)
     {
         Unlockable nextMushroomUnlockable = lastMushroomUnlockable;
-        while (!nextMushroomUnlockable.Requirements[0].Unlocked)
+        while (nextMushroomUnlockable.Requirements.Count != 0 && !nextMushroomUnlockable.Requirements[0].Unlocked)
         {
             nextMushroomUnlockable = nextMushroomUnlockable.Requirements[0];
         }
