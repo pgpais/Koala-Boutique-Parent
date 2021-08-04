@@ -23,6 +23,7 @@ public class ItemManager : MonoBehaviour
     [SerializeField] SellingGame sellingGame;
     [SerializeField] SellScreen sellScreen;
 
+    bool gameWasPaused;
 
     private void Awake()
     {
@@ -261,5 +262,31 @@ public class ItemManager : MonoBehaviour
         itemQuantity.Remove(e.Snapshot.Key);
 
         ItemRemoved.Invoke(itemsData.GetItemByName(e.Snapshot.Key));
+    }
+
+    private void OnApplicationFocus(bool focusStatus)
+    {
+        Debug.Log("Pausestatus: " + focusStatus);
+        if (focusStatus && gameWasPaused)
+        {
+            GetCloudItems();
+        }
+        else if (!focusStatus)
+        {
+            gameWasPaused = true;
+        }
+    }
+
+    private void OnApplicationPause(bool pauseStatus)
+    {
+        Debug.Log("Pausestatus: " + pauseStatus);
+        if (!pauseStatus && gameWasPaused)
+        {
+            GetCloudItems();
+        }
+        else if (pauseStatus)
+        {
+            gameWasPaused = true;
+        }
     }
 }
