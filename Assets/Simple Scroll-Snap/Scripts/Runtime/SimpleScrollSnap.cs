@@ -137,12 +137,12 @@ namespace DanielLochner.Assets.SimpleScrollSnap
 
             DetermineVelocity();
         }
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         private void OnValidate()
         {
             Initialize();
         }
-        #endif
+#endif
 
         public void OnPointerDown(PointerEventData eventData)
         {
@@ -683,7 +683,7 @@ namespace DanielLochner.Assets.SimpleScrollSnap
                 return;
             }
 
-            panel = Instantiate(panel, Content, false);
+            // panel = Instantiate(panel, Content, false);
             panel.transform.SetSiblingIndex(index);
 
             Initialize();
@@ -770,7 +770,8 @@ namespace DanielLochner.Assets.SimpleScrollSnap
         #endregion
 
         #region Inner Classes
-        [Serializable] public class TransitionEffect
+        [Serializable]
+        public class TransitionEffect
         {
             #region Fields
             [SerializeField] protected float minDisplacement, maxDisplacement, minValue, maxValue, defaultMinValue, defaultMaxValue, defaultMinDisplacement, defaultMaxDisplacement;
@@ -826,9 +827,9 @@ namespace DanielLochner.Assets.SimpleScrollSnap
                 this.function = function;
 
                 SetDefaultValues(minValue, maxValue, minDisplacement, maxDisplacement, function);
-                #if UNITY_EDITOR
+#if UNITY_EDITOR
                 UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(UnityEngine.SceneManagement.SceneManager.GetActiveScene());
-                #endif
+#endif
             }
 
             private void SetDefaultValues(float minValue, float maxValue, float minDisplacement, float maxDisplacement, AnimationCurve function)
@@ -839,7 +840,7 @@ namespace DanielLochner.Assets.SimpleScrollSnap
                 defaultMaxDisplacement = maxDisplacement;
                 defaultFunction = function;
             }
-            #if UNITY_EDITOR
+#if UNITY_EDITOR
             public void Init()
             {
                 GUILayout.BeginVertical("HelpBox");
@@ -893,7 +894,7 @@ namespace DanielLochner.Assets.SimpleScrollSnap
                 }
                 GUILayout.EndVertical();
             }
-            #endif
+#endif
             public void Reset()
             {
                 minValue = defaultMinValue;
