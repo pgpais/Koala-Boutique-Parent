@@ -42,6 +42,11 @@ public class HomeScreen : MonoBehaviour
                 else
                 {
                     newItemsList = JsonConvert.DeserializeObject<NewItemsList>(json);
+
+                    FirebaseCommunicator.instance.RemoveObject(newItemsReferenceName, (task, obj) =>
+                    {
+                        Debug.Log("Removed new items");
+                    });
                 }
 
                 UpdateUI();
