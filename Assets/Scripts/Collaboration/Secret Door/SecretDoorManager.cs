@@ -40,7 +40,38 @@ public class SecretDoorManager : MonoBehaviour
 
     private void OnLoggedIn()
     {
-        GetDoorTime();
+        SetupDoorTimeListener();
+        // GetDoorTime();
+    }
+
+    private void SetupDoorTimeListener()
+    {
+        FirebaseCommunicator.instance.SetupListenForValueChangedEvents(referenceName, (obj, args) =>
+        {
+            string json = args.Snapshot.GetRawJsonValue();
+
+            if (string.IsNullOrEmpty(json))
+            {
+                doorTime = new DoorTime(null, null, false);
+            }
+            else
+            {
+
+                doorTime = JsonConvert.DeserializeObject<DoorTime>(json);
+
+                DateTime requestDate = DateTime.ParseExact(doorTime.interactDate, dateFormat, null);
+                //if today is after the date of the interact plus 2 days, remove request
+                if (DateTime.Now >= requestDate.AddDays(2))
+                {
+                    DeleteRequest();
+                }
+
+                if (doorTime.code != null)
+                {
+                    OnCodeDecrypted.Invoke(doorTime.code);
+                }
+            }
+        });
     }
 
     void GetDoorTime()
