@@ -138,4 +138,9 @@ public class SellingGame : MonoBehaviour
     {
         StopAllCoroutines();
     }
+
+    private void OnEnable()
+    {
+        MenuSwitcher.instance.ShowFadePanel();
+    }
 }

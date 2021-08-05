@@ -80,4 +80,9 @@ public class AbundantGatherableScreen : MonoBehaviour
     {
         OnAbundantGatherableSelected.Invoke(item);
     }
+
+    private void OnEnable()
+    {
+        MenuSwitcher.instance.ShowFadePanel();
+    }
 }

@@ -70,4 +70,9 @@ public class NewProcessMenu : MonoBehaviour
         gameObject.SetActive(false);
         transform.parent.gameObject.SetActive(false);
     }
+
+    private void OnEnable()
+    {
+        MenuSwitcher.instance.ShowFadePanel();
+    }
 }

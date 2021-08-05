@@ -10,6 +10,7 @@ public class SecretDoorUI : MonoBehaviour
 
     private void OnEnable()
     {
+        MenuSwitcher.instance.ShowFadePanel();
         string code = SecretDoorManager.instance.GetCode();
         first.text = code.Substring(0, 1);
         second.text = code.Substring(1, 1);

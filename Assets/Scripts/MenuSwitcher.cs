@@ -16,6 +16,7 @@ public class MenuSwitcher : SerializedMonoBehaviour
     [SerializeField] GameObject askForIdObject;
     [SerializeField] GameObject mainMenuObject;
     [SerializeField] GameObject FadeObject;
+    [SerializeField] GameObject popupsParent;
     [SerializeField] GameObject KingOfferingScreen;
     [SerializeField] GameObject SecretDoorCodeScreen;
 
@@ -127,11 +128,17 @@ public class MenuSwitcher : SerializedMonoBehaviour
 
     private void HideAllPopups()
     {
-        foreach (Transform child in FadeObject.transform)
+        foreach (Transform child in popupsParent.transform)
         {
             child.gameObject.SetActive(false);
         }
+        popupsParent.SetActive(false);
         FadeObject.SetActive(false);
+    }
+
+    public void ShowFadePanel()
+    {
+        FadeObject.SetActive(true);
     }
 
     private void Update()

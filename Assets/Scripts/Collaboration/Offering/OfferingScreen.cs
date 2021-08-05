@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,7 @@ public class OfferingScreen : MonoBehaviour
     [SerializeField] Button offeringButton;
     [SerializeField] Button cancelButton;
     [SerializeField] OfferItemUI offeringItemPrefab;
+    [SerializeField] OfferingResult offeringResultScreen;
 
     List<OfferItemUI> offerItemList = new List<OfferItemUI>();
 
@@ -20,6 +22,7 @@ public class OfferingScreen : MonoBehaviour
 
     private void OnEnable()
     {
+        MenuSwitcher.instance.ShowFadePanel();
         var items = ItemManager.instance.itemsData.GetUnlockedItems();
         foreach (var item in items)
         {
@@ -54,7 +57,9 @@ public class OfferingScreen : MonoBehaviour
             }
         }
 
-        if (OfferingManager.Instance.MakeOffer(itemsToOffer))
+        bool isSuccess = OfferingManager.Instance.MakeOffer(itemsToOffer);
+
+        if (isSuccess)
         {
             // TODO: #66 Good offer
             Debug.Log("Offering made");
@@ -66,11 +71,24 @@ public class OfferingScreen : MonoBehaviour
         }
 
         CloseScreen();
+        ShowResultScreen(itemsToOffer.Select(itemName => ItemManager.instance.itemsData.GetItemByName(itemName)).ToList(), isSuccess);
     }
 
     void CloseScreen()
     {
         transform.parent.gameObject.SetActive(false);
         gameObject.SetActive(false);
+    }
+
+    void ShowResultScreen(List<Item> itemsToOffer, bool isSuccess)
+    {
+        if (isSuccess)
+        {
+            offeringResultScreen.Init(itemsToOffer, isSuccess);
+        }
+        else
+        {
+            offeringResultScreen.Init(itemsToOffer, isSuccess, OfferingManager.failedOfferingPenalty);
+        }
     }
 }

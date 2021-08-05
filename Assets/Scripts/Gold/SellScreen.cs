@@ -97,4 +97,9 @@ public class SellScreen : MonoBehaviour
         gameObject.SetActive(false);
         transform.parent.gameObject.SetActive(false);
     }
+
+    private void OnEnable()
+    {
+        MenuSwitcher.instance.ShowFadePanel();
+    }
 }

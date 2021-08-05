@@ -113,7 +113,32 @@ public class OfferingManager : MonoBehaviour
 
     void OnLoggedIn()
     {
-        GetOffering();
+        SetupOfferingListener();
+        // GetOffering();
+    }
+
+    private void SetupOfferingListener()
+    {
+        FirebaseCommunicator.instance.SetupListenForValueChangedEvents(referenceName, (obj, args) =>
+        {
+            string json = args.Snapshot.GetRawJsonValue();
+            if (string.IsNullOrEmpty(json))
+            {
+                Debug.Log("OfferingManager: OnValueChanged: No offering exists");
+            }
+            else
+            {
+                Debug.Log("OfferingManager: OnValueChanged: " + json);
+                offering = JsonConvert.DeserializeObject<Offering>(json);
+                if (this.offering.HasExpired())
+                {
+                    Debug.Log("GetOffering: Expired");
+                    RemoveOffering();
+                    return;
+                }
+            }
+            OnOfferingChanged.Invoke();
+        });
     }
 
     void GetOffering()
