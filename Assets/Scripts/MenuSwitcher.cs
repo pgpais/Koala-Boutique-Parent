@@ -163,6 +163,7 @@ public class MenuSwitcher : SerializedMonoBehaviour
     void ShowKingOfferingScreen()
     {
         FadeObject.SetActive(true);
+        popupsParent.SetActive(true);
         KingOfferingScreen.SetActive(true);
     }
 
