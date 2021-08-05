@@ -133,7 +133,7 @@ public class ProcessingManager : MonoBehaviour
         }
     }
 
-    bool CanBoost() => Time.time >= nextBoostTime;
+    public bool CanBoost() => Time.time >= nextBoostTime;
 
     void CreateProcess(string itemName, int amount)
     {

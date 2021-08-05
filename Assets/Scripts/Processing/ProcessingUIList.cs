@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,20 +6,40 @@ using UnityEngine.UI;
 
 public class ProcessingUIList : MonoBehaviour
 {
-    [SerializeField] Color boostReadyColor = Color.green;
+
     [SerializeField] ItemProcessingUI processUIPrefab;
     [SerializeField] Transform processList;
-    [SerializeField] Button boostButton;
+    [SerializeField] Toggle boostToggle;
+
+    [SerializeField] Animator anim;
+
 
     private void Start()
     {
-        boostButton.onClick.AddListener(BoostProcesses);
+        boostToggle.onValueChanged.AddListener(BoostToggleChanged);
+
+    }
+
+    private void BoostToggleChanged(bool isOn)
+    {
+        bool canBoost = ProcessingManager.instance.CanBoost();
+        if (!boostToggle.isOn && canBoost)
+        {
+            BoostProcesses();
+        }
+
+        Debug.Log("Value changed");
     }
 
     private void Update()
     {
-        float boostRatio = (ProcessingManager.instance.NextBoostTime - Time.time) / ProcessingManager.instance.BoostCooldown;
-        boostButton.image.color = Color.Lerp(boostReadyColor, Color.white, boostRatio);
+        // float boostRatio = (ProcessingManager.instance.NextBoostTime - Time.time) / ProcessingManager.instance.BoostCooldown;
+        // boostToggle.image.color = Color.Lerp(boostReadyColor, Color.white, boostRatio);
+
+        if (ProcessingManager.instance.CanBoost())
+        {
+            boostToggle.isOn = true;
+        }
     }
 
     private void OnEnable()
@@ -45,5 +66,7 @@ public class ProcessingUIList : MonoBehaviour
     void BoostProcesses()
     {
         ProcessingManager.instance.BoostProcesses();
+        boostToggle.SetIsOnWithoutNotify(false);
+        anim.SetTrigger("boosted");
     }
 }
