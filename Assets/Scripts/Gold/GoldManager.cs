@@ -48,6 +48,14 @@ public class GoldManager : MonoBehaviour
 
     public void GetCurrency()
     {
+        SetupGoldListener();
+        SetupGemsListener();
+        // GetGold();
+        // GetGems();
+    }
+
+    private void GetGold()
+    {
         FirebaseCommunicator.instance.GetObject(goldReferenceName, (task) =>
         {
             if (task.IsFaulted)
@@ -74,7 +82,10 @@ public class GoldManager : MonoBehaviour
                 GoldChanged.Invoke(CurrentGold);
             }
         });
+    }
 
+    private void GetGems()
+    {
         FirebaseCommunicator.instance.GetObject(gemsReferenceName, (task) =>
         {
             if (task.IsFaulted)
@@ -99,6 +110,40 @@ public class GoldManager : MonoBehaviour
 
                 GemChanged.Invoke(CurrentGems);
             }
+        });
+    }
+
+    void SetupGoldListener()
+    {
+        FirebaseCommunicator.instance.SetupListenForValueChangedEvents(goldReferenceName, (obj, args) =>
+        {
+            string json = args.Snapshot.GetRawJsonValue();
+            if (string.IsNullOrEmpty(json))
+            {
+                CurrentGold = 0;
+            }
+            else
+            {
+                CurrentGold = int.Parse(json);
+            }
+            GoldChanged.Invoke(CurrentGold);
+        });
+    }
+
+    void SetupGemsListener()
+    {
+        FirebaseCommunicator.instance.SetupListenForValueChangedEvents(gemsReferenceName, (obj, args) =>
+        {
+            string json = args.Snapshot.GetRawJsonValue();
+            if (string.IsNullOrEmpty(json))
+            {
+                CurrentGems = 0;
+            }
+            else
+            {
+                CurrentGems = int.Parse(json);
+            }
+            GemChanged.Invoke(CurrentGems);
         });
     }
 
