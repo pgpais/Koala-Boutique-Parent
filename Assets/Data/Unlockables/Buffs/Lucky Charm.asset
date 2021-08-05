@@ -63,7 +63,7 @@ MonoBehaviour:
   <UnlockableSprite>k__BackingField: {fileID: 21300000, guid: 0e0d5b56c7eb6894da9dbce5079041c1,
     type: 3}
   <UnlockableName>k__BackingField: Lucky Charm
-  <UnlockableDescription>k__BackingField: 
+  <UnlockableDescription>k__BackingField: Double the loot you receive
   <Type>k__BackingField: 3
   <Requirements>k__BackingField:
   - {fileID: 11400000, guid: 2dab53dbd129d574bb437641c3959d6d, type: 2}

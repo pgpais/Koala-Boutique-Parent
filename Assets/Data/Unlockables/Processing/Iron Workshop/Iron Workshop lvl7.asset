@@ -90,7 +90,7 @@ MonoBehaviour:
   <UnlockableSprite>k__BackingField: {fileID: 21300000, guid: 89e6ae924b7775e479dcc8b74c0840ed,
     type: 3}
   <UnlockableName>k__BackingField: Iron Workshop lvl7
-  <UnlockableDescription>k__BackingField: 
+  <UnlockableDescription>k__BackingField: Increase amount received from processing
   <Type>k__BackingField: 2
   <Requirements>k__BackingField:
   - {fileID: 11400000, guid: f21fdcd725e9f894781976bc499c8043, type: 2}

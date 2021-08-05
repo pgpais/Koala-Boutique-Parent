@@ -76,7 +76,7 @@ MonoBehaviour:
   <UnlockableSprite>k__BackingField: {fileID: 21300000, guid: 49ec62ed3e833b04b9ab60e6f86db64b,
     type: 3}
   <UnlockableName>k__BackingField: Cooking lvl2
-  <UnlockableDescription>k__BackingField: 
+  <UnlockableDescription>k__BackingField: Increase adventurer's health
   <Type>k__BackingField: 1
   <Requirements>k__BackingField:
   - {fileID: 11400000, guid: 3f1d851987ac1f8489432c86ca5f45ea, type: 2}

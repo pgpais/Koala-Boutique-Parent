@@ -77,7 +77,7 @@ MonoBehaviour:
   <UnlockableSprite>k__BackingField: {fileID: 21300000, guid: 83774375fbb3b344393050d6ab652fee,
     type: 3}
   <UnlockableName>k__BackingField: Wood Workshop lvl1
-  <UnlockableDescription>k__BackingField: 
+  <UnlockableDescription>k__BackingField: Increase amount received from processing
   <Type>k__BackingField: 2
   <Requirements>k__BackingField: []
   <GoldCost>k__BackingField: 10

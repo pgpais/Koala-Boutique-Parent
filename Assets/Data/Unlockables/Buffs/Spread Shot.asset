@@ -63,7 +63,7 @@ MonoBehaviour:
   <UnlockableSprite>k__BackingField: {fileID: 21300000, guid: 7dd566b7c4d8a4040a07081aeed137d1,
     type: 3}
   <UnlockableName>k__BackingField: Spread Shot
-  <UnlockableDescription>k__BackingField: 
+  <UnlockableDescription>k__BackingField: You shoot two more arrows from your bow
   <Type>k__BackingField: 3
   <Requirements>k__BackingField:
   - {fileID: 11400000, guid: 2dab53dbd129d574bb437641c3959d6d, type: 2}

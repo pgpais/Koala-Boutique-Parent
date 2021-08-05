@@ -76,7 +76,7 @@ MonoBehaviour:
   <UnlockableSprite>k__BackingField: {fileID: 21300000, guid: 1adbaf77e657f7b46b499b17e3ad5373,
     type: 3}
   <UnlockableName>k__BackingField: Deflecting Armor
-  <UnlockableDescription>k__BackingField: 
+  <UnlockableDescription>k__BackingField: Some turret shots won't hurt you
   <Type>k__BackingField: 3
   <Requirements>k__BackingField:
   - {fileID: 11400000, guid: 2dab53dbd129d574bb437641c3959d6d, type: 2}
