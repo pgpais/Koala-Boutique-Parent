@@ -59,16 +59,23 @@ public class SecretDoorManager : MonoBehaviour
 
                 doorTime = JsonConvert.DeserializeObject<DoorTime>(json);
 
-                DateTime requestDate = DateTime.ParseExact(doorTime.interactDate, dateFormat, null);
-                //if today is after the date of the interact plus 2 days, remove request
-                if (DateTime.Now >= requestDate.AddDays(2))
+                if (doorTime.interactDate == null)
                 {
-                    DeleteRequest();
+                    doorTime = new DoorTime(null, null, false);
                 }
-
-                if (doorTime.code != null)
+                else
                 {
-                    OnCodeDecrypted.Invoke(doorTime.code);
+                    DateTime requestDate = DateTime.ParseExact(doorTime.interactDate, dateFormat, null);
+                    //if today is after the date of the interact plus 2 days, remove request
+                    if (DateTime.Now >= requestDate.AddDays(2))
+                    {
+                        DeleteRequest();
+                    }
+
+                    if (doorTime.code != null)
+                    {
+                        OnCodeDecrypted.Invoke(doorTime.code);
+                    }
                 }
             }
         });
@@ -153,6 +160,17 @@ public class SecretDoorManager : MonoBehaviour
         }
     }
 
+    internal void UnlockDoor(Item item)
+    {
+        int code = UnityEngine.Random.Range(1000, 10000);
+        item.Description = "Code = " + code.ToString();
+
+        doorTime.code = code.ToString();
+        SendDoorTime(doorTime);
+
+        OnCodeDecrypted.Invoke(doorTime.code);
+    }
+
     [System.Serializable]
     struct DoorTime
     {
@@ -180,16 +198,11 @@ public class SecretDoorManager : MonoBehaviour
 
             return (today - interactDate).Days >= 2;
         }
-    }
 
-    internal void UnlockDoor(Item item)
-    {
-        int code = UnityEngine.Random.Range(1000, 10000);
-        item.Description = "Code = " + code.ToString();
+        public bool IsValid()
+        {
+            return interactDate != null;
+        }
 
-        doorTime.code = code.ToString();
-        SendDoorTime(doorTime);
-
-        OnCodeDecrypted.Invoke(doorTime.code);
     }
 }
