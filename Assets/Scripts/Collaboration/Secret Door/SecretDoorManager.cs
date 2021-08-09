@@ -143,7 +143,7 @@ public class SecretDoorManager : MonoBehaviour
 
     void CheckDoorItem()
     {
-        if (doorTime.unlocked || doorTime.HasExpired())
+        if (doorTime.IsCodeDecrypted() || doorTime.HasExpired())
         {
             ItemManager.instance.RemoveItem(doorKey.ItemName, 1);
             return;
@@ -204,5 +204,9 @@ public class SecretDoorManager : MonoBehaviour
             return interactDate != null;
         }
 
+        public bool IsCodeDecrypted()
+        {
+            return code != null;
+        }
     }
 }
