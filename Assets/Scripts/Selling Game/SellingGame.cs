@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class SellingGame : MonoBehaviour
 {
+    [SerializeField] float maxGameSpeed = 5f, minGameSpeed = 0.2f;
     [SerializeField] float defaultGameSpeed = 1f;
     [SerializeField] float gameSpeedModifier = 0.2f;
     [SerializeField] float sellValueModifier = 3f;
@@ -106,6 +107,7 @@ public class SellingGame : MonoBehaviour
             sellingModifier = sellValueModifier * (1 - distFromCenterNormalized);
             gameSpeed -= gameSpeedModifier;
         }
+        gameSpeed = Mathf.Clamp(gameSpeed, minGameSpeed, maxGameSpeed);
 
 
         int sellValue = ItemManager.instance.SellItem(item, 1, sellingModifier);
