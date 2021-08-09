@@ -85,6 +85,7 @@ public class MenuSwitcher : SerializedMonoBehaviour
     void ShowSecretCodeButton()
     {
         FadeObject.SetActive(true);
+        popupsParent.SetActive(true);
         SecretDoorCodeScreen.SetActive(true);
     }
 
