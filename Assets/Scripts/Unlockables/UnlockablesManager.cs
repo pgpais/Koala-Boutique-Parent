@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +8,10 @@ using UnityEngine.Events;
 
 public class UnlockablesManager : MonoBehaviour
 {
+    public static string dateTimeFormat = "yyyy-MM-dd HH:mm:ss";
     public static string unlocksReferenceName = "techs";
     public static string difficultyReferenceName = "difficulty";
+    public static string unlocksLogReferenceName = "unlocksLog";
     public static UnityEvent OnGotUnlockables = new UnityEvent();
     public static UnlockablesManager instance;
 
@@ -116,6 +119,9 @@ public class UnlockablesManager : MonoBehaviour
         }
         GoldManager.instance.BuyUnlockable(unlockable);
 
+        UnlockLog log = new UnlockLog(unlockable.UnlockableName, DateTime.Now);
+        SaveUnlockLog(log);
+
         unlockable.Unlock();
         ModifyDifficulty(unlockable.DifficultyModifier);
         SaveUnlockOnCloud();
@@ -148,6 +154,23 @@ public class UnlockablesManager : MonoBehaviour
                 Debug.Log("yey unlocked sync");
             }
         });
+    }
+
+    void SaveUnlockLog(UnlockLog log)
+    {
+        string json = JsonConvert.SerializeObject(log);
+        string key = FirebaseCommunicator.instance.Push(unlocksLogReferenceName);
+        FirebaseCommunicator.instance.SendObject(json, new String[] { unlocksLogReferenceName, FirebaseCommunicator.instance.FamilyId.ToString(), key }, (task) =>
+          {
+              if (task.IsFaulted)
+              {
+                  Debug.LogError("smth went wrong. " + task.Exception.ToString());
+              }
+              if (task.IsCompleted)
+              {
+                  Debug.Log("yey added new update log");
+              }
+          });
     }
 
     void ModifyDifficulty(int amount)
@@ -204,5 +227,28 @@ public class UnlockablesManager : MonoBehaviour
         }
 
         return unlockables[unlockableName].Unlocked;
+    }
+}
+
+struct UnlockLog
+{
+    public string UnlockableName { get; private set; }
+    public string UnlockDate { get; private set; }
+
+    public DateTime UnlockDateTime()
+    {
+        return DateTime.ParseExact(UnlockDate, UnlockablesManager.dateTimeFormat, null);
+    }
+
+    public UnlockLog(string unlockableName, string unlockDate)
+    {
+        UnlockableName = unlockableName;
+        UnlockDate = unlockDate;
+    }
+
+    public UnlockLog(string unlockableName, DateTime unlockDate)
+    {
+        UnlockableName = unlockableName;
+        UnlockDate = unlockDate.ToString(UnlockablesManager.dateTimeFormat);
     }
 }
