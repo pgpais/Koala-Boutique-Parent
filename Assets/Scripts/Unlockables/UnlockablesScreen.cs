@@ -74,7 +74,7 @@ public class UnlockablesScreen : SerializedMonoBehaviour
 
         //     unlockablesUI.Add(unlockableUI);
         // }
-        StartCoroutine(SpawnUnlockablesUI());
+        UnlockablesManager.instance.StartCoroutine(SpawnUnlockablesUI());
     }
 
     private IEnumerator SpawnUnlockablesUI()
