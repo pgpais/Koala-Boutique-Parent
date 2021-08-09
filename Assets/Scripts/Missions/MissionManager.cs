@@ -86,17 +86,17 @@ public class MissionManager : MonoBehaviour
                 string json = task.Result.GetRawJsonValue();
                 if (string.IsNullOrEmpty(json))
                 {
-                    abundantGatherable = null;
+                    abundantGatherable = ItemManager.instance.itemsData.GetItemByName("Basic Mushroom");
                     Debug.LogError("Failed to get abundant gatherable from Firebase: empty json");
                 }
                 else
                 {
                     string itemName = JsonConvert.DeserializeObject<string>(json);
                     abundantGatherable = ItemManager.instance.itemsData.GetItemByName(itemName);
-                    OnGotAbundantGatherable.Invoke(abundantGatherable);
-                    GotAbundantGatherable = true;
                     Debug.Log("Abundant Gatherable: " + abundantGatherable);
                 }
+                OnGotAbundantGatherable.Invoke(abundantGatherable);
+                GotAbundantGatherable = true;
             }
         });
     }
