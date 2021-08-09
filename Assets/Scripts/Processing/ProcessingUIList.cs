@@ -39,6 +39,12 @@ public class ProcessingUIList : MonoBehaviour
         if (ProcessingManager.instance.CanBoost())
         {
             boostToggle.isOn = true;
+            boostToggle.interactable = true;
+        }
+        else
+        {
+            boostToggle.isOn = false;
+            boostToggle.interactable = false;
         }
     }
 

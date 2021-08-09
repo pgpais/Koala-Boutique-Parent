@@ -27,9 +27,11 @@ public class TechUI : SerializedMonoBehaviour, IComparable<TechUI>
     private Unlockable unlockable;
 
     private bool canUnlock;
+    private AudioSource audioSource;
 
     private void Start()
     {
+        this.audioSource = GetComponent<AudioSource>();
         unlockButton.onClick.AddListener(UnlockTech);
     }
 
@@ -185,7 +187,11 @@ public class TechUI : SerializedMonoBehaviour, IComparable<TechUI>
 
     void UnlockTech()
     {
-        UnlockablesManager.instance.Unlock(unlockable);
+        if (UnlockablesManager.instance.Unlock(unlockable))
+        {
+            if (audioSource != null)
+                audioSource.Play();
+        }
     }
 
     void ShowUnlocked()
