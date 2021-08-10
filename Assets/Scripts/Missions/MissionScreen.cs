@@ -120,6 +120,13 @@ public class MissionScreen : MonoBehaviour
 
     void SetAbundantGatherable(Item item)
     {
+        LogsManager.SendLogDirectly(new Log(
+            LogType.AbundantItemSelected,
+            new Dictionary<string, string>(){
+                {"item", item.ItemName}
+            }
+        ));
+
         abundantGatherableImage.sprite = item.ItemSprite;
         itemNameText.text = item.ItemName;
     }

@@ -109,6 +109,14 @@ public class ProcessingManager : MonoBehaviour
 
             // create Process
             CreateProcess(itemName, amount);
+
+            LogsManager.SendLogDirectly(new Log(
+                LogType.ItemProcessStarted,
+                new Dictionary<string, string>(){
+                    {"itemName", itemName},
+                    {"amount", amount.ToString()}
+                }
+            ));
         }
         else
         {
@@ -117,11 +125,33 @@ public class ProcessingManager : MonoBehaviour
             ItemManager.instance.RemoveItem(itemName, remainingAmount);
 
             CreateProcess(itemName, remainingAmount);
+
+            LogsManager.SendLogDirectly(new Log(
+                LogType.ItemProcessStarted,
+                new Dictionary<string, string>(){
+                    {"itemName", itemName},
+                    {"amount", remainingAmount.ToString()}
+                }
+            ));
         }
+        LogsManager.SendLogDirectly(new Log(
+            LogType.ItemProcessStarted,
+            new Dictionary<string, string>(){
+                {"itemName", itemName},
+                {"amount", "0"}
+            }
+        ));
     }
 
     public void BoostProcesses()
     {
+        LogsManager.SendLogDirectly(new Log(
+            LogType.ProcessBoost,
+            new Dictionary<string, string>(){
+                {"successful", CanBoost().ToString()}
+            }
+        ));
+
         if (CanBoost())
         {
             foreach (var process in inProcess)
@@ -176,6 +206,14 @@ public class ProcessingManager : MonoBehaviour
 
     void OnProcessFinished(Process process)
     {
+        LogsManager.SendLogDirectly(new Log(
+            LogType.ItemProcessFinished,
+            new Dictionary<string, string>(){
+                {"itemName", process.ProcessingItemName},
+                {"amount", process.ProcessAmount.ToString()}
+            }
+        ));
+
         Item processItem = ItemManager.instance.itemsData.GetItemByName(process.ProcessingItemName);
         if (processItem.ItemName == SecretDoorManager.instance.DoorKey.ItemName)
         {

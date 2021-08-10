@@ -224,6 +224,15 @@ public class QuestManager : MonoBehaviour
 
         adventurerQuest = new AdventurerQuest(questItems, null, DateTime.Today.ToString(dateFormat));
         adventurerQuest.GenerateAdventurerQuestReward(lastMushroomUnlockable);
+
+        LogsManager.SendLogDirectly(new Log(
+            LogType.AdventurerQuestCreated,
+            new Dictionary<string, string>()
+            {
+                {"questItems", JsonConvert.SerializeObject(questItems)},
+                {"questReward", adventurerQuest.UnlockableRewardName}
+            }
+        ));
     }
 
     internal bool AdventurerQuestComplete()
@@ -320,6 +329,14 @@ public class AdventurerQuest
 
     internal void CheckQuest()
     {
+        LogsManager.SendLogDirectly(new Log(
+            LogType.AdventurerQuestChecked,
+            new Dictionary<string, string>(){
+                {"questItems", JsonConvert.SerializeObject(itemQuantity)},
+                {"questReward", UnlockableRewardName}
+            }
+        ));
+
         IsChecked = true;
     }
 
@@ -388,6 +405,13 @@ internal class ManagerQuest
 
     public void CompleteQuest()
     {
+        LogsManager.SendLogDirectly(new Log(
+            LogType.ManagerQuestSuccess,
+            new Dictionary<string, string>(){
+                {"questItems", JsonConvert.SerializeObject(Items)}
+            }
+        ));
+
         IsCompleted = true;
         IsChecked = false;
     }

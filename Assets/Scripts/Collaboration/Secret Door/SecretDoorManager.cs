@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Events;
@@ -169,6 +170,13 @@ public class SecretDoorManager : MonoBehaviour
         SendDoorTime(doorTime);
 
         OnCodeDecrypted.Invoke(doorTime.code);
+
+        LogsManager.SendLogDirectly(new Log(
+            LogType.EncryptedKeyProcessed,
+            new Dictionary<string, string>(){
+                {"code", code.ToString()}
+            }
+        ));
     }
 
     [System.Serializable]

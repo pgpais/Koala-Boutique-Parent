@@ -187,6 +187,13 @@ public class MenuSwitcher : SerializedMonoBehaviour
 
     void SwitchToMenu(string menuKey)
     {
+        LogsManager.SendLogDirectly(new Log(
+            LogType.MobileTabSwitched,
+            new Dictionary<string, string>(){
+                {"menu", menuKey}
+            }
+        ));
+
         foreach (var menu in menus)
         {
             if (menu.Key == menuKey)

@@ -103,6 +103,13 @@ public class MissionManager : MonoBehaviour
 
     public void SetDifficulty(MissionDifficulty difficulty)
     {
+        LogsManager.SendLogDirectly(new Log(
+            LogType.DifficultySelected,
+            new Dictionary<string, string>(){
+                {"Difficulty", difficulty.ToString()}
+            }
+        ));
+
         switch (difficulty)
         {
             case MissionDifficulty.Easy:

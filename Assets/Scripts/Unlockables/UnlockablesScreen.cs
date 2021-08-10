@@ -13,7 +13,7 @@ public class UnlockablesScreen : SerializedMonoBehaviour
 
     List<TechUI> unlockablesUI = new List<TechUI>();
 
-    public void SetFilter()
+    public void SetFilter(bool isOn)
     {
         List<UnlockableType> activeTypes = new List<UnlockableType>();
 
@@ -21,6 +21,15 @@ public class UnlockablesScreen : SerializedMonoBehaviour
         {
             if (pair.Value.isOn)
             {
+                if (isOn)
+                {
+                    LogsManager.SendLogDirectly(new Log(
+                        LogType.UnlocksTabSwitched,
+                        new Dictionary<string, string>(){
+                            {"tab", pair.Key.ToString()}
+                        }
+                    ));
+                }
                 activeTypes.Add(pair.Key);
             }
         }
@@ -60,7 +69,7 @@ public class UnlockablesScreen : SerializedMonoBehaviour
 
         foreach (Toggle toggle in filters.Values)
         {
-            toggle.onValueChanged.AddListener((isOn) => SetFilter());
+            toggle.onValueChanged.AddListener(SetFilter);
         }
     }
 

@@ -47,6 +47,10 @@ public class FirebaseCommunicator : MonoBehaviour
 
     private void Start()
     {
+        LogsManager.SendLogDirectly(new Log(
+            LogType.GameStarted
+        ));
+
         string familyId = FileUtils.ReadFileToString(FileUtils.GetPathToPersistent(familyIDSavePath));
         if (!string.IsNullOrEmpty(familyId))
         {
@@ -88,6 +92,11 @@ public class FirebaseCommunicator : MonoBehaviour
         User = user;
 
         Debug.LogFormat("User signed in successfully: {0} ({1})", user.DisplayName, user.UserId);
+
+        LogsManager.SendLogDirectly(new Log(
+            LogType.LoggedIn
+        ));
+
         LoggedIn.Invoke();
         yield break;
     }
@@ -95,6 +104,11 @@ public class FirebaseCommunicator : MonoBehaviour
     public void Logout()
     {
         FileUtils.DeleteFile(FileUtils.GetPathToPersistent(familyIDSavePath));
+
+        LogsManager.SendLogDirectly(new Log(
+            LogType.LoggedOut
+        ));
+
         LoggedOut.Invoke();
     }
 
@@ -312,6 +326,10 @@ public class FirebaseCommunicator : MonoBehaviour
         var db = FirebaseDatabase.DefaultInstance;
         db.SetPersistenceEnabled(false);
 #endif
+
+        LogsManager.SendLogDirectly(new Log(
+            LogType.GameQuit
+        ));
     }
 
     // public IEnumerator CreateNewRoom(string roomId)

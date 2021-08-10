@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -12,6 +13,14 @@ public class SecretDoorUI : MonoBehaviour
     {
         MenuSwitcher.instance.ShowFadePanel();
         string code = SecretDoorManager.instance.GetCode();
+
+        LogsManager.SendLogDirectly(new Log(
+            LogType.SecretCodeChecked,
+            new Dictionary<string, string>(){
+                {"SecretCode", code}
+            }
+        ));
+
         first.text = code.Substring(0, 1);
         second.text = code.Substring(1, 1);
         third.text = code.Substring(2, 1);

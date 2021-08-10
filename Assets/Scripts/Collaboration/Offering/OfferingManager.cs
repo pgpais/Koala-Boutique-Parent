@@ -89,6 +89,27 @@ public class OfferingManager : MonoBehaviour
         SendOffering(offering);
         OnOfferingChanged.Invoke();
 
+        if (allItemsToOfferFound)
+        {
+            LogsManager.SendLogDirectly(new Log(
+                LogType.KingOfferingSuccess,
+                new Dictionary<string, string>(){
+                    {"offeredItems", JsonConvert.SerializeObject(itemsToOffer)},
+                    {"expectedItems", JsonConvert.SerializeObject(offering.itemsToOffer)}
+                }
+            ));
+        }
+        else
+        {
+            LogsManager.SendLogDirectly(new Log(
+                LogType.KingOfferingFail,
+                new Dictionary<string, string>(){
+                    {"offeredItems", JsonConvert.SerializeObject(itemsToOffer)},
+                    {"expectedItems", JsonConvert.SerializeObject(offering.itemsToOffer)}
+                }
+            ));
+        }
+
         return allItemsToOfferFound;
     }
 

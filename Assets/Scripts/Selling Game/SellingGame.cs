@@ -109,8 +109,19 @@ public class SellingGame : MonoBehaviour
         }
         gameSpeed = Mathf.Clamp(gameSpeed, minGameSpeed, maxGameSpeed);
 
-
         int sellValue = ItemManager.instance.SellItem(item, 1, sellingModifier);
+
+        LogsManager.SendLogDirectly(new Log(
+            LogType.ItemSoldMarket,
+            new Dictionary<string, string>(){
+                {"itemName", item.ItemName},
+                {"itemValue", item.GoldValue.ToString()},
+                {"quantity", quantity.ToString()},
+                { "sellingModifier", sellingModifier.ToString()},
+                { "sellValue", sellValue.ToString()},
+                { "goldObtained", goldObtained.ToString()}
+            }
+        ));
 
         Debug.Log($"Sold {item.ItemName} at {sellValue}");
         goldObtained += sellValue;

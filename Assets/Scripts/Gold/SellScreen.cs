@@ -59,6 +59,17 @@ public class SellScreen : MonoBehaviour
     void SellItem()
     {
         ItemManager.instance.SellItem(itemName, sellAmount);
+
+        LogsManager.SendLogDirectly(new Log(
+            LogType.ItemSoldRetail,
+            new Dictionary<string, string>(){
+                {"item", itemName},
+                {"sellAmount", sellAmount.ToString()},
+                {"itemValue", item.GoldValue.ToString()},
+                {"itemValueModifier", MarketPrices.instance.GetCostModifierForItem(item.ItemName).ToString()}
+            }
+        ));
+
         CloseMenu();
     }
 

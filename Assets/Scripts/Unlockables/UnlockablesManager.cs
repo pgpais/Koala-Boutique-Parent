@@ -97,19 +97,45 @@ public class UnlockablesManager : MonoBehaviour
         foreach (var requirement in unlockable.Requirements)
         {
             if (!requirement.Unlocked)
+            {
+                LogsManager.SendLogDirectly(new Log(
+                    LogType.Unlock,
+                    new Dictionary<string, string>(){
+                        { "unlockable", unlockable.UnlockableName },
+                        {"successful", false.ToString()} //beautiful
+                    }
+                ));
+
                 return false;
+            }
         }
 
         foreach (var cost in unlockable.ItemCost)
         {
             if (!ItemManager.instance.HasEnoughItem(cost.Key.ItemName, cost.Value))
             {
+                LogsManager.SendLogDirectly(new Log(
+                    LogType.Unlock,
+                    new Dictionary<string, string>(){
+                        { "unlockable", unlockable.UnlockableName },
+                        {"successful", false.ToString()} //beautiful
+                    }
+                ));
+
                 return false;
             }
         }
 
         if (!GoldManager.instance.HasEnoughGems(unlockable.GemCost) || !GoldManager.instance.HasEnoughGold(unlockable.GoldCost))
         {
+            LogsManager.SendLogDirectly(new Log(
+                LogType.Unlock,
+                new Dictionary<string, string>(){
+                    { "unlockable", unlockable.UnlockableName },
+                    {"successful", false.ToString()} //beautiful
+                }
+            ));
+
             return false;
         }
 
@@ -121,6 +147,14 @@ public class UnlockablesManager : MonoBehaviour
 
         UnlockLog log = new UnlockLog(unlockable.UnlockableName, DateTime.Now);
         SaveUnlockLog(log);
+
+        LogsManager.SendLogDirectly(new Log(
+            LogType.Unlock,
+            new Dictionary<string, string>(){
+                { "unlockable", unlockable.UnlockableName },
+                {"successful", true.ToString()} //beautiful
+            }
+        ));
 
         unlockable.Unlock();
         ModifyDifficulty(unlockable.DifficultyModifier);
