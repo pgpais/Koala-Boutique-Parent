@@ -17,8 +17,8 @@ public class FirebaseCommunicator : MonoBehaviour
 
     public FirebaseUser User { get; private set; }
 
-    public int FamilyId => familyId;
-    [SerializeField] int familyId = 1234;
+    public string FamilyId => familyId;
+    [SerializeField] string familyId = "1234";
 
     FirebaseAuth auth;
     DatabaseReference database;
@@ -61,7 +61,7 @@ public class FirebaseCommunicator : MonoBehaviour
 
     public void LoginAnonymously(string familyId)
     {
-        this.familyId = Int32.Parse(familyId);
+        this.familyId = familyId;
         StartCoroutine(LoginAnonymously());
     }
 
