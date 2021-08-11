@@ -181,13 +181,11 @@ public class FirebaseCommunicator : MonoBehaviour
         Debug.Log($"saving {objJSON} to {firebaseReferenceNames}");
 
         var db = database;
-        Debug.Log(db.Key);
 
         foreach (var referenceName in firebaseReferenceNames)
         {
             Debug.Log(referenceName);
             db = db.Child(referenceName);
-            Debug.Log(db.Key);
         }
         db.SetRawJsonValueAsync(objJSON).ContinueWith(afterSendAction, scheduler);
     }
