@@ -1,9 +1,12 @@
 using System;
 using Newtonsoft.Json;
+using UnityEngine;
 using UnityEngine.Events;
 
 public class Process
 {
+    private const float MAX_PROCESS_DURATION = 1800;
+
     [JsonIgnore]
     public UnityEvent ProcessBoosted;
     [JsonIgnore]
@@ -35,6 +38,7 @@ public class Process
         startDateString = DateTime.Now.ToString(dateStringFormat);
         nextBoostDateString = startDateString;
         processDuration = item.ProcessDuration * amount;
+        processDuration = Mathf.Clamp(processDuration, 0, MAX_PROCESS_DURATION);
         boostTimeAmount = item.BoostTimeAmount;
         boostCooldown = item.BoostCooldown;
         processingItemName = item.ItemName;
@@ -53,6 +57,7 @@ public class Process
         this.startDateString = startDateString;
         this.nextBoostDateString = nextBoostDateString;
         this.processDuration = processDuration;
+        this.processDuration = Mathf.Clamp(processDuration, 0, MAX_PROCESS_DURATION);
         this.boostTimeAmount = processingItem.BoostTimeAmount;
         this.boostCooldown = processingItem.BoostCooldown;
         this.processingItemName = processingItemName;
