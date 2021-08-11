@@ -43,8 +43,36 @@ public class QuestManager : MonoBehaviour
 
     void OnLoggedIn()
     {
-        GetAdventurerQuest();
-        GetManagerQuest();
+        SetupAdventurerQuestListener();
+        SetupManagerQuestListener();
+
+        // GetAdventurerQuest();
+        // GetManagerQuest();
+    }
+
+    private void SetupAdventurerQuestListener()
+    {
+        FirebaseCommunicator.instance.SetupListenForValueChangedEvents(adventurerReferenceName, (obj, args) =>
+        {
+            string json = args.Snapshot.GetRawJsonValue();
+
+            if (string.IsNullOrEmpty(json))
+            {
+                Debug.LogError("No adventurer quest exists");
+            }
+            else
+            {
+                adventurerQuest = JsonConvert.DeserializeObject<AdventurerQuest>(json);
+                if (adventurerQuest.IsCompleted && !adventurerQuest.IsChecked)
+                {
+                    HandleFinishedAdventurerQuest();
+                }
+                else
+                {
+                    FirebaseCommunicator.instance.SetupListenForValueChangedEvents(adventurerReferenceName, OnAdventurerQuestChanged);
+                }
+            }
+        });
     }
 
     void GetAdventurerQuest()
@@ -131,6 +159,23 @@ public class QuestManager : MonoBehaviour
 
         adventurerQuest.CheckQuest();
         SaveAdventurerQuest();
+    }
+
+    private void SetupManagerQuestListener()
+    {
+        FirebaseCommunicator.instance.SetupListenForValueChangedEvents(managerReferenceName, (obj, args) =>
+        {
+            string json = args.Snapshot.GetRawJsonValue();
+
+            if (string.IsNullOrEmpty(json))
+            {
+                Debug.LogError("No manager quest exists");
+            }
+            else
+            {
+                managerQuest = JsonConvert.DeserializeObject<ManagerQuest>(json);
+            }
+        });
     }
 
     void GetManagerQuest()

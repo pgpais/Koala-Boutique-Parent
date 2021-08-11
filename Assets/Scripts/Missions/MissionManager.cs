@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Firebase.Database;
@@ -42,8 +43,30 @@ public class MissionManager : MonoBehaviour
 
     void OnLoggedIn()
     {
-        GetDifficulty();
-        GetAbundantGatherable();
+        SetupDifficultyListener();
+        SetupAbundantGatherableListener();
+        // GetDifficulty();
+        // GetAbundantGatherable();
+    }
+
+    private void SetupDifficultyListener()
+    {
+        FirebaseCommunicator.instance.SetupListenForValueChangedEvents(difficultyReferenceName, (obj, args) =>
+        {
+            string json = args.Snapshot.GetRawJsonValue();
+            if (string.IsNullOrEmpty(json))
+            {
+                difficulty = 0;
+                Debug.LogError("Failed to get difficulty from Firebase: empty json");
+            }
+            else
+            {
+                difficulty = JsonConvert.DeserializeObject<int>(json);
+                OnGotDifficulty.Invoke(difficulty);
+                GotDifficulty = true;
+                Debug.Log("Difficulty: " + difficulty);
+            }
+        });
     }
 
     void GetDifficulty()
@@ -70,6 +93,28 @@ public class MissionManager : MonoBehaviour
                     Debug.Log("Difficulty: " + difficulty);
                 }
             }
+        });
+    }
+
+    private void SetupAbundantGatherableListener()
+    {
+        FirebaseCommunicator.instance.SetupListenForValueChangedEvents(abundantGatherableReferenceName, (obj, args) =>
+        {
+            string json = args.Snapshot.GetRawJsonValue();
+
+            if (string.IsNullOrEmpty(json))
+            {
+                abundantGatherable = ItemManager.instance.itemsData.GetItemByName("Basic Mushroom");
+                Debug.LogError("Failed to get abundant gatherable from Firebase: empty json");
+            }
+            else
+            {
+                string itemName = JsonConvert.DeserializeObject<string>(json);
+                abundantGatherable = ItemManager.instance.itemsData.GetItemByName(itemName);
+                Debug.Log("Abundant Gatherable: " + abundantGatherable);
+            }
+            OnGotAbundantGatherable.Invoke(abundantGatherable);
+            GotAbundantGatherable = true;
         });
     }
 
