@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <ItemSprite>k__BackingField: {fileID: 21300000, guid: c185d40610650a84d906d64694c18d3e,
     type: 3}
-  <ItemName>k__BackingField: Dragon Mushroom
+  ItemNameStringKey: 62
   <Description>k__BackingField: Just a gathered item
   <Type>k__BackingField: 0
   processResult: {fileID: 0}

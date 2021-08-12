@@ -146,14 +146,14 @@ public class SecretDoorManager : MonoBehaviour
     {
         if (doorTime.IsCodeDecrypted() || doorTime.HasExpired())
         {
-            ItemManager.instance.RemoveItem(doorKey.ItemName, 1);
+            ItemManager.instance.RemoveItem(doorKey.ItemNameKey, 1);
             return;
         }
 
-        if (!ItemManager.instance.HasEnoughItem(doorKey.ItemName, 1))
+        if (!ItemManager.instance.HasEnoughItem(doorKey.ItemNameKey, 1))
         {
             Debug.Log("Don't have door key, creating one");
-            ItemManager.instance.AddItem(doorKey.ItemName, 1, true);
+            ItemManager.instance.AddItem(doorKey.ItemNameKey, 1, true);
         }
         else
         {

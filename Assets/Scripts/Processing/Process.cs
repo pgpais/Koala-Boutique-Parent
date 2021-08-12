@@ -41,7 +41,7 @@ public class Process
         processDuration = Mathf.Clamp(processDuration, 0, MAX_PROCESS_DURATION);
         boostTimeAmount = item.BoostTimeAmount;
         boostCooldown = item.BoostCooldown;
-        processingItemName = item.ItemName;
+        processingItemName = item.ItemNameKey;
         numberOfBoosts = 0;
 
         ProcessFinished = new UnityEvent();

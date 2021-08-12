@@ -114,7 +114,7 @@ public class SellingGame : MonoBehaviour
         LogsManager.SendLogDirectly(new Log(
             LogType.ItemSoldMarket,
             new Dictionary<string, string>(){
-                {"itemName", item.ItemName},
+                {"itemName", item.ItemNameKey},
                 {"itemValue", item.GoldValue.ToString()},
                 {"quantity", quantity.ToString()},
                 { "sellingModifier", sellingModifier.ToString()},
@@ -123,7 +123,7 @@ public class SellingGame : MonoBehaviour
             }
         ));
 
-        Debug.Log($"Sold {item.ItemName} at {sellValue}");
+        Debug.Log($"Sold {item.ItemNameKey} at {sellValue}");
         goldObtained += sellValue;
 
         quantity--;

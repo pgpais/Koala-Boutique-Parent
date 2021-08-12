@@ -49,8 +49,9 @@ MonoBehaviour:
       m_Calls: []
   <UnlockableSprite>k__BackingField: {fileID: 21300000, guid: 8ab763dcaeccc864494a68f839a0bc7a,
     type: 3}
-  <UnlockableName>k__BackingField: Dancing Lessons lvl3
-  <UnlockableDescription>k__BackingField: Increase adventurer's speed
+  UnlockableStringKey: 44
+  UnlockableNameAddition: 3
+  UnlockableDescriptionStringKey: 45
   <Type>k__BackingField: 1
   <Requirements>k__BackingField:
   - {fileID: 11400000, guid: 16d6412ff274ba341bc18b9bd3363832, type: 2}

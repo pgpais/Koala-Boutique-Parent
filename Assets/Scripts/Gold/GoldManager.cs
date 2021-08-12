@@ -203,7 +203,7 @@ public class GoldManager : MonoBehaviour
 
     public int SellItem(Item item, int amount)
     {
-        int value = (item.GoldValue + MarketPrices.instance.GetCostModifierForItem(item.ItemName)) * amount;
+        int value = (item.GoldValue + MarketPrices.instance.GetCostModifierForItem(item.ItemNameKey)) * amount;
         CurrentGold += value;
         UploadGold();
         ItemSoldEvent.Invoke(item, amount);
@@ -212,7 +212,7 @@ public class GoldManager : MonoBehaviour
 
     public int SellItem(Item item, int amount, float modifier)
     {
-        int value = (int)((item.GoldValue + MarketPrices.instance.GetCostModifierForItem(item.ItemName)) * modifier * amount);
+        int value = (int)((item.GoldValue + MarketPrices.instance.GetCostModifierForItem(item.ItemNameKey)) * modifier * amount);
         CurrentGold += value;
         UploadGold();
         ItemSoldEvent.Invoke(item, amount);

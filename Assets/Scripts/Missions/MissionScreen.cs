@@ -1,22 +1,30 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MissionScreen : MonoBehaviour
+public class MissionScreen : SerializedMonoBehaviour
 {
+    [SerializeField] Image nextMissionTitleImage;
+    [SerializeField] Dictionary<Language, Sprite> nextMissionTitleImageSprites = new Dictionary<Language, Sprite>();
 
     [Header("Abundant Gatherables Screen")]
     [SerializeField] AbundantGatherableScreen abundantGatherablesScreen;
     [SerializeField] Button abundantGatherablesScreenButton;
     [SerializeField] Image abundantGatherableImage;
     [SerializeField] TMPro.TMP_Text itemNameText;
+    [Space]
+    [SerializeField] TMP_Text abundantItemText;
+    [SerializeField] StringKey abundantItemTextStringKey;
 
     [Header("Diseased Gatherable Screen")]
     [SerializeField] Image diseasedImage;
     [SerializeField] TMP_Text diseasedNameText;
+    [SerializeField] TMP_Text diseasedItemText;
+    [SerializeField] StringKey diseasedItemTextStringKey;
 
 
     [Header("Difficulty Screen")]
@@ -25,16 +33,28 @@ public class MissionScreen : MonoBehaviour
     [SerializeField] Toggle hardToggle;
 
     [Header("Daily Quest")]
+    [SerializeField] Image dailyQuestTitleImage;
+    [SerializeField] Dictionary<Language, Sprite> dailyQuestTitleImageSprites = new Dictionary<Language, Sprite>();
+    [SerializeField] TMP_Text dailyQuestDescriptionText;
+    [SerializeField] StringKey dailyQuestDescriptionTextStringKey;
     [SerializeField] SmallItemUI smallItemUIPrefab;
     [SerializeField] LayoutGroup questItemsLayout;
     [SerializeField] Image rewardImage;
+    [SerializeField] TMP_Text rewardText;
+    [SerializeField] StringKey rewardTextStringKey;
     [SerializeField] Image completeRewardImage;
+    [SerializeField] TMP_Text completeRewardText;
+    [SerializeField] StringKey completeRewardTextStringKey;
+    [SerializeField] TMP_Text completeRewardDescriptionText;
+    [SerializeField] StringKey completeRewardDescriptionTextStringKey;
     [SerializeField] GameObject questCompleteObject;
     [SerializeField] GameObject questRequirementsObject;
 
 
     private void Awake()
     {
+
+
         if (MissionManager.instance.GotAbundantGatherable)
         {
             SetAbundantGatherable(MissionManager.instance.AbundantGatherable);
@@ -123,7 +143,7 @@ public class MissionScreen : MonoBehaviour
         LogsManager.SendLogDirectly(new Log(
             LogType.AbundantItemSelected,
             new Dictionary<string, string>(){
-                {"item", item.ItemName}
+                {"item", item.ItemNameKey}
             }
         ));
 
@@ -151,6 +171,10 @@ public class MissionScreen : MonoBehaviour
 
     private void OnEnable()
     {
+        nextMissionTitleImage.sprite = nextMissionTitleImageSprites[Localisation.currentLanguage];
+        abundantItemText.text = Localisation.Get(abundantItemTextStringKey);
+        diseasedItemText.text = Localisation.Get(diseasedItemTextStringKey);
+
         if (QuestManager.instance != null && QuestManager.instance.ExistsAdventurerQuest())
         {
             ShowDailyQuest();
@@ -169,6 +193,8 @@ public class MissionScreen : MonoBehaviour
 
     private void ShowDailyQuest()
     {
+        dailyQuestTitleImage.sprite = dailyQuestTitleImageSprites[Localisation.currentLanguage];
+
         if (QuestManager.instance.AdventurerQuestComplete())
         {
             ShowDailyQuestComplete();
@@ -202,6 +228,9 @@ public class MissionScreen : MonoBehaviour
 
         Unlockable reward = QuestManager.instance.AdventurerQuestReward;
         rewardImage.sprite = (reward.Rewards[0] as Item).ItemSprite;
+
+        dailyQuestDescriptionText.text = Localisation.Get(dailyQuestDescriptionTextStringKey);
+        rewardText.text = Localisation.Get(rewardTextStringKey);
     }
 
     private void ShowDailyQuestComplete()
@@ -210,6 +239,9 @@ public class MissionScreen : MonoBehaviour
         questCompleteObject.SetActive(true);
         questRequirementsObject.SetActive(false);
         completeRewardImage.sprite = (reward.Rewards[0] as Item).ItemSprite;
+
+        completeRewardText.text = Localisation.Get(completeRewardTextStringKey);
+        completeRewardDescriptionText.text = Localisation.Get(completeRewardDescriptionTextStringKey).Replace("$ITEMNAME$", reward.UnlockableName);
     }
 
     private void ShowDiseasedItem()

@@ -98,7 +98,7 @@ public class DiseasedManager : MonoBehaviour
     }
     private void SendDiseasedItem()
     {
-        string diseasedItemName = diseasedItem.ItemName;
+        string diseasedItemName = diseasedItem.ItemNameKey;
         string json = JsonConvert.SerializeObject(diseasedItemName);
         FirebaseCommunicator.instance.SendObject(json, new string[] { diseasedReferenceName, FirebaseCommunicator.instance.FamilyId.ToString(), diseasedDate.ToString(dateFormat) }, (task) =>
         {

@@ -213,7 +213,7 @@ public class QuestManager : MonoBehaviour
 
         if (managerQuest != null && managerQuest.IsChecked && !managerQuest.IsCompleted)
         {
-            if (managerQuest.OnSoldItem(item.ItemName, quantity))
+            if (managerQuest.OnSoldItem(item.ItemNameKey, quantity))
             {
                 FinishManagerQuest();
             }
@@ -258,13 +258,13 @@ public class QuestManager : MonoBehaviour
         {
             int randomIndex = UnityEngine.Random.Range(0, gatherables.Count);
             Item item = gatherables[randomIndex];
-            while (questItems.ContainsKey(item.ItemName))
+            while (questItems.ContainsKey(item.ItemNameKey))
             {
                 randomIndex = (randomIndex + 1) % gatherables.Count;
                 item = gatherables[randomIndex];
             }
 
-            questItems.Add(item.ItemName, UnityEngine.Random.Range(1, AdventurerQuest.maxItemQuantity));
+            questItems.Add(item.ItemNameKey, UnityEngine.Random.Range(1, AdventurerQuest.maxItemQuantity));
         }
 
         adventurerQuest = new AdventurerQuest(questItems, null, DateTime.Today.ToString(dateFormat));
@@ -393,7 +393,7 @@ public class AdventurerQuest
             nextMushroomUnlockable = nextMushroomUnlockable.Requirements[0];
         }
 
-        UnlockableRewardName = nextMushroomUnlockable.UnlockableName;
+        UnlockableRewardName = nextMushroomUnlockable.UnlockableKeyName;
     }
 }
 

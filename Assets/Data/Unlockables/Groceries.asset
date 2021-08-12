@@ -89,8 +89,8 @@ MonoBehaviour:
       m_Calls: []
   <UnlockableSprite>k__BackingField: {fileID: 21300000, guid: f787d64baf290d340890281a6604c2c0,
     type: 3}
-  <UnlockableName>k__BackingField: Groceries
-  <UnlockableDescription>k__BackingField: Unlock berries
+  UnlockableStringKey: 97
+  UnlockableDescriptionStringKey: 98
   <Type>k__BackingField: 0
   <Requirements>k__BackingField: []
   <GoldCost>k__BackingField: 0

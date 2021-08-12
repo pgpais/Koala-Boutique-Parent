@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <ItemSprite>k__BackingField: {fileID: 21300000, guid: 830e76ce579889f489d3b83489d88c6a,
     type: 3}
-  <ItemName>k__BackingField: Iron Ore
+  ItemNameStringKey: 74
   <Description>k__BackingField: 
   <Type>k__BackingField: 1
   processResult: {fileID: 11400000, guid: a06410131afb03341a3fa5371e906c82, type: 2}

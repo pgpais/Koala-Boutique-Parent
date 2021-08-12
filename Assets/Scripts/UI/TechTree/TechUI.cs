@@ -39,7 +39,7 @@ public class TechUI : SerializedMonoBehaviour, IComparable<TechUI>
     {
         this.unlockable = unlockable;
 
-        gameObject.name = unlockable.UnlockableName;
+        gameObject.name = unlockable.UnlockableKeyName;
         unlockableName.text = unlockable.UnlockableName;
         unlockableName.color = colorPerType[unlockable.Type];
         unlockableDescription.text = unlockable.UnlockableDescription;
@@ -182,7 +182,7 @@ public class TechUI : SerializedMonoBehaviour, IComparable<TechUI>
         {
             ShowUnlocked();
         }
-        Debug.Log($"{unlockable.UnlockableName} was updated!");
+        Debug.Log($"{unlockable.UnlockableKeyName} was updated!");
     }
 
     void UnlockTech()

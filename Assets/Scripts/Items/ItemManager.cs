@@ -101,7 +101,7 @@ public class ItemManager : MonoBehaviour
 
     public void SellItem(Item item, int amount)
     {
-        SellItem(item.ItemName, amount);
+        SellItem(item.ItemNameKey, amount);
     }
 
     public void SellItem(string itemName, int amount)
@@ -117,7 +117,7 @@ public class ItemManager : MonoBehaviour
 
     public int SellItem(Item item, int amount, float modifier)
     {
-        return SellItem(item.ItemName, amount, modifier);
+        return SellItem(item.ItemNameKey, amount, modifier);
     }
 
     public int SellItem(string itemName, int amount, float modifier)

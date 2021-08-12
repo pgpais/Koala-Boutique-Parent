@@ -63,8 +63,9 @@ MonoBehaviour:
       m_Calls: []
   <UnlockableSprite>k__BackingField: {fileID: 21300000, guid: 80c0647a177daa94bbcffbd69e7d3b0d,
     type: 3}
-  <UnlockableName>k__BackingField: Purple Mushroom
-  <UnlockableDescription>k__BackingField: 
+  UnlockableStringKey: 26
+  UnlockableDescriptionStringKey: 27
+  <Type>k__BackingField: 0
   <Requirements>k__BackingField:
   - {fileID: 11400000, guid: 909923872f9632740a0c1c1945e36683, type: 2}
   <GoldCost>k__BackingField: 20

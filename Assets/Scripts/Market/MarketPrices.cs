@@ -93,7 +93,7 @@ public class MarketPrices : SerializedMonoBehaviour
 
     internal int GetCostModifierForItem(Item item)
     {
-        return GetCostModifierForItem(item.ItemName);
+        return GetCostModifierForItem(item.ItemNameKey);
     }
 
     public int GetCostModifierForItem(string itemName)
@@ -115,7 +115,7 @@ public class MarketPrices : SerializedMonoBehaviour
 
             foreach (var item in ItemManager.instance.itemsData.Items)
             {
-                itemPrices.Add(item.ItemName, ran.Next(item.MinModifier, item.MaxModifier));
+                itemPrices.Add(item.ItemNameKey, ran.Next(item.MinModifier, item.MaxModifier));
             }
             newDayPrices.Add(itemPrices);
         }

@@ -65,7 +65,7 @@ public class ItemUI : MonoBehaviour, IComparable<ItemUI>
 
     private void UpdateUI(Item item, int quantity)
     {
-        if (item.ItemName == itemNameText.text)
+        if (item.ItemNameKey == this.item.ItemNameKey)
             itemQuantityText.text = quantity.ToString();
     }
 
@@ -87,7 +87,7 @@ public class ItemUI : MonoBehaviour, IComparable<ItemUI>
 
     private void ShowSellScreen()
     {
-        ItemManager.instance.ShowSellGameMenu(item.ItemName, 0, ItemManager.instance.itemQuantity[item.ItemName]);
+        ItemManager.instance.ShowSellGameMenu(item.ItemNameKey, 0, ItemManager.instance.itemQuantity[item.ItemNameKey]);
     }
 
     public void MakeUnavailable()
@@ -187,10 +187,10 @@ public class ItemUI : MonoBehaviour, IComparable<ItemUI>
         }
         else if (processAllItemToggle.isOn)
         {
-            amount = ItemManager.instance.itemQuantity[item.ItemName];
+            amount = ItemManager.instance.itemQuantity[item.ItemNameKey];
         }
 
-        ProcessingManager.instance.StartProcessing(item.ItemName, amount);
+        ProcessingManager.instance.StartProcessing(item.ItemNameKey, amount);
     }
 
     public int CompareTo(ItemUI other)

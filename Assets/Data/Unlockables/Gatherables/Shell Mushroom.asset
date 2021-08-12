@@ -63,8 +63,9 @@ MonoBehaviour:
       m_Calls: []
   <UnlockableSprite>k__BackingField: {fileID: 21300000, guid: 252fcc5e02e5d38478680ce5e13550b6,
     type: 3}
-  <UnlockableName>k__BackingField: Shell Mushroom
-  <UnlockableDescription>k__BackingField: 
+  UnlockableStringKey: 30
+  UnlockableDescriptionStringKey: 31
+  <Type>k__BackingField: 0
   <Requirements>k__BackingField:
   - {fileID: 11400000, guid: 73bb99e6d5662374ab7db4e91b773f1b, type: 2}
   <GoldCost>k__BackingField: 320

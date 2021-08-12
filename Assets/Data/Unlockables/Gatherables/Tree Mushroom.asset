@@ -63,8 +63,8 @@ MonoBehaviour:
       m_Calls: []
   <UnlockableSprite>k__BackingField: {fileID: 21300000, guid: 6125dd286fb89df40b2207202ca84bc7,
     type: 3}
-  <UnlockableName>k__BackingField: Tree Mushroom
-  <UnlockableDescription>k__BackingField: 
+  UnlockableStringKey: 34
+  UnlockableDescriptionStringKey: 35
   <Type>k__BackingField: 0
   <Requirements>k__BackingField:
   - {fileID: 11400000, guid: 8477774cb41df5247919e964c762cf84, type: 2}

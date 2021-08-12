@@ -32,7 +32,7 @@ public class OfferingManager : MonoBehaviour
         {
             for (int i = 0; i < itemsChecked.Length && !itemsChecked[i]; i++)
             {
-                if (item.ItemName == offering.itemsToOffer[i])
+                if (item.ItemNameKey == offering.itemsToOffer[i])
                 {
                     itemsChecked[i] = true;
                 }

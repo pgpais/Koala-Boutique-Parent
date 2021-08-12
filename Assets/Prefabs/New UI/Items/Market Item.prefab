@@ -515,6 +515,109 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24affaf2b6b1f5c4eae38a1af962cc65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 21300000, guid: 54b3782cc8755e54f8dfbeb081d3627c, type: 3}
+    - {fileID: 21300000, guid: 15e3c740179bead43a5de9ec24d9f93d, type: 3}
+    - {fileID: 21300000, guid: f4683dbff8166b546bb34f833d734926, type: 3}
+    - {fileID: 21300000, guid: 2e778163568d513419ccd3213eea8fd9, type: 3}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: bargainImageSprites
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[Language, Assembly-CSharp],[UnityEngine.Sprite,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Language, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: sellImageSprites
+      Entry: 7
+      Data: 2|System.Collections.Generic.Dictionary`2[[Language, Assembly-CSharp],[UnityEngine.Sprite,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 9
+      Data: 1
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 10
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 10
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   itemName: {fileID: 1469754681712537282}
   quantityLabel: {fileID: 1244746293357878091}
   itemQuantity: {fileID: 714959407056530710}
@@ -522,7 +625,9 @@ MonoBehaviour:
   itemImage: {fileID: 928165793094379927}
   fadeImage: {fileID: 757289794920971645}
   bargainButton: {fileID: 8630171592930626124}
+  bargainImage: {fileID: 1015652896353866254}
   sellButton: {fileID: 8290673618538693976}
+  sellImage: {fileID: 2625706063493396117}
 --- !u!114 &6546426459027493133
 MonoBehaviour:
   m_ObjectHideFlags: 0

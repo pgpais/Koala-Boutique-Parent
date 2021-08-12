@@ -8,8 +8,30 @@ using System.Text;
 
 public class AskForIDMenu : MonoBehaviour
 {
+    [SerializeField] Toggle englishToggle;
+    [SerializeField] Toggle portugueseToggle;
     [SerializeField] TMP_InputField familyIDInputField;
     [SerializeField] Button submitButton;
+
+    private void Awake()
+    {
+        portugueseToggle.onValueChanged.AddListener((isOn) =>
+        {
+            if (isOn)
+            {
+                Localisation.SetLanguage(Language.Portuguese);
+            }
+        });
+
+
+        englishToggle.onValueChanged.AddListener((isOn) =>
+        {
+            if (isOn)
+            {
+                Localisation.SetLanguage(Language.English);
+            }
+        });
+    }
 
     private void Start()
     {

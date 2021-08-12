@@ -4,6 +4,7 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MenuSwitcher : SerializedMonoBehaviour
 {
@@ -73,6 +74,8 @@ public class MenuSwitcher : SerializedMonoBehaviour
             secretCodeButton.gameObject.SetActive(false);
             SecretDoorManager.OnCodeDecrypted.AddListener(HandleSecretCodeButton);
         }
+
+        Localisation.SetLanguage((Language)PlayerPrefs.GetInt("Language", 0));
     }
 
     private void HandleSecretCodeButton(string code)
@@ -228,6 +231,7 @@ public class MenuSwitcher : SerializedMonoBehaviour
     void Logout()
     {
         FirebaseCommunicator.instance.Logout();
+        SceneManager.LoadScene(0);
     }
 
     void OnLoggedOut()

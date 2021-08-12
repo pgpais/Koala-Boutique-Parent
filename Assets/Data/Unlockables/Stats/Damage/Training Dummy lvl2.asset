@@ -62,8 +62,9 @@ MonoBehaviour:
       m_Calls: []
   <UnlockableSprite>k__BackingField: {fileID: 21300000, guid: 36127535b014c614db456141b341df62,
     type: 3}
-  <UnlockableName>k__BackingField: Training Dummy lvl2
-  <UnlockableDescription>k__BackingField: Increase adventurer's damage
+  UnlockableStringKey: 40
+  UnlockableNameAddition: 2
+  UnlockableDescriptionStringKey: 41
   <Type>k__BackingField: 1
   <Requirements>k__BackingField:
   - {fileID: 11400000, guid: c70576160b46a5c4d81916840600b908, type: 2}

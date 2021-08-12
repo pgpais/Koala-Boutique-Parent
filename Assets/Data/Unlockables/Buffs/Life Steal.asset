@@ -75,8 +75,8 @@ MonoBehaviour:
       m_Calls: []
   <UnlockableSprite>k__BackingField: {fileID: 21300000, guid: 7c116aae21ec56f4a9c9fec1a47bc25f,
     type: 3}
-  <UnlockableName>k__BackingField: Life Steal
-  <UnlockableDescription>k__BackingField: Receive some health after dealing damage
+  UnlockableStringKey: 8
+  UnlockableDescriptionStringKey: 9
   <Type>k__BackingField: 3
   <Requirements>k__BackingField:
   - {fileID: 11400000, guid: 2dab53dbd129d574bb437641c3959d6d, type: 2}

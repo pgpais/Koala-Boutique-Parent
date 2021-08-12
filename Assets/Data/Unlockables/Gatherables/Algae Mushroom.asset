@@ -63,8 +63,8 @@ MonoBehaviour:
       m_Calls: []
   <UnlockableSprite>k__BackingField: {fileID: 21300000, guid: 13d7cf308640dff4db204ff1f45b01fa,
     type: 3}
-  <UnlockableName>k__BackingField: Algae Mushroom
-  <UnlockableDescription>k__BackingField: 
+  UnlockableStringKey: 18
+  UnlockableDescriptionStringKey: 19
   <Type>k__BackingField: 0
   <Requirements>k__BackingField:
   - {fileID: 11400000, guid: 783fdc102c162a946a7c82e275aa7e00, type: 2}

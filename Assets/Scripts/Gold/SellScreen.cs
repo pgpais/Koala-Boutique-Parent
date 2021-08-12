@@ -66,7 +66,7 @@ public class SellScreen : MonoBehaviour
                 {"item", itemName},
                 {"sellAmount", sellAmount.ToString()},
                 {"itemValue", item.GoldValue.ToString()},
-                {"itemValueModifier", MarketPrices.instance.GetCostModifierForItem(item.ItemName).ToString()}
+                {"itemValueModifier", MarketPrices.instance.GetCostModifierForItem(item.ItemNameKey).ToString()}
             }
         ));
 
@@ -78,7 +78,7 @@ public class SellScreen : MonoBehaviour
         itemImage.sprite = item.ItemSprite;
         sellAmountText.text = sellAmount.ToString();
 
-        int itemValue = item.GoldValue + MarketPrices.instance.GetCostModifierForItem(item.ItemName);
+        int itemValue = item.GoldValue + MarketPrices.instance.GetCostModifierForItem(item.ItemNameKey);
         itemValueText.text = itemValue.ToString();
         sellButtonText.text = (itemValue * sellAmount).ToString();
     }

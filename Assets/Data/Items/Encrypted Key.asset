@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <ItemSprite>k__BackingField: {fileID: 21300000, guid: b1151ba1a9ca21849a3cfe5ea8a9afd8,
     type: 3}
-  <ItemName>k__BackingField: Encrypted Key
+  ItemNameStringKey: 122
   <Description>k__BackingField: 
   <Type>k__BackingField: 1
   processResult: {fileID: 11400000, guid: 126b7c937195ff742bc956fb5d217698, type: 2}

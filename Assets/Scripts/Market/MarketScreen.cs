@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public class MarketScreen : MonoBehaviour
 {
     [SerializeField] MarketItem marketItemPrefab;
     [SerializeField] Transform marketItemGroup;
+    [SerializeField] TMP_Text menuTitle;
+    [SerializeField] StringKey marketTitleStringKey;
 
     Dictionary<string, MarketItem> marketItems;
 
@@ -42,7 +45,7 @@ public class MarketScreen : MonoBehaviour
 
         foreach (var marketItem in marketItems.Values)
         {
-            Item item = items.GetItemByName(marketItem.ItemName);
+            Item item = items.GetItemByName(marketItem.ItemNameKey);
             int valueModifier = MarketPrices.instance.GetCostModifierForItem(item.name);
 
             marketItem.UpdateValue(item.GoldValue + valueModifier);
@@ -56,15 +59,15 @@ public class MarketScreen : MonoBehaviour
         foreach (var item in sellableItems)
         {
             MarketItem marketItem = Instantiate(marketItemPrefab, marketItemGroup);
-            marketItem.Init(item.ItemName, item.GoldValue, item.ItemSprite);
+            marketItem.Init(item.ItemNameKey, item.GoldValue, item.ItemSprite);
 
             if (MarketPrices.instance.hasPrices)
             {
-                int costModifier = MarketPrices.instance.GetCostModifierForItem(item.ItemName);
+                int costModifier = MarketPrices.instance.GetCostModifierForItem(item.ItemNameKey);
                 marketItem.UpdateValue(item.GoldValue + costModifier);
             }
 
-            marketItems.Add(item.ItemName, marketItem);
+            marketItems.Add(item.ItemNameKey, marketItem);
             if (!item.Unlocked)
             {
                 marketItem.gameObject.SetActive(false);
@@ -75,7 +78,7 @@ public class MarketScreen : MonoBehaviour
                 });
             }
             //if name is encrypted key or decrypted key don't show
-            if (item.ItemName.Contains("Key"))
+            if (item.ItemNameKey.Contains("Key"))
             {
                 marketItem.gameObject.SetActive(false);
             }
@@ -84,7 +87,7 @@ public class MarketScreen : MonoBehaviour
 
         ItemManager.NewItemAdded.AddListener((item, quantity) =>
        {
-           if (!marketItems.ContainsKey(item.ItemName))
+           if (!marketItems.ContainsKey(item.ItemNameKey))
            {
                return;
            }
@@ -93,13 +96,13 @@ public class MarketScreen : MonoBehaviour
            if (MarketPrices.instance.hasPrices)
                valueModifier = MarketPrices.instance.GetCostModifierForItem(item.name);
 
-           marketItems[item.ItemName].UpdateUI(item.ItemName, item.GoldValue + valueModifier, item.ItemSprite);
+           marketItems[item.ItemNameKey].UpdateUI(item.ItemName, item.GoldValue + valueModifier, item.ItemSprite);
            SortMarketItems();
        });
 
         ItemManager.ItemRemoved.AddListener((item) =>
         {
-            if (!marketItems.ContainsKey(item.ItemName))
+            if (!marketItems.ContainsKey(item.ItemNameKey))
             {
                 return;
             }
@@ -108,7 +111,7 @@ public class MarketScreen : MonoBehaviour
             if (MarketPrices.instance.hasPrices)
                 valueModifier = MarketPrices.instance.GetCostModifierForItem(item.name);
 
-            marketItems[item.ItemName].UpdateUI(item.ItemName, item.GoldValue + valueModifier, item.ItemSprite);
+            marketItems[item.ItemNameKey].UpdateUI(item.ItemName, item.GoldValue + valueModifier, item.ItemSprite);
             SortMarketItems();
         });
 
@@ -117,12 +120,17 @@ public class MarketScreen : MonoBehaviour
 
     private void OnEnable()
     {
+        menuTitle.text = Localisation.Get(marketTitleStringKey);
+
         SortMarketItems();
     }
 
     void UpdateUI(Item item, int amount)
     {
-        marketItems[item.ItemName].UpdateAmount(amount);
+        if (marketItems.ContainsKey(item.ItemNameKey))
+        {
+            marketItems[item.ItemNameKey].UpdateAmount(amount);
+        }
     }
 
     void SortMarketItems()

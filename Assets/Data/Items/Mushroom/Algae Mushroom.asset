@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <ItemSprite>k__BackingField: {fileID: 21300000, guid: 38478220013a95648aaa568428e9f1eb,
     type: 3}
-  <ItemName>k__BackingField: Algae Mushroom
+  ItemNameStringKey: 60
   <Description>k__BackingField: Just a gathered item
   <Type>k__BackingField: 0
   processResult: {fileID: 0}

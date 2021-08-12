@@ -3,11 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using DanielLochner.Assets.SimpleScrollSnap;
 using Newtonsoft.Json;
+using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class HomeScreen : MonoBehaviour
+public class HomeScreen : SerializedMonoBehaviour
 {
     public static string newItemsReferenceName = "newItems";
+
+    [SerializeField] Image newItemsTitleImage;
+    [SerializeField] Dictionary<Language, Sprite> newItemsTitleSprites = new Dictionary<Language, Sprite>();
     [SerializeField] NewItemsPanel diseasedNewItemsPanel;
     [SerializeField] NewItemsPanel noDiseasedNewItemsPanel;
     [SerializeField] Transform contentParent;
@@ -56,6 +61,8 @@ public class HomeScreen : MonoBehaviour
 
     private void UpdateUI()
     {
+        newItemsTitleImage.sprite = newItemsTitleSprites[Localisation.currentLanguage];
+
         int itemsLeft = newItemsList.lootedItems.Count;
 
         Dictionary<Item, int> itemCounts = new Dictionary<Item, int>();

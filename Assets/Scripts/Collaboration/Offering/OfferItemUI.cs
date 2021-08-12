@@ -11,7 +11,7 @@ public class OfferItemUI : MonoBehaviour
     public bool isOn => offerToggle.isOn;
     public Toggle Toggle => offerToggle;
 
-    public string ItemName => item.ItemName;
+    public string ItemName => item.ItemNameKey;
 
     [SerializeField] Image itemImage;
     [SerializeField] TMP_Text itemNameText;

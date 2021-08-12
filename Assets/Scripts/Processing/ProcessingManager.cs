@@ -100,20 +100,20 @@ public class ProcessingManager : MonoBehaviour
         newProcessMenu.Init(itemName, minAmount, maxAmount);
     }
 
-    public void StartProcessing(string itemName, int amount)
+    public void StartProcessing(string itemNameKey, int amount)
     {
-        if (ItemManager.instance.HasEnoughItem(itemName, amount))
+        if (ItemManager.instance.HasEnoughItem(itemNameKey, amount))
         {
             // remove from global inventory
-            ItemManager.instance.RemoveItem(itemName, amount);
+            ItemManager.instance.RemoveItem(itemNameKey, amount);
 
             // create Process
-            CreateProcess(itemName, amount);
+            CreateProcess(itemNameKey, amount);
 
             LogsManager.SendLogDirectly(new Log(
                 LogType.ItemProcessStarted,
                 new Dictionary<string, string>(){
-                    {"itemName", itemName},
+                    {"itemName", itemNameKey},
                     {"amount", amount.ToString()}
                 }
             ));
@@ -121,15 +121,15 @@ public class ProcessingManager : MonoBehaviour
         else
         {
             Debug.LogError("Not enough items");
-            int remainingAmount = ItemManager.instance.itemQuantity[itemName];
-            ItemManager.instance.RemoveItem(itemName, remainingAmount);
+            int remainingAmount = ItemManager.instance.itemQuantity[itemNameKey];
+            ItemManager.instance.RemoveItem(itemNameKey, remainingAmount);
 
-            CreateProcess(itemName, remainingAmount);
+            CreateProcess(itemNameKey, remainingAmount);
 
             LogsManager.SendLogDirectly(new Log(
                 LogType.ItemProcessStarted,
                 new Dictionary<string, string>(){
-                    {"itemName", itemName},
+                    {"itemName", itemNameKey},
                     {"amount", remainingAmount.ToString()}
                 }
             ));
@@ -137,7 +137,7 @@ public class ProcessingManager : MonoBehaviour
         LogsManager.SendLogDirectly(new Log(
             LogType.ItemProcessStarted,
             new Dictionary<string, string>(){
-                {"itemName", itemName},
+                {"itemName", itemNameKey},
                 {"amount", "0"}
             }
         ));
@@ -215,7 +215,7 @@ public class ProcessingManager : MonoBehaviour
         ));
 
         Item processItem = ItemManager.instance.itemsData.GetItemByName(process.ProcessingItemName);
-        if (processItem.ItemName == SecretDoorManager.instance.DoorKey.ItemName)
+        if (processItem.ItemNameKey == SecretDoorManager.instance.DoorKey.ItemNameKey)
         {
             Debug.Log("Unlocking secret code!");
             SecretDoorManager.instance.UnlockDoor(processItem.ProcessResult);
@@ -223,7 +223,7 @@ public class ProcessingManager : MonoBehaviour
         else
         {
             Debug.Log("Adding process result to items!");
-            ItemManager.instance.AddItem(processItem.ProcessResult.ItemName, processItem.ProcessResultAmount * process.ProcessAmount, true);
+            ItemManager.instance.AddItem(processItem.ProcessResult.ItemNameKey, processItem.ProcessResultAmount * process.ProcessAmount, true);
         }
 
         inProcess.Remove(process);

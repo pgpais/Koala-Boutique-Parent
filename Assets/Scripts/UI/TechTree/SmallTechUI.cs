@@ -26,6 +26,6 @@ public class SmallTechUI : MonoBehaviour
         {
             text.color = Color.green;
         }
-        Debug.Log($"{unlockable.UnlockableName} was updated!");
+        Debug.Log($"{unlockable.UnlockableKeyName} was updated!");
     }
 }

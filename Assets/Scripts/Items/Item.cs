@@ -19,7 +19,9 @@ public class Item : ScriptableObject, UnlockableReward, IComparable<Item>
     // public UnityEvent<int> ItemUpdated { get; private set; }
     // public UnityEvent ItemRemoved { get; private set; }
     [field: SerializeField] public Sprite ItemSprite { get; private set; }
-    [field: SerializeField] public string ItemName { get; private set; }
+    public string ItemName => Localisation.Get(ItemNameStringKey);
+    public string ItemNameKey => Localisation.Get(ItemNameStringKey, Language.English);
+    public StringKey ItemNameStringKey;
     [field: SerializeField] public string Description { get; set; }
     [field: SerializeField] public ItemType Type { get; private set; }
 
@@ -89,7 +91,7 @@ public class Item : ScriptableObject, UnlockableReward, IComparable<Item>
         }
         else
         {
-            return this.ItemName.CompareTo(other.ItemName);
+            return this.ItemNameKey.CompareTo(other.ItemNameKey);
         }
     }
 }

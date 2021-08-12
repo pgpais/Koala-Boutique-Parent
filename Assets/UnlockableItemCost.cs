@@ -22,10 +22,10 @@ public class UnlockableItemCost : MonoBehaviour
 
         transform.SetParent(parent, false);
         itemImage.sprite = sprite;
-        itemText.text = $"{amount}× {name}";
 
         if (name == "Coins")
         {
+            itemText.text = $"{amount}× {Localisation.Get(StringKey.Item_Coin_Name)}";
             if (GoldManager.instance.CurrentGold >= targetAmount)
             {
                 itemText.color = enoughItemColor;
@@ -35,6 +35,7 @@ public class UnlockableItemCost : MonoBehaviour
         }
         else if (name == "Gems")
         {
+            itemText.text = $"{amount}× {Localisation.Get(StringKey.Item_Gem_Name)}";
             if (GoldManager.instance.CurrentGems >= targetAmount)
             {
                 itemText.color = enoughItemColor;
@@ -51,9 +52,9 @@ public class UnlockableItemCost : MonoBehaviour
 
         transform.SetParent(parent, false);
         itemImage.sprite = item.ItemSprite;
-        itemText.text = $"{amount}× {item.ItemName}";
+        itemText.text = $"{amount}× {Localisation.Get(item.ItemNameStringKey)}";
 
-        if (ItemManager.instance.HasEnoughItem(item.ItemName, amount))
+        if (ItemManager.instance.HasEnoughItem(item.ItemNameKey, amount))
         {
             itemText.color = enoughItemColor;
         }
@@ -61,7 +62,7 @@ public class UnlockableItemCost : MonoBehaviour
         HandleSlider();
         ItemManager.ItemUpdated.AddListener((item, amount) =>
         {
-            if (item.ItemName == this.item.ItemName) HandleSlider();
+            if (item.ItemNameKey == this.item.ItemNameKey) HandleSlider();
         });
     }
 
@@ -71,9 +72,9 @@ public class UnlockableItemCost : MonoBehaviour
             return;
 
         int amount = 0;
-        if (ItemManager.instance.itemQuantity.ContainsKey(item.ItemName))
+        if (ItemManager.instance.itemQuantity.ContainsKey(item.ItemNameKey))
         {
-            amount = ItemManager.instance.itemQuantity[item.ItemName];
+            amount = ItemManager.instance.itemQuantity[item.ItemNameKey];
         }
 
         float value = (float)amount / (float)targetAmount;

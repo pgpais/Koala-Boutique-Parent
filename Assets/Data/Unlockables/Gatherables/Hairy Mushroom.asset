@@ -63,8 +63,9 @@ MonoBehaviour:
       m_Calls: []
   <UnlockableSprite>k__BackingField: {fileID: 21300000, guid: 6833e569c4db1034db3a2cd22831e223,
     type: 3}
-  <UnlockableName>k__BackingField: Hairy Mushroom
-  <UnlockableDescription>k__BackingField: 
+  UnlockableStringKey: 25
+  UnlockableDescriptionStringKey: 0
+  <Type>k__BackingField: 0
   <Requirements>k__BackingField:
   - {fileID: 11400000, guid: 55420233ee017314995df62c102497cd, type: 2}
   <GoldCost>k__BackingField: 40

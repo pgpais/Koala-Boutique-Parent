@@ -62,8 +62,8 @@ MonoBehaviour:
       m_Calls: []
   <UnlockableSprite>k__BackingField: {fileID: 21300000, guid: 5a796cf8853686e4cad1cb25e118efee,
     type: 3}
-  <UnlockableName>k__BackingField: Bladed Weapons
-  <UnlockableDescription>k__BackingField: You unlock the rogue class!
+  UnlockableStringKey: 14
+  UnlockableDescriptionStringKey: 15
   <Type>k__BackingField: 1
   <Requirements>k__BackingField: []
   <GoldCost>k__BackingField: 500

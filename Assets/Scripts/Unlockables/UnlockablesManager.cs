@@ -38,7 +38,7 @@ public class UnlockablesManager : MonoBehaviour
         foreach (var unlockable in unlockablesData.unlockables)
         {
             unlockable.InitializeEvent();
-            unlockables.Add(unlockable.UnlockableName, unlockable);
+            unlockables.Add(unlockable.UnlockableKeyName, unlockable);
         }
     }
 
@@ -101,7 +101,7 @@ public class UnlockablesManager : MonoBehaviour
                 LogsManager.SendLogDirectly(new Log(
                     LogType.Unlock,
                     new Dictionary<string, string>(){
-                        { "unlockable", unlockable.UnlockableName },
+                        { "unlockable", unlockable.UnlockableKeyName },
                         {"successful", false.ToString()} //beautiful
                     }
                 ));
@@ -112,12 +112,12 @@ public class UnlockablesManager : MonoBehaviour
 
         foreach (var cost in unlockable.ItemCost)
         {
-            if (!ItemManager.instance.HasEnoughItem(cost.Key.ItemName, cost.Value))
+            if (!ItemManager.instance.HasEnoughItem(cost.Key.ItemNameKey, cost.Value))
             {
                 LogsManager.SendLogDirectly(new Log(
                     LogType.Unlock,
                     new Dictionary<string, string>(){
-                        { "unlockable", unlockable.UnlockableName },
+                        { "unlockable", unlockable.UnlockableKeyName },
                         {"successful", false.ToString()} //beautiful
                     }
                 ));
@@ -131,7 +131,7 @@ public class UnlockablesManager : MonoBehaviour
             LogsManager.SendLogDirectly(new Log(
                 LogType.Unlock,
                 new Dictionary<string, string>(){
-                    { "unlockable", unlockable.UnlockableName },
+                    { "unlockable", unlockable.UnlockableKeyName },
                     {"successful", false.ToString()} //beautiful
                 }
             ));
@@ -141,17 +141,17 @@ public class UnlockablesManager : MonoBehaviour
 
         foreach (var cost in unlockable.ItemCost)
         {
-            ItemManager.instance.RemoveItem(cost.Key.ItemName, cost.Value);
+            ItemManager.instance.RemoveItem(cost.Key.ItemNameKey, cost.Value);
         }
         GoldManager.instance.BuyUnlockable(unlockable);
 
-        UnlockLog log = new UnlockLog(unlockable.UnlockableName, DateTime.Now);
+        UnlockLog log = new UnlockLog(unlockable.UnlockableKeyName, DateTime.Now);
         SaveUnlockLog(log);
 
         LogsManager.SendLogDirectly(new Log(
             LogType.Unlock,
             new Dictionary<string, string>(){
-                { "unlockable", unlockable.UnlockableName },
+                { "unlockable", unlockable.UnlockableKeyName },
                 {"successful", true.ToString()} //beautiful
             }
         ));
@@ -164,7 +164,7 @@ public class UnlockablesManager : MonoBehaviour
 
     void SaveUnlockOnCloud()
     {
-        List<string> list = unlockables.Where(u => u.Value.Unlocked).Select(u => u.Value.UnlockableName).ToList();
+        List<string> list = unlockables.Where(u => u.Value.Unlocked).Select(u => u.Value.UnlockableKeyName).ToList();
 
         string json = "[";
         foreach (var item in list)

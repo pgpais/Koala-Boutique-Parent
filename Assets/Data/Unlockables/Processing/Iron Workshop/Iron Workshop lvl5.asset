@@ -76,8 +76,9 @@ MonoBehaviour:
       m_Calls: []
   <UnlockableSprite>k__BackingField: {fileID: 21300000, guid: 89e6ae924b7775e479dcc8b74c0840ed,
     type: 3}
-  <UnlockableName>k__BackingField: Iron Workshop lvl5
-  <UnlockableDescription>k__BackingField: Increase amount received from processing
+  UnlockableStringKey: 36
+  UnlockableNameAddition: 5
+  UnlockableDescriptionStringKey: 37
   <Type>k__BackingField: 2
   <Requirements>k__BackingField:
   - {fileID: 11400000, guid: ef3b63c9a4666944585ea37399be8592, type: 2}

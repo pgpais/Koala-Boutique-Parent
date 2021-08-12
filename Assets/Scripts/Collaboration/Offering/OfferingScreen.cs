@@ -26,7 +26,7 @@ public class OfferingScreen : MonoBehaviour
         var items = ItemManager.instance.itemsData.GetUnlockedItems();
         foreach (var item in items)
         {
-            if (ItemManager.instance.HasEnoughItem(item.ItemName, 1))
+            if (ItemManager.instance.HasEnoughItem(item.ItemNameKey, 1))
             {
                 var offerItem = Instantiate(offeringItemPrefab, itemList);
                 offerItem.Init(item);

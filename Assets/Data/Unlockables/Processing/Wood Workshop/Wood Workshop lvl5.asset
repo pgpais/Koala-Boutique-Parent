@@ -76,8 +76,9 @@ MonoBehaviour:
       m_Calls: []
   <UnlockableSprite>k__BackingField: {fileID: 21300000, guid: 83774375fbb3b344393050d6ab652fee,
     type: 3}
-  <UnlockableName>k__BackingField: Wood Workshop lvl5
-  <UnlockableDescription>k__BackingField: Increase amount received from processing
+  UnlockableStringKey: 38
+  UnlockableNameAddition: 5
+  UnlockableDescriptionStringKey: 39
   <Type>k__BackingField: 2
   <Requirements>k__BackingField:
   - {fileID: 11400000, guid: 1f3f6e073536c3e4095a053a943888e4, type: 2}

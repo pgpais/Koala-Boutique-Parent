@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Decrypted Key
   m_EditorClassIdentifier: 
   <ItemSprite>k__BackingField: {fileID: 0}
-  <ItemName>k__BackingField: Decrypted Key
+  ItemNameStringKey: 123
   <Description>k__BackingField: 
   <Type>k__BackingField: 3
   processResult: {fileID: 0}
@@ -24,5 +24,5 @@ MonoBehaviour:
   <GoldValue>k__BackingField: 100
   <MaxModifier>k__BackingField: 10
   <MinModifier>k__BackingField: -10
-  Unlocked: 0
+  Unlocked: 1
   startsUnlocked: 1

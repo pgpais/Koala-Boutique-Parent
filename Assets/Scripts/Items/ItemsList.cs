@@ -11,12 +11,12 @@ public class ItemsList : ScriptableObject
 
     public bool ContainsByName(string itemName)
     {
-        return items.Any(item => item.ItemName.Equals(itemName));
+        return items.Any(item => item.ItemNameKey.Equals(itemName));
     }
 
     public Item GetItemByName(string itemName)
     {
-        return items.Find(item => item.ItemName.Equals(itemName));
+        return items.Find(item => item.ItemNameKey.Equals(itemName));
     }
 
     internal void InitializeEvents()

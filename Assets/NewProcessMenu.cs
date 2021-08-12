@@ -56,7 +56,7 @@ public class NewProcessMenu : MonoBehaviour
 
     void UpdateResultText(int currentAmount)
     {
-        resultText.text = $"You will get {currentAmount * item.ProcessResultAmount} of {item.ProcessResult.ItemName} after {item.ProcessDuration * currentAmount} seconds";
+        resultText.text = $"You will get {currentAmount * item.ProcessResultAmount} of {item.ProcessResult.ItemNameKey} after {item.ProcessDuration * currentAmount} seconds";
     }
 
     void OnStartProcess()

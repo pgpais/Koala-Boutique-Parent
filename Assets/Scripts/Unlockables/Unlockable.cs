@@ -13,8 +13,12 @@ public class Unlockable : SerializedScriptableObject, IComparable<Unlockable>
 
     [field: SerializeField] public Sprite UnlockableSprite { get; private set; }
 
-    [field: SerializeField] public string UnlockableName { get; private set; }
-    [field: SerializeField] public string UnlockableDescription { get; private set; }
+    public string UnlockableName => Localisation.Get(UnlockableStringKey) + " " + UnlockableNameAddition;
+    public StringKey UnlockableStringKey;
+    public string UnlockableKeyName => Localisation.Get(UnlockableStringKey, Language.English) + " " + UnlockableNameAddition;
+    public string UnlockableNameAddition;
+    public string UnlockableDescription => Localisation.Get(UnlockableDescriptionStringKey);
+    public StringKey UnlockableDescriptionStringKey;
     [field: SerializeField] public UnlockableType Type { get; private set; }
     [field: SerializeField] public List<Unlockable> Requirements { get; private set; }
     [field: SerializeField] public List<UnlockableReward> Rewards { get; private set; }
@@ -46,14 +50,6 @@ public class Unlockable : SerializedScriptableObject, IComparable<Unlockable>
     public void Reset()
     {
         runTimeUnlocked = unlocked;
-    }
-
-    private void OnValidate()
-    {
-        if (string.IsNullOrEmpty(UnlockableName))
-        {
-            UnlockableName = this.name;
-        }
     }
 
     public void InitializeEvent()
@@ -107,7 +103,7 @@ public class Unlockable : SerializedScriptableObject, IComparable<Unlockable>
         {
             return -1;
         }
-        return this.UnlockableName.CompareTo(other.UnlockableName);
+        return this.UnlockableKeyName.CompareTo(other.UnlockableKeyName);
     }
 }
 

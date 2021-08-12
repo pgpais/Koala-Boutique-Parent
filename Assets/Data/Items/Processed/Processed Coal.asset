@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <ItemSprite>k__BackingField: {fileID: 21300000, guid: 55e216ea1e7f27e4fbd5f8942e1a2006,
     type: 3}
-  <ItemName>k__BackingField: Processed Coal
+  ItemNameStringKey: 79
   <Description>k__BackingField: 
   <Type>k__BackingField: 3
   processResult: {fileID: 0}

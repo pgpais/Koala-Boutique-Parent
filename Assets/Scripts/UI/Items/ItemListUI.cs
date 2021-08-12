@@ -1,12 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public class ItemListUI : MonoBehaviour
 {
     [SerializeField] ItemUI itemUIPrefab;
+    [SerializeField] TMP_Text rawItemsText;
+    [SerializeField] StringKey rawItemsStringKey;
     [SerializeField] Transform availableItems;
+
+    [SerializeField] TMP_Text processedItemsText;
+    [SerializeField] StringKey processedItemsStringKey;
     [SerializeField] Transform processedItems;
 
     Dictionary<string, ItemUI> availableItemUIs;
@@ -33,7 +39,8 @@ public class ItemListUI : MonoBehaviour
 
     private void OnEnable()
     {
-
+        rawItemsText.text = Localisation.Get(rawItemsStringKey);
+        processedItemsText.text = Localisation.Get(processedItemsStringKey);
     }
 
     private void OnDisable()
@@ -77,12 +84,12 @@ public class ItemListUI : MonoBehaviour
         {
 
             ItemUI itemUI = Instantiate(itemUIPrefab);
-            if (itemsQuantity.ContainsKey(item.ItemName))
+            if (itemsQuantity.ContainsKey(item.ItemNameKey))
             {
                 // add item to available items UI
                 itemUI.transform.SetParent(this.availableItems.transform, false);
-                availableItemUIs.Add(item.ItemName, itemUI);
-                itemUI.Init(item, itemsQuantity[item.ItemName]);
+                availableItemUIs.Add(item.ItemNameKey, itemUI);
+                itemUI.Init(item, itemsQuantity[item.ItemNameKey]);
 
                 if (item.Type == Item.ItemType.Processed)
                 {
@@ -93,7 +100,7 @@ public class ItemListUI : MonoBehaviour
                     itemUI.transform.SetParent(this.availableItems.transform, false);
                 }
 
-                if (item.ItemName == SecretDoorManager.instance.DoorKey.ItemName || item.ItemName == SecretDoorManager.instance.DoorKey.ProcessResult.ItemName)
+                if (item.ItemNameKey == SecretDoorManager.instance.DoorKey.ItemNameKey || item.ItemNameKey == SecretDoorManager.instance.DoorKey.ProcessResult.ItemNameKey)
                 {
                     itemUI.gameObject.SetActive(true);
                 }
@@ -102,10 +109,10 @@ public class ItemListUI : MonoBehaviour
             {
                 // add item to unavailable items UI
                 itemUI.transform.SetParent(this.processedItems.transform, false);
-                unavailableItemUIs.Add(item.ItemName, itemUI);
+                unavailableItemUIs.Add(item.ItemNameKey, itemUI);
                 itemUI.Init(item);
 
-                if (item.ItemName == SecretDoorManager.instance.DoorKey.ItemName || item.ItemName == SecretDoorManager.instance.DoorKey.ProcessResult.ItemName)
+                if (item.ItemNameKey == SecretDoorManager.instance.DoorKey.ItemNameKey || item.ItemNameKey == SecretDoorManager.instance.DoorKey.ProcessResult.ItemNameKey)
                 {
                     itemUI.gameObject.SetActive(false);
                 }
@@ -134,15 +141,15 @@ public class ItemListUI : MonoBehaviour
     private void MakeAvailable(Item item, int itemQuantity)
     {
         // remove item from unavailable
-        var itemUI = unavailableItemUIs[item.ItemName];
-        unavailableItemUIs.Remove(item.ItemName);
+        var itemUI = unavailableItemUIs[item.ItemNameKey];
+        unavailableItemUIs.Remove(item.ItemNameKey);
 
         // add to available
         itemUI.MakeAvailable(itemQuantity);
-        availableItemUIs.Add(item.ItemName, itemUI);
-        if (item.ItemName == "Encrypted Key" || item.ItemName == "Decrypted Key")
+        availableItemUIs.Add(item.ItemNameKey, itemUI);
+        if (item.ItemNameKey == "Encrypted Key" || item.ItemNameKey == "Decrypted Key")
         {
-            unavailableItemUIs[item.ItemName].gameObject.SetActive(true);
+            unavailableItemUIs[item.ItemNameKey].gameObject.SetActive(true);
         }
     }
 
@@ -153,14 +160,14 @@ public class ItemListUI : MonoBehaviour
     }
     private void MakeUnavailable(Item item)
     {
-        var itemUI = availableItemUIs[item.ItemName];
-        availableItemUIs.Remove(item.ItemName);
+        var itemUI = availableItemUIs[item.ItemNameKey];
+        availableItemUIs.Remove(item.ItemNameKey);
 
         itemUI.MakeUnavailable();
-        unavailableItemUIs.Add(item.ItemName, itemUI);
-        if (item.ItemName == "Encrypted Key" || item.ItemName == "Decrypted Key")
+        unavailableItemUIs.Add(item.ItemNameKey, itemUI);
+        if (item.ItemNameKey == "Encrypted Key" || item.ItemNameKey == "Decrypted Key")
         {
-            unavailableItemUIs[item.ItemName].gameObject.SetActive(false);
+            unavailableItemUIs[item.ItemNameKey].gameObject.SetActive(false);
         }
     }
 
