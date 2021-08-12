@@ -57,6 +57,7 @@ public class Localisation
                 {StringKey.UI_EndScreen_Failure_CollectedItems, "COLLECTED ITEMS"},
                 {StringKey.UI_EndScreen_Failure_Offering, "Walking back you find the King, asking for a tribute"},
                 {StringKey.UI_EndScreen_Failure_Continue, "Press ENTER to continue..."},
+                {StringKey.UI_ClassSelect_Title, "Select your class:"},
 
                 {StringKey.UI_Oracle_Message, "The Oracle whispers, predicting that this item are in high demand at this time today:"},
                 {StringKey.UI_SecretDoor_Message, "This door requires a code to unlock"},
@@ -89,6 +90,10 @@ public class Localisation
                 { StringKey.Buff_Poison_Description, "Your attacks poison your enemies"},
                 { StringKey.Buff_Spread_Name, "Spread"},
                 { StringKey.Buff_Spread_Description, "Shoot two more arrows with your bow!"},
+                {StringKey.Buff_Health_Description,"More Health"},
+                {StringKey.Buff_Damage_Description,"More Damage"},
+                {StringKey.Buff_Movement_Description,"More Speed"},
+                {StringKey.Buff_UnderConstruction_Description, "WARNING: Under Construction"},
 
                 { StringKey.Unlock_Buff_Altar_Name, "Altar"},
                 { StringKey.Unlock_Buff_Altar_Description, "Unlocks the Altar - Giving buffs to the adventurer!"},
@@ -203,6 +208,8 @@ public class Localisation
                 {StringKey.UI_EndScreen_Failure_Offering, "Ao voltar, encontras o Rei, que está a pedir um tributo"},
                 {StringKey.UI_EndScreen_Failure_Continue, "Pressiona ENTER para continuar..."},
 
+                {StringKey.UI_ClassSelect_Title, "Escolha a sua classe:"},
+
                 {StringKey.UI_Oracle_Message, "O Oráculo sussura, prevendo que este recurso terá alta demanda hoje, a estas horas:"},
                 {StringKey.UI_SecretDoor_Message, "Esta porta precisa de um código para abrir"},
 
@@ -234,6 +241,10 @@ public class Localisation
                 {StringKey.Buff_Poison_Description, "Os teus ataques envenenam os teus inimigos"},
                 {StringKey.Buff_Spread_Name, "Mais Tiros"},
                 {StringKey.Buff_Spread_Description, "Dispara mais setas com o teu arco!"},
+                {StringKey.Buff_UnderConstruction_Description, "ATENÇÃO: Em Construção"},
+                {StringKey.Buff_Health_Description, "Mais vida"},
+                {StringKey.Buff_Damage_Description, "Mais dano"},
+                {StringKey.Buff_Movement_Description, "Mais velocidade"},
 
                 {StringKey.Unlock_Buff_Altar_Name, "Altar"},
                 {StringKey.Unlock_Buff_Altar_Description, "Desbloqueia o altar, oferecendo novos efeitos ao aventureiro!"},
@@ -496,4 +507,10 @@ public enum StringKey
     UI_ProcessedItems_Title,
     UI_MarketItems_Title,
 
+    Buff_UnderConstruction_Description,
+    Buff_Health_Description,
+    Buff_Damage_Description,
+    Buff_Movement_Description,
+
+    UI_ClassSelect_Title,
 }

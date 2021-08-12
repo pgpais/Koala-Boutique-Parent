@@ -155,12 +155,12 @@ public class GoldManager : MonoBehaviour
 
     public bool HasEnoughGold(int amount)
     {
-        return CurrentGold >= amount;
+        return CurrentGold >= amount || amount == 0;
     }
 
     public bool HasEnoughGems(int amount)
     {
-        return CurrentGems >= amount;
+        return CurrentGems >= amount || amount == 0;
     }
 
     public void UploadGold()

@@ -56,7 +56,7 @@ public class ItemProcessingUI : MonoBehaviour
         howLongForNextBoost = timeBetweenProcessBosts;
 
         this.process = process;
-        itemNameText.text = $"{itemName} → {item.ProcessResult.ItemName}";
+        itemNameText.text = $"{item.ItemName} → {item.ProcessResult.ItemName}";
         // boostBaseColor = processBoostImage.color;
 
         process.ProcessBoosted.AddListener(OnProcessBoosted);
