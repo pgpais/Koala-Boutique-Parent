@@ -71,12 +71,12 @@ public class ItemUI : MonoBehaviour, IComparable<ItemUI>
 
     private void OnEnable()
     {
-
+        startProcessingItemButton.onClick.AddListener(StartProcessing);
     }
 
     private void OnDisable()
     {
-
+        startProcessingItemButton.onClick.RemoveListener(StartProcessing);
     }
 
     private void ShowStartProcessScreen()
@@ -133,7 +133,7 @@ public class ItemUI : MonoBehaviour, IComparable<ItemUI>
 
         // TODO: #13 Move item event listeners to parent UI script
         ItemManager.ItemUpdated.AddListener(UpdateUI);
-        startProcessingItemButton.onClick.AddListener(StartProcessing);
+
         // sellItemButton.onClick.AddListener(ShowSellScreen);
 
         bool canItemBeProcessed = item.Type != Item.ItemType.Processed && item.Type != Item.ItemType.Valuable && item.ProcessResult != null;
