@@ -23,7 +23,8 @@ public class OfferingScreen : MonoBehaviour
     private void OnEnable()
     {
         MenuSwitcher.instance.ShowFadePanel();
-        var items = ItemManager.instance.itemsData.GetUnlockedItems();
+        var items = ItemManager.instance.itemsData.GetUnlockedItems().Where(item => item.Type != Item.ItemType.Valuable);
+
         foreach (var item in items)
         {
             if (ItemManager.instance.HasEnoughItem(item.ItemNameKey, 1))

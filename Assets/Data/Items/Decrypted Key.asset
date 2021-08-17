@@ -15,7 +15,7 @@ MonoBehaviour:
   <ItemSprite>k__BackingField: {fileID: 0}
   ItemNameStringKey: 123
   <Description>k__BackingField: 
-  <Type>k__BackingField: 3
+  <Type>k__BackingField: 2
   processResult: {fileID: 0}
   processResultAmount: 1
   boostTimeAmount: 5

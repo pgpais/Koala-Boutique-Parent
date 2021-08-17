@@ -16,7 +16,7 @@ MonoBehaviour:
     type: 3}
   ItemNameStringKey: 122
   <Description>k__BackingField: 
-  <Type>k__BackingField: 1
+  <Type>k__BackingField: 2
   processResult: {fileID: 11400000, guid: 126b7c937195ff742bc956fb5d217698, type: 2}
   processResultAmount: 1
   boostTimeAmount: 5
