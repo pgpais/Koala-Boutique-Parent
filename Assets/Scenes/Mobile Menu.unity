@@ -20728,6 +20728,12 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7535783827495964601, guid: e8a46f70669f1ed4dbe27de5e595ac61,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 49863e2577f71564384d54963385798c,
+        type: 3}
     - target: {fileID: 7535783827495964602, guid: e8a46f70669f1ed4dbe27de5e595ac61,
         type: 3}
       propertyPath: m_AspectMode
