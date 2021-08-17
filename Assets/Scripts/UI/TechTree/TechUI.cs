@@ -26,7 +26,7 @@ public class TechUI : SerializedMonoBehaviour, IComparable<TechUI>
 
     private Unlockable unlockable;
 
-    private bool canUnlock;
+    private bool requirementsUnlocked;
     private AudioSource audioSource;
 
     private void Start()
@@ -58,10 +58,10 @@ public class TechUI : SerializedMonoBehaviour, IComparable<TechUI>
             ShowUnlocked();
         }
 
-        canUnlock = unlockable.CanUnlock();
+        requirementsUnlocked = unlockable.RequirementsUnlocked();
 
         //todo: move this to onEnable
-        if (!canUnlock)
+        if (!requirementsUnlocked)
         {
             foreach (Unlockable requirement in unlockable.Requirements)
             {
@@ -78,22 +78,69 @@ public class TechUI : SerializedMonoBehaviour, IComparable<TechUI>
 
     private void OnEnable()
     {
-        if (!canUnlock)
+        if (!requirementsUnlocked)
         {
             Disable();
         }
+
+        GoldManager.GoldChanged.AddListener(HandleGoldChange);
+        GoldManager.GemChanged.AddListener(HandleGemChange);
+
+        ItemManager.ItemRemoved.AddListener(HandleItemRemoved);
+        ItemManager.NewItemAdded.AddListener(HandleNewItemAdded);
+        ItemManager.ItemUpdated.AddListener(HandleItemUpdated);
     }
 
     private void OnDisable()
     {
+        ItemManager.ItemRemoved.RemoveListener(HandleItemRemoved);
+        ItemManager.NewItemAdded.RemoveListener(HandleNewItemAdded);
+        ItemManager.ItemUpdated.RemoveListener(HandleItemUpdated);
+    }
 
+    private void HandleGemChange(int arg0)
+    {
+        ShowUnlockButton(unlockable.CanUnlock());
+    }
+
+    private void HandleGoldChange(int arg0)
+    {
+        ShowUnlockButton(unlockable.CanUnlock());
+    }
+
+    private void HandleItemUpdated(Item arg0, int arg1)
+    {
+        ShowUnlockButton(unlockable.CanUnlock());
+    }
+
+    private void HandleNewItemAdded(Item arg0, int arg1)
+    {
+        ShowUnlockButton(unlockable.CanUnlock());
+    }
+
+    private void HandleItemRemoved(Item arg0)
+    {
+        ShowUnlockButton(unlockable.CanUnlock());
+    }
+
+
+    private void ShowUnlockButton(bool show)
+    {
+        if (show)
+        {
+            unlockButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            unlockButton.gameObject.SetActive(false);
+        }
     }
 
     void HandleUnlock(Unlockable unlockable)
     {
-        if (this.unlockable.CanUnlock())
+        if (this.unlockable.RequirementsUnlocked())
         {
-            canUnlock = true;
+            requirementsUnlocked = true;
             Enable();
         }
     }
@@ -101,6 +148,7 @@ public class TechUI : SerializedMonoBehaviour, IComparable<TechUI>
     internal void Enable()
     {
         gameObject.SetActive(true);
+        ShowUnlockButton(unlockable.CanUnlock());
     }
 
     internal void Disable()
@@ -218,11 +266,11 @@ public class TechUI : SerializedMonoBehaviour, IComparable<TechUI>
 
     public int CompareTo(TechUI other)
     {
-        if (canUnlock && !other.canUnlock)
+        if (requirementsUnlocked && !other.requirementsUnlocked)
         {
             return 1;
         }
-        else if (!canUnlock && other.canUnlock)
+        else if (!requirementsUnlocked && other.requirementsUnlocked)
         {
             return -1;
         }

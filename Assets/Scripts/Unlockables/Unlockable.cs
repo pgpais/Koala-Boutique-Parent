@@ -62,7 +62,7 @@ public class Unlockable : SerializedScriptableObject, IComparable<Unlockable>
 
     }
 
-    public bool CanUnlock()
+    public bool RequirementsUnlocked()
     {
         if (Requirements == null || Requirements.Count == 0)
         {
@@ -104,6 +104,30 @@ public class Unlockable : SerializedScriptableObject, IComparable<Unlockable>
             return -1;
         }
         return this.UnlockableKeyName.CompareTo(other.UnlockableKeyName);
+    }
+
+    public bool CanUnlock()
+    {
+        if (GoldManager.instance.CurrentGold < GoldCost)
+        {
+            return false;
+        }
+        if (GoldManager.instance.CurrentGems < GemCost)
+        {
+            return false;
+        }
+
+        foreach (var itemCost in ItemCost)
+        {
+            bool hasEnough = ItemManager.instance.HasEnoughItem(itemCost.Key.ItemNameKey, itemCost.Value);
+
+            if (!hasEnough)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
 
