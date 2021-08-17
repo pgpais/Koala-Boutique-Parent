@@ -221,7 +221,7 @@ public class Localisation
                 {StringKey.UI_MarketItems_Title, "Venda de Produto"},
 
                 {StringKey.UI_AdventurerDailyQuest_Reward_Text, "Recompensa"},
-                {StringKey.UI_AdventurerDailyQuest_Description, "Recolha o número especificado"},
+                {StringKey.UI_AdventurerDailyQuest_Description, "Recolha exactamente o número especificado"},
                 {StringKey.UI_AdventurerDailyQuest_Complete_Text, "Completa"},
                 {StringKey.UI_AdventurerDailyQuest_Complete_Description, "$ITEMNAME$ adquirido"},
 
