@@ -136,7 +136,7 @@ public class ItemUI : MonoBehaviour, IComparable<ItemUI>
 
         // sellItemButton.onClick.AddListener(ShowSellScreen);
 
-        bool canItemBeProcessed = item.Type != Item.ItemType.Processed && item.Type != Item.ItemType.Valuable && item.ProcessResult != null;
+        bool canItemBeProcessed = item.Type != Item.ItemType.Processed && item.ProcessResult != null;
 
         if (!canItemBeProcessed)
         {

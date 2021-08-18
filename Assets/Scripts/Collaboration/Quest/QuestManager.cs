@@ -4,9 +4,12 @@ using System.Linq;
 using Firebase.Database;
 using Newtonsoft.Json;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class QuestManager : MonoBehaviour
 {
+    public static UnityEvent<Unlockable> QuestRewardChanged = new UnityEvent<Unlockable>();
+
     public static string adventurerReferenceName = "adventurerQuest";
     public static string managerReferenceName = "managerQuest";
     public static string dateFormat = "yyyyMMdd";
@@ -121,12 +124,32 @@ public class QuestManager : MonoBehaviour
 
             if (adventurerQuest.UnlockableRewardName == null)
             {
+                Debug.LogError("No reward for adventurer quest. generating new one...");
                 GenerateAdventurerQuestReward();
+            }
+
+            var unlockable = UnlockablesManager.instance.Unlockables[adventurerQuest.UnlockableRewardName];
+
+            if (unlockable == null)
+            {
+                Debug.LogException(new Exception(unlockable.UnlockableName + " is not null"));
+            }
+            else
+            {
+                if (unlockable.Unlocked && !adventurerQuest.IsCompleted)
+                {
+                    GenerateAdventurerQuestReward();
+                }
             }
 
             if (adventurerQuest.IsCompleted && !adventurerQuest.IsChecked)
             {
+                Debug.Log("Adventurer quest is completed");
                 HandleFinishedAdventurerQuest();
+            }
+            else
+            {
+                Debug.Log("Adventurer quest is not completed");
             }
         }
     }
@@ -142,11 +165,29 @@ public class QuestManager : MonoBehaviour
         Unlockable reward = UnlockablesManager.instance.Unlockables[adventurerQuest.UnlockableRewardName];
         if (reward != null)
         {
-            UnlockablesManager.instance.Unlock(reward);
+            Debug.Log("unlocking");
+            UnlockablesManager.instance.UnlockWithoutChecking(reward);
         }
         else
         {
             Debug.LogError("No reward found for adventurer quest");
+        }
+    }
+
+    internal void UpdateAdventurerQuestReward()
+    {
+        var unlockable = UnlockablesManager.instance.Unlockables[adventurerQuest.UnlockableRewardName];
+
+        if (unlockable == null)
+        {
+            Debug.LogException(new Exception(unlockable.UnlockableName + " is not null"));
+        }
+        else
+        {
+            if (unlockable.Unlocked && !adventurerQuest.IsCompleted)
+            {
+                GenerateAdventurerQuestReward();
+            }
         }
     }
 
@@ -225,6 +266,8 @@ public class QuestManager : MonoBehaviour
     {
         Debug.Log("Manager Quest Finished");
     }
+
+
 
     void SaveManagerQuest()
     {
@@ -306,6 +349,8 @@ public class QuestManager : MonoBehaviour
         adventurerQuest.GenerateAdventurerQuestReward(lastMushroomUnlockable);
 
         SaveAdventurerQuest();
+        var unlockable = UnlockablesManager.instance.Unlockables[adventurerQuest.UnlockableRewardName];
+        QuestRewardChanged.Invoke(unlockable);
     }
 
 }

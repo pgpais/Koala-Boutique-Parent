@@ -9378,6 +9378,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 1
   m_VerticalFit: 0
+--- !u!224 &1103725281 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5722465293015195752, guid: e8a46f70669f1ed4dbe27de5e595ac61,
+    type: 3}
+  m_PrefabInstance: {fileID: 7931588522372310799}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1118848418
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14365,6 +14371,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shopName: Cantinho da Ana
+  layout: {fileID: 1103725281}
   goldText: {fileID: 1686071116}
   gemText: {fileID: 471625071}
   shopPresenceText: {fileID: 1748188506}
@@ -20812,7 +20819,7 @@ PrefabInstance:
     - target: {fileID: 7931588521315299420, guid: e8a46f70669f1ed4dbe27de5e595ac61,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 319.948
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7931588521315299420, guid: e8a46f70669f1ed4dbe27de5e595ac61,
         type: 3}
@@ -20864,7 +20871,7 @@ PrefabInstance:
     - target: {fileID: 7931588521774432324, guid: e8a46f70669f1ed4dbe27de5e595ac61,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 94.11
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7931588521774432324, guid: e8a46f70669f1ed4dbe27de5e595ac61,
         type: 3}
@@ -20911,7 +20918,7 @@ PrefabInstance:
     - target: {fileID: 7931588521902295649, guid: e8a46f70669f1ed4dbe27de5e595ac61,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 31.4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7931588521902295649, guid: e8a46f70669f1ed4dbe27de5e595ac61,
         type: 3}
@@ -21126,7 +21133,7 @@ PrefabInstance:
     - target: {fileID: 7931588522841859276, guid: e8a46f70669f1ed4dbe27de5e595ac61,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 165.629
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7931588522841859276, guid: e8a46f70669f1ed4dbe27de5e595ac61,
         type: 3}

@@ -162,6 +162,24 @@ public class UnlockablesManager : MonoBehaviour
         return true;
     }
 
+    public void UnlockWithoutChecking(Unlockable unlockable)
+    {
+        UnlockLog log = new UnlockLog(unlockable.UnlockableKeyName, DateTime.Now);
+        SaveUnlockLog(log);
+
+        LogsManager.SendLogDirectly(new Log(
+            LogType.Unlock,
+            new Dictionary<string, string>(){
+                { "unlockable", unlockable.UnlockableKeyName },
+                {"successful", true.ToString()} //beautiful
+            }
+        ));
+
+        unlockable.Unlock();
+        ModifyDifficulty(unlockable.DifficultyModifier);
+        SaveUnlockOnCloud();
+    }
+
     void SaveUnlockOnCloud()
     {
         List<string> list = unlockables.Where(u => u.Value.Unlocked).Select(u => u.Value.UnlockableKeyName).ToList();

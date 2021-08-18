@@ -231,6 +231,15 @@ public class MissionScreen : SerializedMonoBehaviour
 
         dailyQuestDescriptionText.text = Localisation.Get(dailyQuestDescriptionTextStringKey);
         rewardText.text = Localisation.Get(rewardTextStringKey);
+
+        QuestManager.QuestRewardChanged.AddListener(OnQuestRewardChanged);
+        QuestManager.instance.UpdateAdventurerQuestReward();
+
+    }
+
+    private void OnQuestRewardChanged(Unlockable newReward)
+    {
+        rewardImage.sprite = (newReward.Rewards[0] as Item).ItemSprite;
     }
 
     private void ShowDailyQuestComplete()
