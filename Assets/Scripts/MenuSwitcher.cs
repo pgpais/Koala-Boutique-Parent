@@ -19,7 +19,11 @@ public class MenuSwitcher : SerializedMonoBehaviour
     [SerializeField] GameObject FadeObject;
     [SerializeField] GameObject popupsParent;
     [SerializeField] GameObject KingOfferingScreen;
+    [SerializeField] GameObject kingOfferingTutorialScreen;
+    [SerializeField] GameObject kingOfferingTutorialArrow;
     [SerializeField] GameObject SecretDoorCodeScreen;
+    [SerializeField] GameObject SecretDoorCodeTutorial;
+    [SerializeField] GameObject SecretDoorCodeTutorialArrow;
 
     [SerializeField] ToggleGroup tabLayoutGroup;
     [SerializeField] Toggle tabPrefab;
@@ -44,6 +48,12 @@ public class MenuSwitcher : SerializedMonoBehaviour
         {
             instance = this;
         }
+
+#if UNITY_EDITOR
+        // PlayerPrefs.SetInt("SecretCodeTutorial", 0);
+        // PlayerPrefs.SetInt("KingOfferingTutorial", 0);
+#endif
+
 
         tabs = new Dictionary<string, Toggle>();
 
@@ -82,14 +92,28 @@ public class MenuSwitcher : SerializedMonoBehaviour
     {
         Debug.Log("Code decrypted! Enabling secret code button...");
         secretCodeButton.gameObject.SetActive(true);
-        secretCodeButton.onClick.AddListener(ShowSecretCodeButton);
+        int secretCodeTutorial = PlayerPrefs.GetInt("SecretCodeTutorial", 0);
+        if (secretCodeTutorial == 0)
+        {
+            ShowSecretCodeTutorial();
+            PlayerPrefs.SetInt("SecretCodeTutorial", 1);
+        }
+        secretCodeButton.onClick.AddListener(ShowSecretCodeScreen);
     }
 
-    void ShowSecretCodeButton()
+    void ShowSecretCodeScreen()
     {
         FadeObject.SetActive(true);
         popupsParent.SetActive(true);
         SecretDoorCodeScreen.SetActive(true);
+    }
+
+    private void ShowSecretCodeTutorial()
+    {
+        FadeObject.SetActive(true);
+        popupsParent.SetActive(true);
+        SecretDoorCodeTutorial.SetActive(true);
+        SecretDoorCodeTutorialArrow.SetActive(true);
     }
 
     private void Start()
@@ -138,6 +162,8 @@ public class MenuSwitcher : SerializedMonoBehaviour
         }
         popupsParent.SetActive(false);
         FadeObject.SetActive(false);
+        kingOfferingTutorialArrow.SetActive(false);
+        SecretDoorCodeTutorialArrow.SetActive(false);
     }
 
     public void ShowFadePanel()
@@ -169,6 +195,14 @@ public class MenuSwitcher : SerializedMonoBehaviour
         FadeObject.SetActive(true);
         popupsParent.SetActive(true);
         KingOfferingScreen.SetActive(true);
+    }
+
+    private void ShowKingOfferingTutorialScreen()
+    {
+        FadeObject.SetActive(true);
+        popupsParent.SetActive(true);
+        kingOfferingTutorialScreen.SetActive(true);
+        kingOfferingTutorialArrow.SetActive(true);
     }
 
     void SwitchToMenu(int menuIndex)
@@ -242,6 +276,17 @@ public class MenuSwitcher : SerializedMonoBehaviour
 
     void HandleKingButton()
     {
+        if (OfferingManager.Instance.ShouldShowButton())
+        {
+            // TODO: If first time, show small tutorial popup
+            int kingOfferingTutorial = PlayerPrefs.GetInt("KingOfferingTutorial", 0);
+            if (kingOfferingTutorial == 0)
+            {
+                ShowKingOfferingTutorialScreen();
+                PlayerPrefs.SetInt("KingOfferingTutorial", 1);
+            }
+        }
+
         Debug.Log("Enable button = " + OfferingManager.Instance.ShouldShowButton());
         kingOfferingButton.gameObject.SetActive(OfferingManager.Instance.ShouldShowButton());
     }
