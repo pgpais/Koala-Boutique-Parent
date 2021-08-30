@@ -5,10 +5,13 @@ using DanielLochner.Assets.SimpleScrollSnap;
 using Newtonsoft.Json;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class HomeScreen : SerializedMonoBehaviour
 {
+    public static UnityEvent<Item, int> OnDiseasedItemReceived = new UnityEvent<Item, int>();
+
     public static string newItemsReferenceName = "newItems";
 
     [SerializeField] Image newItemsTitleImage;
@@ -97,6 +100,7 @@ public class HomeScreen : SerializedMonoBehaviour
                 scrollSnap.AddToBack(panel.gameObject);
                 panel.Init(newItemsList.diseasedGoldLoss, diseasedItem, itemCounts);
 
+                OnDiseasedItemReceived.Invoke(diseasedItem, newItemsList.diseasedGoldLoss);
 
                 spawnedDiseased = true;
             }

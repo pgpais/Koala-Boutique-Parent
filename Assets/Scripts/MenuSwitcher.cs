@@ -24,6 +24,10 @@ public class MenuSwitcher : SerializedMonoBehaviour
     [SerializeField] GameObject SecretDoorCodeScreen;
     [SerializeField] GameObject SecretDoorCodeTutorial;
     [SerializeField] GameObject SecretDoorCodeTutorialArrow;
+    [SerializeField] GameObject DiseasedItemTutorial;
+    [SerializeField] TMP_Text DiseasedItemTutorialText;
+    [SerializeField] Image DiseasedItemTutorialImage;
+    [SerializeField] TMP_Text DiseasedItemCoinLossText;
 
     [SerializeField] ToggleGroup tabLayoutGroup;
     [SerializeField] Toggle tabPrefab;
@@ -52,6 +56,7 @@ public class MenuSwitcher : SerializedMonoBehaviour
 #if UNITY_EDITOR
         // PlayerPrefs.SetInt("SecretCodeTutorial", 0);
         // PlayerPrefs.SetInt("KingOfferingTutorial", 0);
+        // PlayerPrefs.SetInt("DiseasedItemTutorial", 0);
 #endif
 
 
@@ -85,7 +90,27 @@ public class MenuSwitcher : SerializedMonoBehaviour
             SecretDoorManager.OnCodeDecrypted.AddListener(HandleSecretCodeButton);
         }
 
+
+        int DiseasedItemTutorial = PlayerPrefs.GetInt("DiseasedItemTutorial", 0);
+        if (DiseasedItemTutorial == 0)
+        {
+            HomeScreen.OnDiseasedItemReceived.AddListener(ShowDiseasedItemTutorial);
+        }
+
         Localisation.SetLanguage((Language)PlayerPrefs.GetInt("Language", 0));
+    }
+
+    private void ShowDiseasedItemTutorial(Item item, int diseasedItemCoinLoss)
+    {
+        FadeObject.SetActive(true);
+        popupsParent.SetActive(true);
+        DiseasedItemTutorial.SetActive(true);
+
+        DiseasedItemTutorialImage.sprite = item.ItemSprite;
+        DiseasedItemTutorialText.text = Localisation.Get(StringKey.DiseasedItemTutorial);
+        DiseasedItemCoinLossText.text = diseasedItemCoinLoss.ToString();
+
+        PlayerPrefs.SetInt("DiseasedItemTutorial", 1);
     }
 
     private void HandleSecretCodeButton(string code)

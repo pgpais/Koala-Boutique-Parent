@@ -156,6 +156,8 @@ public class Localisation
                 { StringKey.Unlock_Shop_IronWorkshop_Description, "Get more iron ingots from processing"},
                 { StringKey.Unlock_Shop_WoodWorkshop_Name, "Wood Workshop"},
                 { StringKey.Unlock_Shop_WoodWorkshop_Description, "Get more wood planks from processing"},
+
+                {StringKey.DiseasedItemTutorial, "This resource is sick and brought loss to the store."}
             }
         },
         {
@@ -307,6 +309,8 @@ public class Localisation
                 {StringKey.Unlock_Shop_IronWorkshop_Description, "Produz mais Ferro com o processamento"},
                 {StringKey.Unlock_Shop_WoodWorkshop_Name, "Atelier de Madeira"},
                 {StringKey.Unlock_Shop_WoodWorkshop_Description, "Produz mais Tábuas de Madeira com o processamento"},
+
+                {StringKey.DiseasedItemTutorial, "Este recurso está doente e trouxe prejuízo à loja."},
 
             }
         }
@@ -513,4 +517,5 @@ public enum StringKey
     Buff_Movement_Description,
 
     UI_ClassSelect_Title,
+    DiseasedItemTutorial,
 }
