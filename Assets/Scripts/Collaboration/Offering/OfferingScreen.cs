@@ -17,7 +17,7 @@ public class OfferingScreen : MonoBehaviour
     private void Awake()
     {
         offeringButton.onClick.AddListener(MakeOffer);
-        cancelButton.onClick.AddListener(CloseScreen);
+        // cancelButton.onClick.AddListener(CloseScreen);
     }
 
     private void OnEnable()

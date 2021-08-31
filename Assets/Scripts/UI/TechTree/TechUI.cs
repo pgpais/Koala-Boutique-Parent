@@ -100,27 +100,27 @@ public class TechUI : SerializedMonoBehaviour, IComparable<TechUI>
 
     private void HandleGemChange(int arg0)
     {
-        ShowUnlockButton(unlockable.CanUnlock());
+        ShowUnlockButton(unlockable.CanUnlock() && !unlockable.Unlocked);
     }
 
     private void HandleGoldChange(int arg0)
     {
-        ShowUnlockButton(unlockable.CanUnlock());
+        ShowUnlockButton(unlockable.CanUnlock() && !unlockable.Unlocked);
     }
 
     private void HandleItemUpdated(Item arg0, int arg1)
     {
-        ShowUnlockButton(unlockable.CanUnlock());
+        ShowUnlockButton(unlockable.CanUnlock() && !unlockable.Unlocked);
     }
 
     private void HandleNewItemAdded(Item arg0, int arg1)
     {
-        ShowUnlockButton(unlockable.CanUnlock());
+        ShowUnlockButton(unlockable.CanUnlock() && !unlockable.Unlocked);
     }
 
     private void HandleItemRemoved(Item arg0)
     {
-        ShowUnlockButton(unlockable.CanUnlock());
+        ShowUnlockButton(unlockable.CanUnlock() && !unlockable.Unlocked);
     }
 
 
@@ -148,7 +148,7 @@ public class TechUI : SerializedMonoBehaviour, IComparable<TechUI>
     internal void Enable()
     {
         gameObject.SetActive(true);
-        ShowUnlockButton(unlockable.CanUnlock());
+        ShowUnlockButton(unlockable.CanUnlock() && !unlockable.Unlocked);
     }
 
     internal void Disable()

@@ -171,6 +171,8 @@ public class SecretDoorManager : MonoBehaviour
 
         OnCodeDecrypted.Invoke(doorTime.code);
 
+        ItemManager.instance.RemoveItem(item.ItemNameKey, 1);
+
         LogsManager.SendLogDirectly(new Log(
             LogType.EncryptedKeyProcessed,
             new Dictionary<string, string>(){

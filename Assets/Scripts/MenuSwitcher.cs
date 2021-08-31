@@ -56,7 +56,7 @@ public class MenuSwitcher : SerializedMonoBehaviour
 #if UNITY_EDITOR
         // PlayerPrefs.SetInt("SecretCodeTutorial", 0);
         // PlayerPrefs.SetInt("KingOfferingTutorial", 0);
-        // PlayerPrefs.SetInt("DiseasedItemTutorial", 0);
+        PlayerPrefs.SetInt("DiseasedItemTutorial", 0);
 #endif
 
 

@@ -67,6 +67,7 @@ public class LogsManager
 public class Log
 {
     private const string dateFormat = "yyyy-MM-dd HH:mm:ss:ffff";
+    public string platform = "Mobile";
 
     [JsonConverter(typeof(StringEnumConverter))]
     public LogType Type { get; private set; }
