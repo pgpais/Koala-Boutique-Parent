@@ -185,6 +185,11 @@ public class MissionScreen : SerializedMonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        QuestManager.AdventurerQuestCompleted.RemoveListener(ShowDailyQuestComplete);
+    }
+
     private void HideDailyQuest()
     {
         questCompleteObject.SetActive(false);
@@ -202,6 +207,7 @@ public class MissionScreen : SerializedMonoBehaviour
         else
         {
             ShowDailyQuestRequirements();
+            QuestManager.AdventurerQuestCompleted.AddListener(ShowDailyQuestComplete);
         }
 
         QuestManager.instance.CheckAdventurerQuest();

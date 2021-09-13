@@ -28,7 +28,32 @@ public class HomeScreen : SerializedMonoBehaviour
 
     void Awake()
     {
-        GetNewItemsList();
+        // GetNewItemsList();
+        SetupNewItemsListListener();
+    }
+
+    private void SetupNewItemsListListener()
+    {
+        FirebaseCommunicator.instance.SetupListenForValueChangedEvents(newItemsReferenceName, (obj, args) =>
+        {
+            string json = args.Snapshot.GetRawJsonValue();
+            if (string.IsNullOrEmpty(json))
+            {
+                Debug.Log("No new items");
+                newItemsList = null;
+            }
+            else
+            {
+                newItemsList = JsonConvert.DeserializeObject<NewItemsList>(json);
+
+                FirebaseCommunicator.instance.RemoveObject(newItemsReferenceName, (task, obj) =>
+                {
+                    Debug.Log("Removed new items");
+                });
+                UpdateUI();
+            }
+
+        });
     }
 
     private void GetNewItemsList()
@@ -66,14 +91,22 @@ public class HomeScreen : SerializedMonoBehaviour
     {
         newItemsTitleImage.sprite = newItemsTitleSprites[Localisation.currentLanguage];
 
-        int itemsLeft = newItemsList.lootedItems.Count;
-
         Dictionary<Item, int> itemCounts = new Dictionary<Item, int>();
-        foreach (var itemQuantity in newItemsList.lootedItems)
+        if (newItemsList.lootedItems != null)
         {
-            var item = ItemManager.instance.itemsData.GetItemByName(itemQuantity.Key);
-            itemCounts.Add(item, itemQuantity.Value);
+            foreach (var itemQuantity in newItemsList.lootedItems)
+            {
+                var item = ItemManager.instance.itemsData.GetItemByName(itemQuantity.Key);
+                itemCounts.Add(item, itemQuantity.Value);
+            }
         }
+
+        // foreach (Transform child in contentParent)
+        // {
+        //     Destroy(child.gameObject);
+        // }
+
+
 
         if (scrollSnap.Panels != null)
         {
@@ -82,21 +115,25 @@ public class HomeScreen : SerializedMonoBehaviour
                 scrollSnap.Remove(i);
             }
         }
+        foreach (Transform child in paginationParent)
+        {
+            Destroy(child.gameObject);
+        }
 
         bool spawnedDiseased = false;
-        while (itemCounts.Keys.Count != 0)
+        while (itemCounts.Keys.Count != 0 || (newItemsList.diseasedGoldLoss < 0 && !spawnedDiseased))
         {
 
             if (newItemsList.diseasedGoldLoss < 0 && !spawnedDiseased)
             {
                 NewItemsPanel panel = Instantiate(diseasedNewItemsPanel);
+                GameObject pag = Instantiate(pagination);
+
+                pag.transform.SetParent(paginationParent, false);
+                panel.transform.SetParent(contentParent, false);
 
                 Item diseasedItem = ItemManager.instance.itemsData.GetItemByName(newItemsList.diseasedItemName);
 
-                GameObject pag = Instantiate(pagination);
-                pag.transform.SetParent(paginationParent, false);
-
-                panel.transform.SetParent(contentParent, false);
                 scrollSnap.AddToBack(panel.gameObject);
                 panel.Init(newItemsList.diseasedGoldLoss, diseasedItem, itemCounts);
 

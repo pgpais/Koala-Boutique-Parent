@@ -213,7 +213,7 @@ namespace DanielLochner.Assets.SimpleScrollSnap
                 if (numberOfToggles != NumberOfPanels)
                 {
                     Debug.LogError("<b>[SimpleScrollSnap]</b> The number of Toggles should be equivalent to the number of Panels. There are currently " + numberOfToggles + " Toggles and " + NumberOfPanels + " Panels. If you are adding Panels dynamically during runtime, please update your pagination to reflect the number of Panels you will have before adding.", gameObject);
-                    valid = false;
+                    // valid = false;
                 }
             }
 

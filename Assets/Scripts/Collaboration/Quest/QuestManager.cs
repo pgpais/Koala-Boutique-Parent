@@ -9,6 +9,7 @@ using UnityEngine.Events;
 public class QuestManager : MonoBehaviour
 {
     public static UnityEvent<Unlockable> QuestRewardChanged = new UnityEvent<Unlockable>();
+    public static UnityEvent AdventurerQuestCompleted = new UnityEvent();
 
     public static string adventurerReferenceName = "adventurerQuest";
     public static string managerReferenceName = "managerQuest";
@@ -146,6 +147,7 @@ public class QuestManager : MonoBehaviour
             {
                 Debug.Log("Adventurer quest is completed");
                 HandleFinishedAdventurerQuest();
+                QuestManager.AdventurerQuestCompleted.Invoke();
             }
             else
             {
@@ -472,7 +474,10 @@ internal class ManagerQuest
                 if (Items.All((keyValuePair) => keyValuePair.Value == 0))
                 {
                     if (!IsCompleted)
+                    {
                         CompleteQuest();
+                        QuestManager.AdventurerQuestCompleted.Invoke();
+                    }
                 }
             }
         }
