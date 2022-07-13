@@ -72,6 +72,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -496,6 +497,23 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Iron Ingot: -3920097087438813650
+      resource_pack_1_10: 5436054907523297684
+      resource_pack_1_15: -8887300941850373163
+      Coal: -2556086189606346457
+      Gold Ore: 1499246713265229844
+      Gold Ingot: -1215874051127086581
+      resource_pack_1_12: -5088089171300584151
+      resource_pack_1_13: -8988542952271604387
+      Wood: 8929782857029164458
+      Uncut Stone: 3157818451050840103
+      Coal Ore: 8491862756274480941
+      resource_pack_1_14: 1016215755964520703
+      Cut stone: 1753889973447063476
+      Iron Ore: 1220852969510201505
+      Wood Log: -4012257658626700703
+      resource_pack_1_11: -1652751776793858931
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

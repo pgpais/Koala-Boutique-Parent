@@ -138,6 +138,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -1024,6 +1025,45 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      misc_scenery_24: 5306601554366320085
+      misc_scenery_12: -828795532043974017
+      misc_scenery_0: 428000076974797451
+      misc_scenery_8: -192680731143026950
+      misc_scenery_4: -8467984690350172979
+      misc_scenery_32: 2939234180777688076
+      misc_scenery_16: 5865748237008557872
+      misc_scenery_3: -8268765587532382756
+      misc_scenery_5: 4417953440518391532
+      misc_scenery_9: 9028861311189733592
+      misc_scenery_20: -8482297358553756997
+      misc_scenery_36: -3603927274970197361
+      misc_scenery_10: 2661741540027194407
+      misc_scenery_30: -3872847035096139486
+      Mushroom: -4987031940289456647
+      misc_scenery_22: 2736534253251571104
+      misc_scenery_2: -3121201094481373293
+      misc_scenery_19: -4272309746966864984
+      misc_scenery_26: -5730100108226905548
+      misc_scenery_14: 5365450424067086228
+      misc_scenery_28: -8454059307325198398
+      misc_scenery_23: 6119942815853727155
+      misc_scenery_35: 8200781209049718912
+      misc_scenery_21: 3715648334888815030
+      misc_scenery_13: 382142018173325753
+      misc_scenery_31: 831373770659697245
+      misc_scenery_34: 3498019825005342981
+      misc_scenery_11: 5415152443998771980
+      misc_scenery_25: -6992724338515857104
+      misc_scenery_1: -5690002069000219157
+      misc_scenery_6: 7667187959859535042
+      misc_scenery_33: -4297543898327733710
+      misc_scenery_7: 5241249808031079838
+      misc_scenery_17: -488754500249893278
+      misc_scenery_37: -38799113719613090
+      misc_scenery_15: -5334505349665688082
+      misc_scenery_18: 3802197082226234796
+      misc_scenery_29: 2591610203918872713
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

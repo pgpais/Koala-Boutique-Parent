@@ -60,6 +60,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -400,6 +401,19 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      manager_anim3_10: -9013443013508676591
+      manager_anim3_7: 2191790169194581032
+      manager_anim3_1: 1377356469632703239
+      manager_anim3_5: -895337663538179546
+      manager_anim3_0: 5476577374047611624
+      manager_anim3_3: 5542183046036481270
+      manager_anim3_2: 8320146045561178002
+      manager_anim3_11: -6061537294600366027
+      manager_anim3_9: -3265246338401602373
+      manager_anim3_8: 5634151724895231863
+      manager_anim3_6: 501674431541709987
+      manager_anim3_4: -1984778447890883577
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

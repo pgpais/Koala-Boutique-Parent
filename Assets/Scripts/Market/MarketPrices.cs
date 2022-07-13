@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -50,11 +51,7 @@ public class MarketPrices : SerializedMonoBehaviour
         if (testUpload)
         {
             testUpload = false;
-            for (int i = 0; i < howManyDays; i++)
-            {
-                var daySpan = new TimeSpan(i, 0, 0, 0, 0);
-                CreateMarketPricesForDay(today + daySpan);
-            }
+            PopulateMarketPrices(today);
         }
 
         int newIndex = today.Hour / 3;
@@ -67,6 +64,15 @@ public class MarketPrices : SerializedMonoBehaviour
         if (today.Day > curDay.Day)
         {
             GetPricesForToday();
+        }
+    }
+
+    private void PopulateMarketPrices(DateTime today)
+    {
+        for (int i = 0; i < howManyDays; i++)
+        {
+            var daySpan = new TimeSpan(i, 0, 0, 0, 0);
+            CreateMarketPricesForDay(today + daySpan);
         }
     }
 
@@ -84,7 +90,15 @@ public class MarketPrices : SerializedMonoBehaviour
             {
                 Debug.Log("yey got marketPrices");
                 string json = task.Result.GetRawJsonValue();
+                Debug.Log("Before dictionary");
+
+                if (string.IsNullOrEmpty(json))
+                {
+                    Debug.Log("no marketPrices, populating marketPrices");
+                    PopulateMarketPrices(DateTime.Now);
+                }
                 costModifierToday = JsonConvert.DeserializeObject<List<Dictionary<string, int>>>(json);
+                Debug.Log("after dictionary");
                 curDay = DateTime.ParseExact(task.Result.Key, "yyyyMMdd", null);
                 GotMarketPrices.Invoke();
             }
