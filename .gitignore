@@ -72,3 +72,5 @@ Assets/PlayServicesResolver
 Assets/Firebase
 Assets/Parse
 Assets/Plugins
+Assets/google-services.json
+Assets/google-services.json.meta
