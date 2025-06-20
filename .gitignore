@@ -66,10 +66,6 @@ crashlytics-build.properties
 
 UserSettings/
 
-Assets/Editor Default Resources/Firebase
-Assets/ExternalDependencyManager
-Assets/PlayServicesResolver
-Assets/Firebase
 Assets/Parse
 Assets/Plugins
 Assets/google-services.json
