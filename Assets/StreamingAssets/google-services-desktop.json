@@ -3,7 +3,7 @@
     "project_number": "974783279491",
     "firebase_url": "https://family-play-5e42b-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "family-play-5e42b",
-    "storage_bucket": "family-play-5e42b.appspot.com"
+    "storage_bucket": "family-play-5e42b.firebasestorage.app"
   },
   "client": [
     {
@@ -13,12 +13,7 @@
           "package_name": "com.cheese.game"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "974783279491-o4lu34a55roohp74939hlpagulaju42p.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
           "current_key": "AIzaSyDGI0sV2EaJ1-Tyv2bNa-_ZTfCuWm1d3ZE"
@@ -26,19 +21,7 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "974783279491-o4lu34a55roohp74939hlpagulaju42p.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "974783279491-i6ovr4c1t04oof7un7ehi4n6t2f47dkc.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.techpeople.familyPlay"
-              }
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     },
@@ -49,12 +32,7 @@
           "package_name": "com.techpeople.familyPlay"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "974783279491-o4lu34a55roohp74939hlpagulaju42p.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
           "current_key": "AIzaSyDGI0sV2EaJ1-Tyv2bNa-_ZTfCuWm1d3ZE"
@@ -62,19 +40,7 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "974783279491-o4lu34a55roohp74939hlpagulaju42p.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "974783279491-i6ovr4c1t04oof7un7ehi4n6t2f47dkc.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.techpeople.familyPlay"
-              }
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }
